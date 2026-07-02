@@ -122,21 +122,21 @@ function AboutPage() {
             <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoMarket?</h2>
             <ul className="space-y-4 text-muted-foreground">
               <li className="flex items-start gap-3">
-                <span className="text-sky-500">✓</span>
+                <span className="text-sky-500"></span>
                 <div>
                   <strong className="text-foreground">Trust & Safety</strong>
                   <p className="mt-1">Every seller is verified and products quality-checked.</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-sky-500">✓</span>
+                <span className="text-sky-500"></span>
                 <div>
                   <strong className="text-foreground">Community First</strong>
                   <p className="mt-1">We prioritize building lasting relationships between buyers and sellers.</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-sky-500">✓</span>
+                <span className="text-sky-500"></span>
                 <div>
                   <strong className="text-foreground">Growth & Opportunity</strong>
                   <p className="mt-1">We provide tools and support to help small businesses thrive.</p>
@@ -148,9 +148,9 @@ function AboutPage() {
           <div className="rounded-2xl border border-border bg-card p-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Contact Us</h2>
             <div className="space-y-3 text-muted-foreground">
-              <p>📧 support@sokomarket.co.ke</p>
-              <p>📞 +254 700 000 000</p>
-              <p>🕐 Mon - Sat: 8:00 AM - 6:00 PM EAT</p>
+              <p> support@sokomarket.co.ke</p>
+              <p> +254 700 000 000</p>
+              <p> Mon - Sat: 8:00 AM - 6:00 PM EAT</p>
             </div>
           </div>
         </div>
@@ -209,19 +209,19 @@ function ContactPage() {
           </div>
           <div className="space-y-6">
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">📧 Email</h3>
+              <h3 className="font-bold text-foreground mb-2"> Email</h3>
               <p className="text-muted-foreground">support@sokomarket.co.ke</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">📞 Phone</h3>
+              <h3 className="font-bold text-foreground mb-2"> Phone</h3>
               <p className="text-muted-foreground">+254 700 000 000</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">📍 Location</h3>
+              <h3 className="font-bold text-foreground mb-2"> Location</h3>
               <p className="text-muted-foreground">Metro areas, worldwide</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">🕐 Hours</h3>
+              <h3 className="font-bold text-foreground mb-2"> Hours</h3>
               <p className="text-muted-foreground">Mon - Sat: 8:00 AM - 6:00 PM EAT</p>
             </div>
           </div>

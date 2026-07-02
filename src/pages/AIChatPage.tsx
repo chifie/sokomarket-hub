@@ -18,41 +18,41 @@ function generateAIResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase();
 
   if (lowerMessage.includes('find') || lowerMessage.includes('product') || lowerMessage.includes('search')) {
-    return `Great! I can help you find products! 🛍️\n\nSokoMarket has thousands of products across categories like:\n\n• **Electronics** - Phones, laptops, accessories\n• **Fashion** - Clothing, shoes, jewelry\n• **Agriculture** - Fresh produce, seeds, tools\n• **Home & Living** - Furniture, decor\n• **Beauty & Health** - Skincare, wellness\n\nWhat are you looking for today? Just tell me the category or specific item!`;
+    return `Great! I can help you find products! ️\n\nSokoMarket has thousands of products across categories like:\n\n• **Electronics** - Phones, laptops, accessories\n• **Fashion** - Clothing, shoes, jewelry\n• **Agriculture** - Fresh produce, seeds, tools\n• **Home & Living** - Furniture, decor\n• **Beauty & Health** - Skincare, wellness\n\nWhat are you looking for today? Just tell me the category or specific item!`;
   }
 
   if (lowerMessage.includes('delivery') || lowerMessage.includes('ship') || lowerMessage.includes('arrive')) {
-    return `Our delivery options are designed for the world! 🚚\n\n**Delivery Times:**\n• Major cities: Same-day delivery\n• Major towns: 1-2 business days\n• Remote areas: 3-5 business days\n\n**Delivery Fees:**\n• Orders over $5,000: FREE delivery\n• Standard delivery: $200-500\n• Express delivery: $800\n\nTrack your order in real-time through your account!`;
+    return `Our delivery options are designed for the world! \n\n**Delivery Times:**\n• Major cities: Same-day delivery\n• Major towns: 1-2 business days\n• Remote areas: 3-5 business days\n\n**Delivery Fees:**\n• Orders over $5,000: FREE delivery\n• Standard delivery: $200-500\n• Express delivery: $800\n\nTrack your order in real-time through your account!`;
   }
 
   if (lowerMessage.includes('pay') || lowerMessage.includes('mpesa') || lowerMessage.includes('card') || lowerMessage.includes('payment')) {
-    return `We accept multiple payment methods! 💳\n\n**Mobile Money:**\n• Mobile Wallets\n• \n• \n\n**Cards:**\n• Visa\n• Mastercard\n\n**Other:**\n• Bank Transfer\n• Cash on Delivery (selected areas)\n\nAll payments are secured with bank-level encryption. Your financial info is never stored on our servers!`;
+    return `We accept multiple payment methods! \n\n**Mobile Money:**\n• Mobile Wallets\n• \n• \n\n**Cards:**\n• Visa\n• Mastercard\n\n**Other:**\n• Bank Transfer\n• Cash on Delivery (selected areas)\n\nAll payments are secured with bank-level encryption. Your financial info is never stored on our servers!`;
   }
 
   if (lowerMessage.includes('seller') || lowerMessage.includes('trust') || lowerMessage.includes('verify') || lowerMessage.includes('safe')) {
-    return `Your safety is our priority! ✅\n\n**Seller Verification Process:**\n1. ID verification (National ID/Passport)\n2. Business registration check\n3. Physical address verification\n4. Quality inspection\n\n**Buyer Protection:**\n• Money-back guarantee\n• Secure payment holding\n• Dispute resolution team\n\nLook for the ✓ Verified badge on seller profiles!`;
+    return `Your safety is our priority! \n\n**Seller Verification Process:**\n1. ID verification (National ID/Passport)\n2. Business registration check\n3. Physical address verification\n4. Quality inspection\n\n**Buyer Protection:**\n• Money-back guarantee\n• Secure payment holding\n• Dispute resolution team\n\nLook for the  Verified badge on seller profiles!`;
   }
 
   if (lowerMessage.includes('return') || lowerMessage.includes('refund') || lowerMessage.includes('money back')) {
-    return `Our return policy is buyer-friendly! 🔄\n\n**Return Window:**\n• 7 days for most products\n• 14 days for electronics\n• 30 days for defective items\n\n**Refund Process:**\n1. Initiate return in your account\n2. Print return label (free!)\n3. Drop at nearest collection point\n4. Refund in 3-5 business days\n\nQuestions about a specific order? I can help with that!`;
+    return `Our return policy is buyer-friendly! \n\n**Return Window:**\n• 7 days for most products\n• 14 days for electronics\n• 30 days for defective items\n\n**Refund Process:**\n1. Initiate return in your account\n2. Print return label (free!)\n3. Drop at nearest collection point\n4. Refund in 3-5 business days\n\nQuestions about a specific order? I can help with that!`;
   }
 
   if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('jambo') || lowerMessage.includes('hey')) {
-    return ` 👋 Welcome to SokoMarket AI Assistant!\n\nI'm here to help you:\n• Find products and deals\n• Track your orders\n• Answer questions about delivery\n• Connect with sellers\n\nWhat can I help you with today?`;
+    return `  Welcome to SokoMarket AI Assistant!\n\nI'm here to help you:\n• Find products and deals\n• Track your orders\n• Answer questions about delivery\n• Connect with sellers\n\nWhat can I help you with today?`;
   }
 
   if (lowerMessage.includes('thank')) {
-    return `You're welcome! 😊 Happy shopping!\n\nFeel free to ask me anything else. I'm here 24/7 to help you have a great experience on SokoMarket!`;
+    return `You're welcome!  Happy shopping!\n\nFeel free to ask me anything else. I'm here 24/7 to help you have a great experience on SokoMarket!`;
   }
 
-  return `I'd be happy to help! 🌟\n\nI can assist you with:\n• **Finding products** - Tell me what you're looking for\n• **Delivery information** - Shipping times and costs\n• **Payment methods** - Mobile Wallets, cards, and more\n• **Seller verification** - How we keep you safe\n• **Returns & refunds** - Our buyer-friendly policy\n\nJust ask your question and I'll provide detailed answers!`;
+  return `I'd be happy to help! \n\nI can assist you with:\n• **Finding products** - Tell me what you're looking for\n• **Delivery information** - Shipping times and costs\n• **Payment methods** - Mobile Wallets, cards, and more\n• **Seller verification** - How we keep you safe\n• **Returns & refunds** - Our buyer-friendly policy\n\nJust ask your question and I'll provide detailed answers!`;
 }
 
 export default function AIChatPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: ` 👋 I'm your SokoMarket AI assistant!\n\nI can help you find products, track orders, learn about delivery, and answer any questions about shopping on our marketplace.\n\nWhat are you looking for today?`,
+      content: `  I'm your SokoMarket AI assistant!\n\nI can help you find products, track orders, learn about delivery, and answer any questions about shopping on our marketplace.\n\nWhat are you looking for today?`,
     },
   ]);
   const [input, setInput] = useState('');
