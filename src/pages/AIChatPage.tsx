@@ -49,7 +49,7 @@ function generateAIResponse(userMessage: string): string {
 }
 
 export default function AIChatPage() {
-  const navigate = useNavigate();
+  export default function AIChatPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
