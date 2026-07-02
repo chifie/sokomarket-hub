@@ -72,7 +72,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="ml-auto hidden items-center gap-2 md:flex">
+        <div className="ml-auto hidden items-center gap-2 lg:flex">
           <div className="relative hidden xl:block">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
@@ -112,7 +112,7 @@ export function Navbar() {
         </div>
 
         <button
-          className="ml-auto grid h-10 w-10 place-items-center rounded-full text-foreground md:hidden"
+          className="ml-auto grid h-10 w-10 place-items-center rounded-full text-foreground lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Open menu"
         >
@@ -121,7 +121,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-border/60 bg-background/95 backdrop-blur md:hidden">
+        <div className="border-t border-border/60 bg-background/95 backdrop-blur lg:hidden">
           <div className="space-y-1 p-4">
             {NAV_LINKS.map((l) => (
               <Link

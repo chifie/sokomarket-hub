@@ -43,11 +43,11 @@ export function Footer() {
                 <span className="text-lg font-black">S</span>
               </span>
               <span className="text-lg font-extrabold text-foreground">
-                Soko<span className="text-sky-500">Market</span>
+                Soko<span className="text-sky-500">Digital</span>
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              worldwide's modern digital marketplace. Buy and sell with confidence.
+              The world's modern digital marketplace. Buy and sell with confidence.
             </p>
             <div className="mt-6 flex items-center gap-2">
               {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
@@ -86,7 +86,7 @@ export function Footer() {
           ))}
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground">
-          <div>© {new Date().getFullYear()} SokoDigital Hub. All rights reserved.</div>
+          <div>© {new Date().getFullYear()} SokoDigital. All rights reserved.</div>
           <div>Made with care worldwide</div>
         </div>
       </div>
