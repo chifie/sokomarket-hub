@@ -200,20 +200,20 @@ function ContactPage() {
           </div>
           <div className="space-y-6">
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2"> Email</h3>
-              <p className="text-muted-foreground">support@sokomarket.co.ke</p>
+              <h3 className="font-bold text-foreground mb-2">Email</h3>
+              <p className="text-muted-foreground">support@sokodigital.com</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2"> Phone</h3>
-              <p className="text-muted-foreground">+254 700 000 000</p>
+              <h3 className="font-bold text-foreground mb-2">Phone</h3>
+              <p className="text-muted-foreground">+1 (800) 555-0140</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2"> Location</h3>
-              <p className="text-muted-foreground">Metro areas, worldwide</p>
+              <h3 className="font-bold text-foreground mb-2">Location</h3>
+              <p className="text-muted-foreground">Operating worldwide</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2"> Hours</h3>
-              <p className="text-muted-foreground">Mon - Sat: 8:00 AM - 6:00 PM EAT</p>
+              <h3 className="font-bold text-foreground mb-2">Hours</h3>
+              <p className="text-muted-foreground">24 / 7 across every timezone</p>
             </div>
           </div>
         </div>
