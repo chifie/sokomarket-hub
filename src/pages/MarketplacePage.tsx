@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Heart, Star, ShoppingCart, Filter, Grid, List } from 'lucide-react';
+import { Search, Heart, Star, ShoppingCart, Grid, List } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
 import { PageHeader } from '@/components/site/PageHeader';
