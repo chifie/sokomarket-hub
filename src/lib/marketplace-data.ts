@@ -105,7 +105,7 @@ export const SHOPS = [
     city: "Dar es Salaam",
     rating: 4.9,
     products: 320,
-    hue: "from-teal-500 to-cyan-500",
+    hue: "from-rose-500 to-cyan-500",
     category: "Electronics",
   },
   {
@@ -121,7 +121,7 @@ export const SHOPS = [
     city: "Moshi",
     rating: 5.0,
     products: 96,
-    hue: "from-emerald-500 to-lime-500",
+    hue: "from-sky-500 to-lime-500",
     category: "Agriculture",
   },
   {
@@ -153,7 +153,7 @@ export const SHOPS = [
     city: "Dodoma",
     rating: 4.8,
     products: 89,
-    hue: "from-emerald-500 to-teal-600",
+    hue: "from-sky-500 to-sky-700",
     category: "Sports",
   },
   {

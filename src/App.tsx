@@ -122,21 +122,21 @@ function AboutPage() {
             <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoMarket?</h2>
             <ul className="space-y-4 text-muted-foreground">
               <li className="flex items-start gap-3">
-                <span className="text-emerald-500">✓</span>
+                <span className="text-sky-500">✓</span>
                 <div>
                   <strong className="text-foreground">Trust & Safety</strong>
                   <p className="mt-1">Every seller is verified and products quality-checked.</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-emerald-500">✓</span>
+                <span className="text-sky-500">✓</span>
                 <div>
                   <strong className="text-foreground">Community First</strong>
                   <p className="mt-1">We prioritize building lasting relationships between buyers and sellers.</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-emerald-500">✓</span>
+                <span className="text-sky-500">✓</span>
                 <div>
                   <strong className="text-foreground">Growth & Opportunity</strong>
                   <p className="mt-1">We provide tools and support to help small businesses thrive.</p>
@@ -179,7 +179,7 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="Your name"
                 />
               </div>
@@ -187,7 +187,7 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="your@email.com"
                 />
               </div>
@@ -195,13 +195,13 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Message</label>
                 <textarea
                   rows={4}
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="How can we help?"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold hover:opacity-90 transition"
+                className="w-full py-3 rounded-lg bg-gradient-to-r from-sky-500 to-sky-700 text-white font-semibold hover:opacity-90 transition"
               >
                 Send Message
               </button>

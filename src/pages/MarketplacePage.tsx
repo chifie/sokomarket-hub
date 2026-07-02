@@ -39,7 +39,7 @@ export default function MarketplacePage() {
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full pl-12 pr-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-sky-500"
             />
           </div>
 
@@ -50,7 +50,7 @@ export default function MarketplacePage() {
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-lg whitespace-nowrap font-medium transition ${
                   selectedCategory === category
-                    ? 'bg-emerald-500 text-white'
+                    ? 'bg-sky-500 text-white'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }`}
               >
@@ -62,13 +62,13 @@ export default function MarketplacePage() {
           <div className="flex gap-2">
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground'}`}
+              className={`p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-sky-500 text-white' : 'bg-muted text-muted-foreground'}`}
             >
               <Grid className="w-5 h-5" />
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground'}`}
+              className={`p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-sky-500 text-white' : 'bg-muted text-muted-foreground'}`}
             >
               <List className="w-5 h-5" />
             </button>
@@ -103,7 +103,7 @@ export default function MarketplacePage() {
                 <div className="absolute inset-x-3 bottom-3 flex translate-y-4 gap-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
                   <Button
                     size="sm"
-                    className="flex-1 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
+                    className="flex-1 rounded-full bg-gradient-to-r from-sky-500 to-sky-700 text-white"
                   >
                     <ShoppingCart className="mr-1 h-4 w-4" /> Add
                   </Button>
@@ -118,7 +118,7 @@ export default function MarketplacePage() {
                   <span>· 240 sold</span>
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
-                  <span className="text-lg font-black text-emerald-500">{product.price}</span>
+                  <span className="text-lg font-black text-sky-500">{product.price}</span>
                   <span className="text-xs text-muted-foreground line-through">{product.old}</span>
                 </div>
               </div>

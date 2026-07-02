@@ -20,7 +20,7 @@ const CATS = [
     icon: Smartphone,
     name: "Electronics",
     count: "12,400+",
-    tint: "from-teal-500/15 to-teal-500/5",
+    tint: "from-rose-500/15 to-rose-500/5",
   },
   { icon: Shirt, name: "Fashion", count: "9,320+", tint: "from-amber-500/15 to-amber-500/5" },
   { icon: Sprout, name: "Agriculture", count: "4,150+", tint: "from-green-500/15 to-green-500/5" },
@@ -31,7 +31,7 @@ const CATS = [
   { icon: UtensilsCrossed, name: "Food", count: "7,900+", tint: "from-red-500/15 to-red-500/5" },
   { icon: Car, name: "Automotive", count: "1,850+", tint: "from-slate-500/15 to-slate-500/5" },
   { icon: BookOpen, name: "Books", count: "3,110+", tint: "from-yellow-500/15 to-yellow-500/5" },
-  { icon: Dumbbell, name: "Sports", count: "2,300+", tint: "from-emerald-500/15 to-emerald-500/5" },
+  { icon: Dumbbell, name: "Sports", count: "2,300+", tint: "from-sky-500/15 to-sky-500/5" },
   { icon: HeartPulse, name: "Health", count: "4,700+", tint: "from-rose-500/15 to-rose-500/5" },
 ];
 
