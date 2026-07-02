@@ -104,7 +104,7 @@ function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="About SokoDigital"
-        description="worldwide's leading digital marketplace connecting buyers and sellers"
+        description="A global digital marketplace connecting buyers and sellers across every continent."
         crumb="About"
       />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -112,35 +112,26 @@ function AboutPage() {
           <div className="rounded-2xl border border-border bg-card p-8 mb-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Our Mission</h2>
             <p className="text-muted-foreground">
-              SokoDigital Hub is worldwide's premier digital marketplace, designed to connect local sellers
-              with buyers across all 47 counties. We believe in empowering small businesses and
-              bringing the traditional market experience into the digital age.
+              SokoDigital is a worldwide digital marketplace built to connect verified sellers
+              with millions of buyers across the globe. We empower entrepreneurs of every size and
+              bring a trusted commerce experience to every device, everywhere.
             </p>
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-8 mb-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoDigital?</h2>
             <ul className="space-y-4 text-muted-foreground">
-              <li className="flex items-start gap-3">
-                <span className="text-sky-500"></span>
-                <div>
-                  <strong className="text-foreground">Trust & Safety</strong>
-                  <p className="mt-1">Every seller is verified and products quality-checked.</p>
-                </div>
+              <li>
+                <strong className="text-foreground">Trust & Safety</strong>
+                <p className="mt-1">Every seller is verified and products are quality-checked.</p>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-sky-500"></span>
-                <div>
-                  <strong className="text-foreground">Community First</strong>
-                  <p className="mt-1">We prioritize building lasting relationships between buyers and sellers.</p>
-                </div>
+              <li>
+                <strong className="text-foreground">Global Community</strong>
+                <p className="mt-1">We connect buyers and sellers across borders and currencies.</p>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-sky-500"></span>
-                <div>
-                  <strong className="text-foreground">Growth & Opportunity</strong>
-                  <p className="mt-1">We provide tools and support to help small businesses thrive.</p>
-                </div>
+              <li>
+                <strong className="text-foreground">Growth & Opportunity</strong>
+                <p className="mt-1">Tools, analytics, and support to help every business thrive.</p>
               </li>
             </ul>
           </div>
@@ -148,9 +139,9 @@ function AboutPage() {
           <div className="rounded-2xl border border-border bg-card p-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Contact Us</h2>
             <div className="space-y-3 text-muted-foreground">
-              <p> support@sokomarket.co.ke</p>
-              <p> +254 700 000 000</p>
-              <p> Mon - Sat: 8:00 AM - 6:00 PM EAT</p>
+              <p>support@sokodigital.com</p>
+              <p>+1 (800) 555-0140</p>
+              <p>Support available 24/7 worldwide</p>
             </div>
           </div>
         </div>
