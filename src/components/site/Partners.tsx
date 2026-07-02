@@ -1,4 +1,4 @@
-const PARTNERS = ["Vodacom", "Airtel", "TIGO", "CRDB", "NMB", "DHL", "Posta", "Selcom"];
+const PARTNERS = ["Visa", "Mastercard", "PayPal", "Stripe", "DHL", "FedEx", "UPS", "Shopify"];
 
 export function Partners() {
   return (
