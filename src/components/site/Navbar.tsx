@@ -103,12 +103,12 @@ export function Navbar() {
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
-          <button className="rounded-full font-medium px-4 py-2 text-foreground/80 hover:bg-muted transition">
+          <Link to="/auth" className="rounded-full font-medium px-4 py-2 text-foreground/80 hover:bg-muted transition">
             Login
-          </button>
-          <button className="rounded-full bg-gradient-to-r from-sky-500 to-sky-700 font-semibold text-white shadow-md hover:opacity-95 transition px-4 py-2">
+          </Link>
+          <Link to="/auth" className="rounded-full bg-gradient-to-r from-sky-500 to-rose-500 font-semibold text-white shadow-md hover:opacity-95 transition px-4 py-2">
             Register
-          </button>
+          </Link>
         </div>
 
         <button
