@@ -17,6 +17,9 @@ import { Footer } from '@/components/site/Footer';
 import { PageHeader } from '@/components/site/PageHeader';
 import AIChatPage from '@/pages/AIChatPage';
 import MarketplacePage from '@/pages/MarketplacePage';
+import AuthPage from '@/pages/AuthPage';
+import DashboardPage from '@/pages/DashboardPage';
+import { AuthProvider } from '@/lib/auth';
 
 function HomePage() {
   return (
