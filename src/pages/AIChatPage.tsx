@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Bot, Send, Sparkles, ShoppingBag, Truck, Shield, CreditCard } from 'lucide-react';
+import { Bot, Send, ShoppingBag, Truck, Shield, CreditCard } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
-import { Footer } from '@/components/site/Footer';
-import { Button } from '@/components/ui/button';
 
 interface Message {
   role: 'user' | 'assistant';
