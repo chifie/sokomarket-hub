@@ -147,12 +147,12 @@ export function Navbar() {
               AI Assistant
             </Link>
             <div className="flex gap-2 pt-2">
-              <button className="flex-1 rounded-full border border-border bg-background px-4 py-2 font-medium text-foreground hover:bg-muted transition">
+              <Link to="/auth" onClick={() => setOpen(false)} className="flex-1 text-center rounded-full border border-border bg-background px-4 py-2 font-medium text-foreground hover:bg-muted transition">
                 Login
-              </button>
-              <button className="flex-1 rounded-full bg-gradient-to-r from-sky-500 to-sky-700 text-white px-4 py-2 font-medium hover:opacity-90 transition">
+              </Link>
+              <Link to="/auth" onClick={() => setOpen(false)} className="flex-1 text-center rounded-full bg-gradient-to-r from-sky-500 to-rose-500 text-white px-4 py-2 font-medium hover:opacity-90 transition">
                 Register
-              </button>
+              </Link>
             </div>
           </div>
         </div>
