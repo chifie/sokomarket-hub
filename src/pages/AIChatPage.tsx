@@ -49,7 +49,6 @@ function generateAIResponse(userMessage: string): string {
 }
 
 export default function AIChatPage() {
-  export default function AIChatPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
