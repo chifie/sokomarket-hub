@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-sky-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-28 pb-20 lg:pt-36 lg:pb-28">
+    <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-28 pb-20 lg:pt-36 lg:pb-28">
       {/* animated blobs */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -left-24 top-24 h-96 w-96 rounded-full bg-sky-400/20 dark:bg-sky-600/20 blur-3xl animate-pulse" />
-        <div className="absolute right-0 top-1/3 h-96 w-96 rounded-full bg-sky-400/20 dark:bg-sky-700/20 blur-3xl" />
+        <div className="absolute -left-24 top-24 h-96 w-96 rounded-full bg-blue-400/20 dark:bg-blue-600/20 blur-3xl animate-pulse" />
+        <div className="absolute right-0 top-1/3 h-96 w-96 rounded-full bg-blue-400/20 dark:bg-blue-700/20 blur-3xl" />
         <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-rose-400/20 dark:bg-rose-500/20 blur-3xl" />
       </div>
 
@@ -18,13 +18,13 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 dark:bg-sky-500/20 px-3 py-1 text-xs font-semibold text-sky-600 dark:text-sky-400">
-            <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+          <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 dark:bg-blue-500/20 px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
             The World's Trusted Digital Marketplace
           </span>
           <h1 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
             Buy and Sell Across{" "}
-            <span className="bg-gradient-to-r from-sky-500 to-sky-700 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
               worldwide
             </span>{" "}
             with Confidence.
@@ -37,7 +37,7 @@ export function Hero() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
               to="/marketplace"
-              className="h-12 rounded-full bg-gradient-to-r from-sky-500 to-sky-700 px-6 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:opacity-95 inline-flex items-center justify-center"
+              className="h-12 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 px-6 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:opacity-95 inline-flex items-center justify-center"
             >
               Explore Marketplace <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
@@ -60,7 +60,7 @@ export function Hero() {
                 key={b.label}
                 className="flex items-center gap-2 rounded-xl border border-border/60 bg-background/70 px-3 py-2 text-xs font-medium backdrop-blur"
               >
-                <b.icon className="h-4 w-4 shrink-0 text-sky-500" />
+                <b.icon className="h-4 w-4 shrink-0 text-blue-500" />
                 <span className="truncate text-foreground">{b.label}</span>
               </div>
             ))}
@@ -74,13 +74,13 @@ export function Hero() {
           className="relative"
         >
           <div className="relative mx-auto aspect-square w-full max-w-[500px] overflow-hidden rounded-[2rem] shadow-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-sky-500 to-sky-700 opacity-90" />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-blue-700 opacity-90" />
             <img
               src="https://images.pexels.com/photos/1229861/pexels-photo-1229861.jpeg?auto=compress&cs=tinysrgb&w=800"
               alt="Marketplace buyers and sellers"
               className="relative h-full w-full object-cover mix-blend-luminosity opacity-90"
             />
-            <div className="absolute inset-0 bg-gradient-to-tr from-sky-500/40 via-transparent to-sky-400/30" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/40 via-transparent to-blue-400/30" />
           </div>
 
           {/* floating cards */}
@@ -106,7 +106,7 @@ export function Hero() {
             className="absolute right-0 top-1/3 rounded-2xl bg-card border border-border p-3 shadow-lg dark:bg-gray-800"
           >
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-sky-500/15 text-sky-500">
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-500/15 text-blue-500">
                 <Package className="h-5 w-5" />
               </div>
               <div>
@@ -122,7 +122,7 @@ export function Hero() {
             className="absolute bottom-6 left-6 rounded-2xl bg-card border border-border p-3 shadow-lg dark:bg-gray-800"
           >
             <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-sky-500/15 text-sky-500">
+              <div className="grid h-10 w-10 place-items-center rounded-xl bg-blue-500/15 text-blue-500">
                 <BadgeCheck className="h-5 w-5" />
               </div>
               <div>

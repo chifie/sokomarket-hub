@@ -86,8 +86,8 @@ export default function AuthPage() {
                   onClick={() => setRole('buyer')}
                   className={`flex flex-col items-center gap-2 rounded-xl border p-4 text-sm transition ${
                     role === 'buyer'
-                      ? 'border-sky-500 bg-sky-500/10 text-sky-600 dark:text-sky-400'
-                      : 'border-border hover:border-sky-500/50'
+                      ? 'border-blue-500 bg-blue-500/10 text-blue-600 dark:text-blue-400'
+                      : 'border-border hover:border-blue-500/50'
                   }`}
                 >
                   <ShoppingBag className="h-5 w-5" />
@@ -116,7 +116,7 @@ export default function AuthPage() {
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Jane Doe"
                   />
                 </div>
@@ -128,7 +128,7 @@ export default function AuthPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="you@example.com"
                 />
               </div>
@@ -140,7 +140,7 @@ export default function AuthPage() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-sky-500"
+                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   placeholder="••••••••"
                 />
               </div>
@@ -154,7 +154,7 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={busy}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-sky-500 to-rose-500 py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-blue-500 to-rose-500 py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
               >
                 {busy && <Loader2 className="h-4 w-4 animate-spin" />}
                 {mode === 'login' ? 'Sign in' : 'Create account'}
@@ -179,14 +179,14 @@ export default function AuthPage() {
               {mode === 'login' ? (
                 <>
                   New to SokoDigital?{' '}
-                  <button className="font-semibold text-sky-500 hover:underline" onClick={() => setMode('register')}>
+                  <button className="font-semibold text-blue-500 hover:underline" onClick={() => setMode('register')}>
                     Create an account
                   </button>
                 </>
               ) : (
                 <>
                   Already have an account?{' '}
-                  <button className="font-semibold text-sky-500 hover:underline" onClick={() => setMode('login')}>
+                  <button className="font-semibold text-blue-500 hover:underline" onClick={() => setMode('login')}>
                     Sign in
                   </button>
                 </>

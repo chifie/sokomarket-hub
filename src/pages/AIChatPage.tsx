@@ -93,7 +93,7 @@ export default function AIChatPage() {
           </div>
           <div>
             <h2 className="font-semibold text-foreground">SokoDigital AI</h2>
-            <p className="text-sm text-sky-500">Always ready to help</p>
+            <p className="text-sm text-blue-500">Always ready to help</p>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function AIChatPage() {
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
-                    ? 'bg-sky-500 text-white'
+                    ? 'bg-blue-500 text-white'
                     : 'border border-border bg-card text-foreground'
                 }`}
               >
@@ -121,9 +121,9 @@ export default function AIChatPage() {
             <div className="flex justify-start">
               <div className="flex items-center gap-1 rounded-2xl px-4 py-3 border border-border bg-card">
                 <div className="flex gap-1">
-                  <span className="w-2 h-2 rounded-full bg-sky-500 animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-sky-500 animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-sky-500 animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function AIChatPage() {
                   setInput(action.query);
                   setTimeout(() => handleSend(), 100);
                 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap bg-muted text-muted-foreground hover:bg-sky-100 hover:text-sky-600 dark:hover:bg-sky-900/50 transition"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap bg-muted text-muted-foreground hover:bg-blue-100 hover:text-blue-600 dark:hover:bg-blue-900/50 transition"
               >
                 <action.icon className="w-4 h-4" />
                 {action.label}
@@ -158,14 +158,14 @@ export default function AIChatPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              className="flex-1 px-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-sky-500"
+              className="flex-1 px-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-blue-500"
             />
             <button
               onClick={handleSend}
               disabled={!input.trim()}
               className={`p-3 rounded-xl transition ${
                 input.trim()
-                  ? 'bg-sky-500 text-white hover:bg-sky-600'
+                  ? 'bg-blue-500 text-white hover:bg-blue-600'
                   : 'bg-muted text-muted-foreground'
               }`}
             >

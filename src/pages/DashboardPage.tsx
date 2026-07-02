@@ -32,14 +32,14 @@ export default function DashboardPage() {
       <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-sky-500 to-rose-500 text-white">
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-rose-500 text-white">
               <Icon className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl font-bold">Welcome back</h1>
               <p className="text-sm text-muted-foreground">
                 Signed in as <span className="font-medium text-foreground">{user.email}</span> ·{' '}
-                <span className="rounded-full bg-sky-500/10 px-2 py-0.5 text-xs font-semibold text-sky-600 dark:text-sky-400">
+                <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs font-semibold text-blue-600 dark:text-blue-400">
                   {label}
                 </span>
               </p>
@@ -85,7 +85,7 @@ export default function DashboardPage() {
 function DashCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6 transition hover:shadow-elegant">
-      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-400">
+      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
         {icon}
       </div>
       <h3 className="font-semibold">{title}</h3>

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Search, ShoppingCart, Menu, X, Moon, Sun, Bot } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/use-theme";
+import logoIcon from "@/assets/brand/logo-icon.png";
 
 const NAV_LINKS = [
   { label: "Home", to: "/" },
@@ -47,11 +48,9 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-sky-500 to-sky-700 text-white shadow-md">
-            <span className="text-lg font-black">S</span>
-          </span>
+          <img src={logoIcon} alt="SokoDigital" className="h-9 w-auto" />
           <span className="text-lg font-extrabold tracking-tight text-foreground">
-            Soko<span className="text-sky-500">Digital</span>
+            Soko<span className="text-blue-600 dark:text-blue-400">Digital</span>
           </span>
         </Link>
 
@@ -63,7 +62,7 @@ export function Navbar() {
               className={cn(
                 "rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 isActive(l.to)
-                  ? "text-sky-500 bg-sky-50 dark:bg-sky-950/50"
+                  ? "text-blue-500 bg-blue-50 dark:bg-blue-950/50"
                   : "text-foreground/70 hover:bg-muted hover:text-foreground"
               )}
             >
@@ -77,7 +76,7 @@ export function Navbar() {
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               placeholder="Search products, shops..."
-              className="h-10 w-72 rounded-full border border-border bg-background/80 pl-9 pr-4 text-sm outline-none transition focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 text-foreground"
+              className="h-10 w-72 rounded-full border border-border bg-background/80 pl-9 pr-4 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-foreground"
             />
           </div>
           <Link
@@ -92,7 +91,7 @@ export function Navbar() {
             className="relative grid h-10 w-10 place-items-center rounded-full text-foreground/80 transition hover:bg-muted"
           >
             <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-sky-500 px-1 text-[10px] font-bold text-white">
+            <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-blue-500 px-1 text-[10px] font-bold text-white">
               3
             </span>
           </button>
@@ -106,7 +105,7 @@ export function Navbar() {
           <Link to="/auth" className="rounded-full font-medium px-4 py-2 text-foreground/80 hover:bg-muted transition">
             Login
           </Link>
-          <Link to="/auth" className="rounded-full bg-gradient-to-r from-sky-500 to-rose-500 font-semibold text-white shadow-md hover:opacity-95 transition px-4 py-2">
+          <Link to="/auth" className="rounded-full bg-gradient-to-r from-blue-500 to-rose-500 font-semibold text-white shadow-md hover:opacity-95 transition px-4 py-2">
             Register
           </Link>
         </div>
@@ -131,7 +130,7 @@ export function Navbar() {
                 className={cn(
                   "block rounded-lg px-3 py-2 text-sm font-medium",
                   isActive(l.to)
-                    ? "text-sky-500 bg-sky-50 dark:bg-sky-950/50"
+                    ? "text-blue-500 bg-blue-50 dark:bg-blue-950/50"
                     : "hover:bg-muted"
                 )}
               >
@@ -150,7 +149,7 @@ export function Navbar() {
               <Link to="/auth" onClick={() => setOpen(false)} className="flex-1 text-center rounded-full border border-border bg-background px-4 py-2 font-medium text-foreground hover:bg-muted transition">
                 Login
               </Link>
-              <Link to="/auth" onClick={() => setOpen(false)} className="flex-1 text-center rounded-full bg-gradient-to-r from-sky-500 to-rose-500 text-white px-4 py-2 font-medium hover:opacity-90 transition">
+              <Link to="/auth" onClick={() => setOpen(false)} className="flex-1 text-center rounded-full bg-gradient-to-r from-blue-500 to-rose-500 text-white px-4 py-2 font-medium hover:opacity-90 transition">
                 Register
               </Link>
             </div>

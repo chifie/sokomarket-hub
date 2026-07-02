@@ -121,7 +121,7 @@ export const SHOPS = [
     city: "Moshi",
     rating: 5.0,
     products: 96,
-    hue: "from-sky-500 to-lime-500",
+    hue: "from-blue-500 to-lime-500",
     category: "Agriculture",
   },
   {
@@ -145,7 +145,7 @@ export const SHOPS = [
     city: "Zanzibar",
     rating: 4.6,
     products: 172,
-    hue: "from-sky-500 to-blue-600",
+    hue: "from-blue-500 to-blue-600",
     category: "Electronics",
   },
   {
@@ -153,7 +153,7 @@ export const SHOPS = [
     city: "Dodoma",
     rating: 4.8,
     products: 89,
-    hue: "from-sky-500 to-sky-700",
+    hue: "from-blue-500 to-blue-700",
     category: "Sports",
   },
   {

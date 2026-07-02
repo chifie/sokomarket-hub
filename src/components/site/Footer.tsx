@@ -1,5 +1,6 @@
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
+import logoIcon from "@/assets/brand/logo-icon.png";
 
 const ROUTES: Record<string, string> = {
   About: "/about",
@@ -39,11 +40,9 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           <div className="col-span-2 md:col-span-2">
             <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-sky-500 to-sky-700 text-white shadow-md">
-                <span className="text-lg font-black">S</span>
-              </span>
+              <img src={logoIcon} alt="SokoDigital" className="h-9 w-auto" />
               <span className="text-lg font-extrabold text-foreground">
-                Soko<span className="text-sky-500">Digital</span>
+                Soko<span className="text-blue-600 dark:text-blue-400">Digital</span>
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
@@ -55,7 +54,7 @@ export function Footer() {
                   key={i}
                   href="#"
                   aria-label="Social"
-                  className="grid h-9 w-9 place-items-center rounded-full border border-border/60 text-muted-foreground transition hover:border-sky-500 hover:text-sky-500"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-border/60 text-muted-foreground transition hover:border-blue-500 hover:text-blue-500"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -69,13 +68,13 @@ export function Footer() {
                 {c.links.map((l) =>
                   ROUTES[l] ? (
                     <li key={l}>
-                      <Link to={ROUTES[l]} className="transition hover:text-sky-500">
+                      <Link to={ROUTES[l]} className="transition hover:text-blue-500">
                         {l}
                       </Link>
                     </li>
                   ) : (
                     <li key={l}>
-                      <a href="#" className="transition hover:text-sky-500">
+                      <a href="#" className="transition hover:text-blue-500">
                         {l}
                       </a>
                     </li>

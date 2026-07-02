@@ -53,7 +53,7 @@ export function Products() {
                   <Heart className="h-4 w-4" />
                 </button>
                 <div className="absolute inset-x-3 bottom-3 flex translate-y-4 gap-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                  <button className="flex-1 rounded-full bg-gradient-to-r from-sky-500 to-sky-700 text-white text-sm font-medium px-3 py-1.5 inline-flex items-center justify-center">
+                  <button className="flex-1 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white text-sm font-medium px-3 py-1.5 inline-flex items-center justify-center">
                     <ShoppingCart className="mr-1 h-4 w-4" /> Add
                   </button>
                   <button className="rounded-full bg-secondary text-secondary-foreground text-sm font-medium px-3 py-1.5 inline-flex items-center justify-center">
