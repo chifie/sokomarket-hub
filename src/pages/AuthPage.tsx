@@ -54,13 +54,9 @@ export default function AuthPage() {
   const google = async () => {
     setError(null);
     try {
-      const { lovable } = await import('@/integrations/lovable/index').catch(() => ({ lovable: null as any }));
-      if (lovable) {
-        const r = await lovable.auth.signInWithOAuth('google', { redirect_uri: window.location.origin });
-        if (r?.error) setError(r.error.message ?? 'Google sign-in failed');
-        return;
-      }
-      await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
+      const { lovable } = await import('@/integrations/lovable/index');
+      const r = await lovable.auth.signInWithOAuth('google', { redirect_uri: window.location.origin });
+      if (r?.error) setError((r.error as any)?.message ?? 'Google sign-in failed');
     } catch (err: any) {
       setError(err?.message ?? 'Google sign-in unavailable');
     }
