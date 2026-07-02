@@ -51,7 +51,7 @@ export function Navbar() {
             <span className="text-lg font-black">S</span>
           </span>
           <span className="text-lg font-extrabold tracking-tight text-foreground">
-            Soko<span className="text-sky-500">Market</span>
+            Soko<span className="text-sky-500">Digital</span>
           </span>
         </Link>
 
