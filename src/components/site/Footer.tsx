@@ -47,7 +47,7 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Kenya's modern digital marketplace. Buy and sell with confidence.
+              worldwide's modern digital marketplace. Buy and sell with confidence.
             </p>
             <div className="mt-6 flex items-center gap-2">
               {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
@@ -87,7 +87,7 @@ export function Footer() {
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground">
           <div>© {new Date().getFullYear()} SokoMarket Hub. All rights reserved.</div>
-          <div>Made with care in Kenya</div>
+          <div>Made with care worldwide</div>
         </div>
       </div>
     </footer>

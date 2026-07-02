@@ -19,7 +19,7 @@ export function CTA() {
           Start Buying and Selling Today.
         </h2>
         <p className="mx-auto mt-4 max-w-xl text-white/85">
-          Join Kenya's fastest-growing digital marketplace. Zero setup fees.
+          Joworldwide's fastest-growing digital marketplace. Zero setup fees.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link

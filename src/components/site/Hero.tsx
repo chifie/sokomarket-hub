@@ -20,18 +20,18 @@ export function Hero() {
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/10 dark:bg-sky-500/20 px-3 py-1 text-xs font-semibold text-sky-600 dark:text-sky-400">
             <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
-            Kenya's #1 Digital Marketplace
+            The World's Trusted Digital Marketplace
           </span>
           <h1 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
             Buy and Sell Across{" "}
             <span className="bg-gradient-to-r from-sky-500 to-sky-700 bg-clip-text text-transparent">
-              Kenya
+              worldwide
             </span>{" "}
             with Confidence.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
             SokoMarket connects trusted sellers and millions of buyers through
-            a fast, secure, and modern online marketplace built for Kenya.
+            a fast, secure, and modern online marketplace built for the world.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">

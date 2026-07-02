@@ -4,15 +4,15 @@ import { ChevronDown } from "lucide-react";
 const FAQS = [
   {
     q: "How do I start selling on SokoMarket?",
-    a: "Create a free seller account, complete a quick KYC, list your products, and you're ready to receive orders across Kenya.",
+    a: "Create a free seller account, complete a quick KYC, list your products, and you're ready to receive orders across the world.",
   },
   {
     q: "Which payment methods are supported?",
-    a: "M-Pesa, Airtel Money, Visa, Mastercard, and secure bank transfers — all protected by escrow.",
+    a: "Mobile Wallets, , Visa, Mastercard, and secure bank transfers — all protected by escrow.",
   },
   {
     q: "How fast is delivery?",
-    a: "Same-day delivery is available in Nairobi, Kiambu, and Mombasa. Nationwide delivery takes 1–3 business days.",
+    a: "Same-day delivery is available in Metro areas, Kiambu, and Mombasa. Nationwide delivery takes 1–3 business days.",
   },
   {
     q: "What if I'm not happy with my order?",

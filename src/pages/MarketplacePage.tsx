@@ -26,7 +26,7 @@ export default function MarketplacePage() {
       <PageHeader
         eyebrow="Marketplace"
         title="Explore Our Marketplace"
-        description="Discover thousands of products from trusted sellers across Kenya"
+        description="Discover thousands of products from trusted sellers across the world"
         crumb="Marketplace"
       />
 

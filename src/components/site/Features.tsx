@@ -12,7 +12,7 @@ import {
 
 const FEATURES = [
   { icon: ShieldCheck, title: "Verified Sellers", desc: "Every seller passes KYC and quality checks." },
-  { icon: Lock, title: "Secure Payments", desc: "Escrow-protected transactions with M-Pesa & cards." },
+  { icon: Lock, title: "Secure Payments", desc: "Escrow-protected transactions with Mobile Wallets & cards." },
   { icon: Truck, title: "Fast Delivery", desc: "Same-day dispatch across 50+ Tanzanian cities." },
   { icon: Headphones, title: "24/7 Support", desc: "Real humans ready to help in Swahili and English." },
   { icon: RotateCcw, title: "Easy Returns", desc: "7-day hassle-free returns on eligible items." },

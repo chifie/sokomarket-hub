@@ -5,7 +5,7 @@ export function Partners() {
     <section className="border-y border-border/60 bg-card/60 py-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-6 text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          Trusted by leading Tanzanian brands
+          Trusted by leading global brands
         </div>
         <div className="grid grid-cols-2 items-center gap-6 opacity-70 sm:grid-cols-4 md:grid-cols-8">
           {PARTNERS.map((p) => (

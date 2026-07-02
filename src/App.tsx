@@ -67,7 +67,7 @@ function ShopsPage() {
       <PageHeader
         eyebrow="Shops"
         title="Discover Trusted Sellers"
-        description="Connect with verified sellers from across Kenya"
+        description="Connect with verified sellers from across the world"
         crumb="Shops"
       />
       <div className="py-12">
@@ -104,7 +104,7 @@ function AboutPage() {
       <PageHeader
         eyebrow="About"
         title="About SokoMarket"
-        description="Kenya's leading digital marketplace connecting buyers and sellers"
+        description="worldwide's leading digital marketplace connecting buyers and sellers"
         crumb="About"
       />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -112,7 +112,7 @@ function AboutPage() {
           <div className="rounded-2xl border border-border bg-card p-8 mb-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Our Mission</h2>
             <p className="text-muted-foreground">
-              SokoMarket Hub is Kenya's premier digital marketplace, designed to connect local sellers
+              SokoMarket Hub is worldwide's premier digital marketplace, designed to connect local sellers
               with buyers across all 47 counties. We believe in empowering small businesses and
               bringing the traditional market experience into the digital age.
             </p>
@@ -218,7 +218,7 @@ function ContactPage() {
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="font-bold text-foreground mb-2">📍 Location</h3>
-              <p className="text-muted-foreground">Nairobi, Kenya</p>
+              <p className="text-muted-foreground">Metro areas, worldwide</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
               <h3 className="font-bold text-foreground mb-2">🕐 Hours</h3>
