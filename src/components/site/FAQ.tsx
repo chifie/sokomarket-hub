@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 
 const FAQS = [
   {
-    q: "How do I start selling on SokoMarket?",
+    q: "How do I start selling on SokoDigital?",
     a: "Create a free seller account, complete a quick KYC, list your products, and you're ready to receive orders across the world.",
   },
   {
@@ -19,7 +19,7 @@ const FAQS = [
     a: "We offer 7-day hassle-free returns on eligible items with a full refund back to your original payment method.",
   },
   {
-    q: "Is SokoMarket available on mobile?",
+    q: "Is SokoDigital available on mobile?",
     a: "Yes! Our iOS and Android apps deliver a fast, native shopping experience with exclusive app-only deals.",
   },
 ];

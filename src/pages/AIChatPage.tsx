@@ -18,7 +18,7 @@ function generateAIResponse(userMessage: string): string {
   const lowerMessage = userMessage.toLowerCase();
 
   if (lowerMessage.includes('find') || lowerMessage.includes('product') || lowerMessage.includes('search')) {
-    return `Great! I can help you find products! ️\n\nSokoMarket has thousands of products across categories like:\n\n• **Electronics** - Phones, laptops, accessories\n• **Fashion** - Clothing, shoes, jewelry\n• **Agriculture** - Fresh produce, seeds, tools\n• **Home & Living** - Furniture, decor\n• **Beauty & Health** - Skincare, wellness\n\nWhat are you looking for today? Just tell me the category or specific item!`;
+    return `Great! I can help you find products! ️\n\nSokoDigital has thousands of products across categories like:\n\n• **Electronics** - Phones, laptops, accessories\n• **Fashion** - Clothing, shoes, jewelry\n• **Agriculture** - Fresh produce, seeds, tools\n• **Home & Living** - Furniture, decor\n• **Beauty & Health** - Skincare, wellness\n\nWhat are you looking for today? Just tell me the category or specific item!`;
   }
 
   if (lowerMessage.includes('delivery') || lowerMessage.includes('ship') || lowerMessage.includes('arrive')) {
@@ -38,11 +38,11 @@ function generateAIResponse(userMessage: string): string {
   }
 
   if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('jambo') || lowerMessage.includes('hey')) {
-    return `  Welcome to SokoMarket AI Assistant!\n\nI'm here to help you:\n• Find products and deals\n• Track your orders\n• Answer questions about delivery\n• Connect with sellers\n\nWhat can I help you with today?`;
+    return `  Welcome to SokoDigital AI Assistant!\n\nI'm here to help you:\n• Find products and deals\n• Track your orders\n• Answer questions about delivery\n• Connect with sellers\n\nWhat can I help you with today?`;
   }
 
   if (lowerMessage.includes('thank')) {
-    return `You're welcome!  Happy shopping!\n\nFeel free to ask me anything else. I'm here 24/7 to help you have a great experience on SokoMarket!`;
+    return `You're welcome!  Happy shopping!\n\nFeel free to ask me anything else. I'm here 24/7 to help you have a great experience on SokoDigital!`;
   }
 
   return `I'd be happy to help! \n\nI can assist you with:\n• **Finding products** - Tell me what you're looking for\n• **Delivery information** - Shipping times and costs\n• **Payment methods** - Mobile Wallets, cards, and more\n• **Seller verification** - How we keep you safe\n• **Returns & refunds** - Our buyer-friendly policy\n\nJust ask your question and I'll provide detailed answers!`;
@@ -52,7 +52,7 @@ export default function AIChatPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: `  I'm your SokoMarket AI assistant!\n\nI can help you find products, track orders, learn about delivery, and answer any questions about shopping on our marketplace.\n\nWhat are you looking for today?`,
+      content: `  I'm your SokoDigital AI assistant!\n\nI can help you find products, track orders, learn about delivery, and answer any questions about shopping on our marketplace.\n\nWhat are you looking for today?`,
     },
   ]);
   const [input, setInput] = useState('');
@@ -92,7 +92,7 @@ export default function AIChatPage() {
             <Bot className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h2 className="font-semibold text-foreground">SokoMarket AI</h2>
+            <h2 className="font-semibold text-foreground">SokoDigital AI</h2>
             <p className="text-sm text-sky-500">Always ready to help</p>
           </div>
         </div>
@@ -154,7 +154,7 @@ export default function AIChatPage() {
           <div className="flex items-center gap-3">
             <input
               type="text"
-              placeholder="Ask me anything about SokoMarket..."
+              placeholder="Ask me anything about SokoDigital..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}

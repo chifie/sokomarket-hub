@@ -103,7 +103,7 @@ function AboutPage() {
       <Navbar />
       <PageHeader
         eyebrow="About"
-        title="About SokoMarket"
+        title="About SokoDigital"
         description="worldwide's leading digital marketplace connecting buyers and sellers"
         crumb="About"
       />
@@ -112,14 +112,14 @@ function AboutPage() {
           <div className="rounded-2xl border border-border bg-card p-8 mb-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Our Mission</h2>
             <p className="text-muted-foreground">
-              SokoMarket Hub is worldwide's premier digital marketplace, designed to connect local sellers
+              SokoDigital Hub is worldwide's premier digital marketplace, designed to connect local sellers
               with buyers across all 47 counties. We believe in empowering small businesses and
               bringing the traditional market experience into the digital age.
             </p>
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoMarket?</h2>
+            <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoDigital?</h2>
             <ul className="space-y-4 text-muted-foreground">
               <li className="flex items-start gap-3">
                 <span className="text-sky-500"></span>

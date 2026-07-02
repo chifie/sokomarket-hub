@@ -30,7 +30,7 @@ export function Hero() {
             with Confidence.
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
-            SokoMarket connects trusted sellers and millions of buyers through
+            SokoDigital connects trusted sellers and millions of buyers through
             a fast, secure, and modern online marketplace built for the world.
           </p>
 
