@@ -17,6 +17,9 @@ import { Footer } from '@/components/site/Footer';
 import { PageHeader } from '@/components/site/PageHeader';
 import AIChatPage from '@/pages/AIChatPage';
 import MarketplacePage from '@/pages/MarketplacePage';
+import AuthPage from '@/pages/AuthPage';
+import DashboardPage from '@/pages/DashboardPage';
+import { AuthProvider } from '@/lib/auth';
 
 function HomePage() {
   return (
@@ -67,7 +70,7 @@ function ShopsPage() {
       <PageHeader
         eyebrow="Shops"
         title="Discover Trusted Sellers"
-        description="Connect with verified sellers from across Kenya"
+        description="Connect with verified sellers from across the world"
         crumb="Shops"
       />
       <div className="py-12">
@@ -103,8 +106,8 @@ function AboutPage() {
       <Navbar />
       <PageHeader
         eyebrow="About"
-        title="About SokoMarket"
-        description="Kenya's leading digital marketplace connecting buyers and sellers"
+        title="About SokoDigital"
+        description="A global digital marketplace connecting buyers and sellers across every continent."
         crumb="About"
       />
       <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
@@ -112,35 +115,26 @@ function AboutPage() {
           <div className="rounded-2xl border border-border bg-card p-8 mb-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Our Mission</h2>
             <p className="text-muted-foreground">
-              SokoMarket Hub is Kenya's premier digital marketplace, designed to connect local sellers
-              with buyers across all 47 counties. We believe in empowering small businesses and
-              bringing the traditional market experience into the digital age.
+              SokoDigital is a worldwide digital marketplace built to connect verified sellers
+              with millions of buyers across the globe. We empower entrepreneurs of every size and
+              bring a trusted commerce experience to every device, everywhere.
             </p>
           </div>
 
           <div className="rounded-2xl border border-border bg-card p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoMarket?</h2>
+            <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoDigital?</h2>
             <ul className="space-y-4 text-muted-foreground">
-              <li className="flex items-start gap-3">
-                <span className="text-emerald-500">✓</span>
-                <div>
-                  <strong className="text-foreground">Trust & Safety</strong>
-                  <p className="mt-1">Every seller is verified and products quality-checked.</p>
-                </div>
+              <li>
+                <strong className="text-foreground">Trust & Safety</strong>
+                <p className="mt-1">Every seller is verified and products are quality-checked.</p>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-emerald-500">✓</span>
-                <div>
-                  <strong className="text-foreground">Community First</strong>
-                  <p className="mt-1">We prioritize building lasting relationships between buyers and sellers.</p>
-                </div>
+              <li>
+                <strong className="text-foreground">Global Community</strong>
+                <p className="mt-1">We connect buyers and sellers across borders and currencies.</p>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-emerald-500">✓</span>
-                <div>
-                  <strong className="text-foreground">Growth & Opportunity</strong>
-                  <p className="mt-1">We provide tools and support to help small businesses thrive.</p>
-                </div>
+              <li>
+                <strong className="text-foreground">Growth & Opportunity</strong>
+                <p className="mt-1">Tools, analytics, and support to help every business thrive.</p>
               </li>
             </ul>
           </div>
@@ -148,9 +142,9 @@ function AboutPage() {
           <div className="rounded-2xl border border-border bg-card p-8">
             <h2 className="text-2xl font-bold mb-4 text-foreground">Contact Us</h2>
             <div className="space-y-3 text-muted-foreground">
-              <p>📧 support@sokomarket.co.ke</p>
-              <p>📞 +254 700 000 000</p>
-              <p>🕐 Mon - Sat: 8:00 AM - 6:00 PM EAT</p>
+              <p>support@sokodigital.com</p>
+              <p>+1 (800) 555-0140</p>
+              <p>Support available 24/7 worldwide</p>
             </div>
           </div>
         </div>
@@ -179,7 +173,7 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="Your name"
                 />
               </div>
@@ -187,7 +181,7 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="your@email.com"
                 />
               </div>
@@ -195,13 +189,13 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Message</label>
                 <textarea
                   rows={4}
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-sky-500"
                   placeholder="How can we help?"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-semibold hover:opacity-90 transition"
+                className="w-full py-3 rounded-lg bg-gradient-to-r from-sky-500 to-sky-700 text-white font-semibold hover:opacity-90 transition"
               >
                 Send Message
               </button>
@@ -209,20 +203,20 @@ function ContactPage() {
           </div>
           <div className="space-y-6">
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">📧 Email</h3>
-              <p className="text-muted-foreground">support@sokomarket.co.ke</p>
+              <h3 className="font-bold text-foreground mb-2">Email</h3>
+              <p className="text-muted-foreground">support@sokodigital.com</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">📞 Phone</h3>
-              <p className="text-muted-foreground">+254 700 000 000</p>
+              <h3 className="font-bold text-foreground mb-2">Phone</h3>
+              <p className="text-muted-foreground">+1 (800) 555-0140</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">📍 Location</h3>
-              <p className="text-muted-foreground">Nairobi, Kenya</p>
+              <h3 className="font-bold text-foreground mb-2">Location</h3>
+              <p className="text-muted-foreground">Operating worldwide</p>
             </div>
             <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">🕐 Hours</h3>
-              <p className="text-muted-foreground">Mon - Sat: 8:00 AM - 6:00 PM EAT</p>
+              <h3 className="font-bold text-foreground mb-2">Hours</h3>
+              <p className="text-muted-foreground">24 / 7 across every timezone</p>
             </div>
           </div>
         </div>
@@ -235,16 +229,22 @@ function ContactPage() {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/marketplace" element={<MarketplacePage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/shops" element={<ShopsPage />} />
-        <Route path="/deals" element={<DealsPage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/chat" element={<AIChatPage />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/marketplace" element={<MarketplacePage />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/shops" element={<ShopsPage />} />
+          <Route path="/deals" element={<DealsPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/chat" element={<AIChatPage />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/login" element={<AuthPage />} />
+          <Route path="/register" element={<AuthPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

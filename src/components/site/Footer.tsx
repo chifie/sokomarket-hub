@@ -39,15 +39,15 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           <div className="col-span-2 md:col-span-2">
             <div className="flex items-center gap-2">
-              <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md">
+              <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-sky-500 to-sky-700 text-white shadow-md">
                 <span className="text-lg font-black">S</span>
               </span>
               <span className="text-lg font-extrabold text-foreground">
-                Soko<span className="text-emerald-500">Market</span>
+                Soko<span className="text-sky-500">Market</span>
               </span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
-              Kenya's modern digital marketplace. Buy and sell with confidence.
+              worldwide's modern digital marketplace. Buy and sell with confidence.
             </p>
             <div className="mt-6 flex items-center gap-2">
               {[Facebook, Twitter, Instagram, Linkedin, Youtube].map((Icon, i) => (
@@ -55,7 +55,7 @@ export function Footer() {
                   key={i}
                   href="#"
                   aria-label="Social"
-                  className="grid h-9 w-9 place-items-center rounded-full border border-border/60 text-muted-foreground transition hover:border-emerald-500 hover:text-emerald-500"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-border/60 text-muted-foreground transition hover:border-sky-500 hover:text-sky-500"
                 >
                   <Icon className="h-4 w-4" />
                 </a>
@@ -69,13 +69,13 @@ export function Footer() {
                 {c.links.map((l) =>
                   ROUTES[l] ? (
                     <li key={l}>
-                      <Link to={ROUTES[l]} className="transition hover:text-emerald-500">
+                      <Link to={ROUTES[l]} className="transition hover:text-sky-500">
                         {l}
                       </Link>
                     </li>
                   ) : (
                     <li key={l}>
-                      <a href="#" className="transition hover:text-emerald-500">
+                      <a href="#" className="transition hover:text-sky-500">
                         {l}
                       </a>
                     </li>
@@ -86,8 +86,8 @@ export function Footer() {
           ))}
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6 text-xs text-muted-foreground">
-          <div>© {new Date().getFullYear()} SokoMarket Hub. All rights reserved.</div>
-          <div>Made with care in Kenya</div>
+          <div>© {new Date().getFullYear()} SokoDigital Hub. All rights reserved.</div>
+          <div>Made with care worldwide</div>
         </div>
       </div>
     </footer>
