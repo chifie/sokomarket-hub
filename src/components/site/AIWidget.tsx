@@ -85,7 +85,7 @@ export function AIWidget() {
       )}
 
       {open && (
-        <div className="fixed bottom-5 right-5 z-50 flex h-[540px] w-[92vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-elegant animate-scale-in">
+        <div className="fixed bottom-5 right-5 z-50 flex h-[540px] w-[92vw] max-w-sm flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-elegant">
           <div className="flex items-center justify-between gap-3 bg-primary p-3 text-primary-foreground">
             <div className="flex items-center gap-2">
               <div className="grid h-9 w-9 place-items-center rounded-full bg-primary-foreground/15">

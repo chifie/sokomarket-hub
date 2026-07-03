@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Search, ShoppingCart, Moon, Sun, Bot, Store, HelpCircle } from "lucide-react";
+import { Search, ShoppingCart, Moon, Sun, Store, HelpCircle, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/use-theme";
+import { useLang } from "@/lib/i18n";
 import logoIcon from "@/assets/brand/logo-icon.png";
-
-const NAV_LINKS = [
-  { label: "Home", to: "/" },
-  { label: "Marketplace", to: "/marketplace" },
-  { label: "Categories", to: "/categories" },
-  { label: "Shops", to: "/shops" },
-  { label: "Deals", to: "/deals" },
-  { label: "About", to: "/about" },
-  { label: "Contact", to: "/contact" },
-];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+  const { lang, setLang, t } = useLang();
   const location = useLocation();
+
+  const NAV_LINKS = [
+    { label: t("nav.home"), to: "/" },
+    { label: t("nav.marketplace"), to: "/marketplace" },
+    { label: t("nav.categories"), to: "/categories" },
+    { label: t("nav.shops"), to: "/shops" },
+    { label: t("nav.deals"), to: "/deals" },
+    { label: t("nav.about"), to: "/about" },
+    { label: t("nav.contact"), to: "/contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
