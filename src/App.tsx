@@ -22,6 +22,8 @@ import DashboardPage from '@/pages/DashboardPage';
 import SellerListingsPage from '@/pages/SellerListingsPage';
 import SellerProductFormPage from '@/pages/SellerProductFormPage';
 import { AuthProvider } from '@/lib/auth';
+import { LanguageProvider } from '@/lib/i18n';
+import { AIWidget } from '@/components/site/AIWidget';
 
 function HomePage() {
   return (
@@ -231,25 +233,28 @@ function ContactPage() {
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/marketplace" element={<MarketplacePage />} />
-          <Route path="/categories" element={<CategoriesPage />} />
-          <Route path="/shops" element={<ShopsPage />} />
-          <Route path="/deals" element={<DealsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/chat" element={<AIChatPage />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/login" element={<AuthPage />} />
-          <Route path="/register" element={<AuthPage />} />
-          <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/dashboard/listings" element={<SellerListingsPage />} />
-          <Route path="/dashboard/listings/new" element={<SellerProductFormPage />} />
-          <Route path="/dashboard/listings/:id/edit" element={<SellerProductFormPage />} />
-        </Routes>
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/shops" element={<ShopsPage />} />
+            <Route path="/deals" element={<DealsPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/chat" element={<AIChatPage />} />
+            <Route path="/auth" element={<AuthPage />} />
+            <Route path="/login" element={<AuthPage />} />
+            <Route path="/register" element={<AuthPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/dashboard/listings" element={<SellerListingsPage />} />
+            <Route path="/dashboard/listings/new" element={<SellerProductFormPage />} />
+            <Route path="/dashboard/listings/:id/edit" element={<SellerProductFormPage />} />
+          </Routes>
+          <AIWidget />
+        </AuthProvider>
+      </LanguageProvider>
     </BrowserRouter>
   );
 }
