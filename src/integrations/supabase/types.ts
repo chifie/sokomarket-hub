@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      products: {
+        Row: {
+          category: string
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          image_url: string | null
+          images: string[]
+          is_active: boolean
+          location: string | null
+          name: string
+          price: number
+          rating: number | null
+          seller_id: string
+          seller_name: string | null
+          specifications: Json
+          stock_quantity: number
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          images?: string[]
+          is_active?: boolean
+          location?: string | null
+          name: string
+          price?: number
+          rating?: number | null
+          seller_id: string
+          seller_name?: string | null
+          specifications?: Json
+          stock_quantity?: number
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          images?: string[]
+          is_active?: boolean
+          location?: string | null
+          name?: string
+          price?: number
+          rating?: number | null
+          seller_id?: string
+          seller_name?: string | null
+          specifications?: Json
+          stock_quantity?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -34,69 +94,6 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      products: {
-        Row: {
-          id: string
-          name: string
-          description: string | null
-          price: number
-          currency: string
-          category: string
-          image_url: string | null
-          images: string[]
-          specifications: Json
-          seller_id: string | null
-          seller_name: string | null
-          location: string | null
-          rating: number
-          reviews_count: number
-          stock_quantity: number
-          is_featured: boolean
-          created_at: string
-          updated_at: string
-        }
-        Insert: {
-          id?: string
-          name: string
-          description?: string | null
-          price: number
-          currency?: string
-          category: string
-          image_url?: string | null
-          images?: string[]
-          specifications?: Json
-          seller_id?: string | null
-          seller_name?: string | null
-          location?: string | null
-          rating?: number
-          reviews_count?: number
-          stock_quantity?: number
-          is_featured?: boolean
-          created_at?: string
-          updated_at?: string
-        }
-        Update: {
-          id?: string
-          name?: string
-          description?: string | null
-          price?: number
-          currency?: string
-          category?: string
-          image_url?: string | null
-          images?: string[]
-          specifications?: Json
-          seller_id?: string | null
-          seller_name?: string | null
-          location?: string | null
-          rating?: number
-          reviews_count?: number
-          stock_quantity?: number
-          is_featured?: boolean
-          created_at?: string
           updated_at?: string
         }
         Relationships: []

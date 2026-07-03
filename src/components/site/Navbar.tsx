@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Search, ShoppingCart, Moon, Sun, Bot, Store, HelpCircle } from "lucide-react";
+import { Search, ShoppingCart, Moon, Sun, Store, HelpCircle, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/use-theme";
+import { useLang } from "@/lib/i18n";
 import logoIcon from "@/assets/brand/logo-icon.png";
-
-const NAV_LINKS = [
-  { label: "Home", to: "/" },
-  { label: "Marketplace", to: "/marketplace" },
-  { label: "Categories", to: "/categories" },
-  { label: "Shops", to: "/shops" },
-  { label: "Deals", to: "/deals" },
-  { label: "About", to: "/about" },
-  { label: "Contact", to: "/contact" },
-];
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+  const { lang, setLang, t } = useLang();
   const location = useLocation();
+
+  const NAV_LINKS = [
+    { label: t("nav.home"), to: "/" },
+    { label: t("nav.marketplace"), to: "/marketplace" },
+    { label: t("nav.categories"), to: "/categories" },
+    { label: t("nav.shops"), to: "/shops" },
+    { label: t("nav.deals"), to: "/deals" },
+    { label: t("nav.about"), to: "/about" },
+    { label: t("nav.contact"), to: "/contact" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -46,30 +48,38 @@ export function Navbar() {
       )}
     >
       {/* Top utility bar */}
-      <div className="hidden bg-[#0b1f4d] text-white sm:block dark:bg-black/40">
+      <div className="hidden bg-emerald-900 text-white sm:block dark:bg-black/40">
         <div className="mx-auto flex h-9 max-w-7xl items-center gap-4 px-4 text-xs sm:px-6 lg:px-8">
-          <span className="truncate opacity-90">
-            Trusted by thousands of buyers and sellers across Tanzania
-          </span>
+          <span className="truncate opacity-90">{t("nav.trust")}</span>
           <div className="ml-auto flex shrink-0 items-center gap-4">
             <Link to="/dashboard" className="flex items-center gap-1.5 opacity-90 transition hover:opacity-100">
               <Store className="h-3.5 w-3.5" />
-              Sell on SokoDigital
+              {t("nav.sell")}
             </Link>
             <Link to="/contact" className="hidden items-center gap-1.5 opacity-90 transition hover:opacity-100 md:flex">
               <HelpCircle className="h-3.5 w-3.5" />
-              Help Center
+              {t("nav.help")}
             </Link>
+            <button
+              onClick={() => setLang(lang === "en" ? "sw" : "en")}
+              className="flex items-center gap-1.5 rounded-full border border-white/20 px-2 py-0.5 opacity-90 transition hover:opacity-100"
+              aria-label="Switch language"
+            >
+              <Globe className="h-3 w-3" />
+              <span className="font-semibold uppercase">{lang}</span>
+              <span className="opacity-60">/ {lang === "en" ? "sw" : "en"}</span>
+            </button>
           </div>
         </div>
       </div>
+
 
       {/* Main row: logo, horizontal nav, actions — always horizontal, no collapse menu */}
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex shrink-0 items-center gap-2">
           <img src={logoIcon} alt="SokoDigital" className="h-8 w-auto sm:h-9" />
           <span className="hidden text-lg font-extrabold tracking-tight text-foreground sm:inline">
-            Soko<span className="text-blue-600 dark:text-blue-400">Digital</span>
+            Soko<span className="text-emerald-700 dark:text-emerald-500">Digital</span>
           </span>
         </Link>
 
@@ -81,7 +91,7 @@ export function Navbar() {
               className={cn(
                 "shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 isActive(l.to)
-                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
+                  ? "text-emerald-700 bg-emerald-50 dark:text-emerald-500 dark:bg-emerald-950/50"
                   : "text-foreground/70 hover:bg-muted hover:text-foreground"
               )}
             >
@@ -94,8 +104,8 @@ export function Navbar() {
           <div className="relative hidden xl:block">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
-              placeholder="Search products, shops..."
-              className="h-10 w-56 rounded-full border border-border bg-background/80 pl-9 pr-4 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-foreground 2xl:w-72"
+              placeholder={t("nav.search")}
+              className="h-10 w-56 rounded-full border border-border bg-background/80 pl-9 pr-4 text-sm outline-none transition focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/20 text-foreground 2xl:w-72"
             />
           </div>
           <button
@@ -104,20 +114,13 @@ export function Navbar() {
           >
             <Search className="h-5 w-5" />
           </button>
-          <Link
-            to="/chat"
-            aria-label="AI Assistant"
-            className="hidden shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-violet-500 to-indigo-600 px-3 py-2 text-sm font-medium text-white transition hover:opacity-90 md:flex"
-          >
-            <Bot className="h-4 w-4" />
-            <span className="hidden lg:inline">AI Assistant</span>
-          </Link>
+
           <button
             aria-label="Cart"
             className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-foreground/80 transition hover:bg-muted"
           >
             <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-blue-600 px-1 text-[10px] font-bold text-white">
+            <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-emerald-700 px-1 text-[10px] font-bold text-white">
               3
             </span>
           </button>
@@ -132,13 +135,14 @@ export function Navbar() {
             to="/auth"
             className="hidden shrink-0 rounded-full px-4 py-2 font-medium text-foreground/80 transition hover:bg-muted sm:inline-block"
           >
-            Login
+            {t("nav.login")}
           </Link>
+
           <Link
             to="/auth"
-            className="shrink-0 rounded-full bg-gradient-to-r from-blue-600 to-rose-500 px-3 py-2 text-sm font-semibold text-white shadow-md transition hover:opacity-95 sm:px-4"
+            className="shrink-0 rounded-full bg-gradient-to-r from-emerald-700 to-amber-500 px-3 py-2 text-sm font-semibold text-white shadow-md transition hover:opacity-95 sm:px-4"
           >
-            Register
+            {t("nav.register")}
           </Link>
         </div>
       </div>
