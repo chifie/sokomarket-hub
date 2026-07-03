@@ -1,17 +1,33 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Shield, Store, ShoppingBag, LogOut, Package, BarChart3, Users } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { Shield, Store, ShoppingBag, LogOut, Package, BarChart3, Users, Plus, Loader2 } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
 import { useAuth } from '@/lib/auth';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function DashboardPage() {
-  const { user, roles, loading, signOut } = useAuth();
+  const { user, roles, loading, signOut, refreshRoles } = useAuth();
   const navigate = useNavigate();
+  const [becomingSeller, setBecomingSeller] = useState(false);
+  const [sellerError, setSellerError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) navigate('/auth', { replace: true });
   }, [user, loading, navigate]);
+
+  const becomeSeller = async () => {
+    if (!user) return;
+    setBecomingSeller(true);
+    setSellerError(null);
+    const { error } = await supabase.from('user_roles').insert({ user_id: user.id, role: 'seller' });
+    if (error) {
+      setSellerError(error.message);
+    } else {
+      await refreshRoles();
+    }
+    setBecomingSeller(false);
+  };
 
   if (loading || !user) {
     return (
@@ -63,7 +79,18 @@ export default function DashboardPage() {
           )}
           {isSeller && (
             <>
-              <DashCard icon={<Package className="h-5 w-5" />} title="Your listings" desc="Create and manage the products you sell." />
+              <DashCard
+                to="/dashboard/listings"
+                icon={<Package className="h-5 w-5" />}
+                title="Your listings"
+                desc="Create and manage the products you sell."
+              />
+              <DashCard
+                to="/dashboard/listings/new"
+                icon={<Plus className="h-5 w-5" />}
+                title="Add a product"
+                desc="Upload photos, set a price, and list something new."
+              />
               <DashCard icon={<BarChart3 className="h-5 w-5" />} title="Sales insights" desc="Track orders, revenue, and customers." />
               <DashCard icon={<Store className="h-5 w-5" />} title="Shop profile" desc="Customize your storefront and branding." />
             </>
@@ -72,7 +99,24 @@ export default function DashboardPage() {
             <>
               <DashCard icon={<ShoppingBag className="h-5 w-5" />} title="Your orders" desc="Track shipments and past purchases." />
               <DashCard icon={<Package className="h-5 w-5" />} title="Wishlist" desc="Save products for later." />
-              <DashCard icon={<Store className="h-5 w-5" />} title="Become a seller" desc="Open a shop and start selling globally." />
+              <div className="rounded-2xl border border-border bg-card p-6">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
+                  <Store className="h-5 w-5" />
+                </div>
+                <h3 className="font-semibold">Become a seller</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Open a shop and start listing products to buyers on SokoDigital.
+                </p>
+                {sellerError && <p className="mt-2 text-xs text-destructive">{sellerError}</p>}
+                <button
+                  onClick={becomeSeller}
+                  disabled={becomingSeller}
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-rose-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 disabled:opacity-60"
+                >
+                  {becomingSeller && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                  Start selling
+                </button>
+              </div>
             </>
           )}
         </div>
@@ -82,14 +126,34 @@ export default function DashboardPage() {
   );
 }
 
-function DashCard({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
-  return (
-    <div className="rounded-2xl border border-border bg-card p-6 transition hover:shadow-elegant">
+function DashCard({
+  icon,
+  title,
+  desc,
+  to,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  to?: string;
+}) {
+  const content = (
+    <>
       <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400">
         {icon}
       </div>
       <h3 className="font-semibold">{title}</h3>
       <p className="mt-1 text-sm text-muted-foreground">{desc}</p>
-    </div>
+    </>
   );
+
+  if (to) {
+    return (
+      <Link to={to} className="block rounded-2xl border border-border bg-card p-6 transition hover:shadow-elegant hover:border-blue-500/40">
+        {content}
+      </Link>
+    );
+  }
+
+  return <div className="rounded-2xl border border-border bg-card p-6 transition hover:shadow-elegant">{content}</div>;
 }

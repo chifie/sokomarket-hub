@@ -5,6 +5,21 @@ import furniture from "@/assets/product-furniture.jpg";
 
 export const PRODUCT_IMAGES = { electronics, fashion, agri, furniture };
 
+export const CATEGORY_NAMES = [
+  "Electronics",
+  "Fashion",
+  "Agriculture",
+  "Phones",
+  "Computers",
+  "Furniture",
+  "Beauty",
+  "Food",
+  "Automotive",
+  "Books",
+  "Sports",
+  "Health",
+];
+
 export type Product = {
   img: string;
   title: string;

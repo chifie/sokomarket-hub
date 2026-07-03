@@ -1,22 +1,53 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Heart, Star, ShoppingCart, Grid, List } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';
 import { PageHeader } from '@/components/site/PageHeader';
-import { PRODUCTS } from '@/lib/marketplace-data';
+import { PRODUCTS, PRODUCT_IMAGES, type Product } from '@/lib/marketplace-data';
 import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
 
 const categories = ['All', 'Electronics', 'Fashion', 'Agriculture', 'Phones', 'Computers', 'Furniture', 'Beauty', 'Food', 'Automotive', 'Books', 'Sports'];
+
+const FALLBACK_IMAGES = Object.values(PRODUCT_IMAGES);
 
 export default function MarketplacePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [liveProducts, setLiveProducts] = useState<Product[]>([]);
 
-  const filteredProducts = PRODUCTS.filter((product) => {
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (cancelled || !data) return;
+      const mapped: Product[] = data.map((p, i) => ({
+        img: p.image_url || FALLBACK_IMAGES[i % FALLBACK_IMAGES.length],
+        title: p.name,
+        seller: p.seller_name || 'SokoDigital Seller',
+        price: `${p.currency} ${Number(p.price).toLocaleString()}`,
+        old: '',
+        rating: Number(p.rating) || 0,
+        discount: 0,
+        category: p.category,
+      }));
+      setLiveProducts(mapped);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const allProducts = [...liveProducts, ...PRODUCTS];
+
+  const filteredProducts = allProducts.filter((product) => {
     const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All';
+    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
@@ -78,7 +109,7 @@ export default function MarketplacePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product, i) => (
             <motion.article
-              key={product.title}
+              key={`${product.title}-${i}`}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
@@ -91,9 +122,11 @@ export default function MarketplacePage() {
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <span className="absolute left-3 top-3 rounded-full bg-red-500 px-2 py-1 text-[10px] font-bold text-white">
-                  -{product.discount}%
-                </span>
+                {product.discount > 0 && (
+                  <span className="absolute left-3 top-3 rounded-full bg-red-500 px-2 py-1 text-[10px] font-bold text-white">
+                    -{product.discount}%
+                  </span>
+                )}
                 <button
                   aria-label="Add to wishlist"
                   className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-background/90 text-foreground/80 shadow-sm transition hover:text-red-500"
@@ -114,12 +147,13 @@ export default function MarketplacePage() {
                 <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-foreground">{product.title}</h3>
                 <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
                   <Star className="h-3.5 w-3.5 fill-yellow-500 text-yellow-500" />
-                  <span className="font-semibold text-foreground">{product.rating}</span>
-                  <span>· 240 sold</span>
+                  <span className="font-semibold text-foreground">{product.rating || 'New'}</span>
                 </div>
                 <div className="mt-3 flex items-baseline gap-2">
                   <span className="text-lg font-black text-blue-500">{product.price}</span>
-                  <span className="text-xs text-muted-foreground line-through">{product.old}</span>
+                  {product.old && (
+                    <span className="text-xs text-muted-foreground line-through">{product.old}</span>
+                  )}
                 </div>
               </div>
             </motion.article>

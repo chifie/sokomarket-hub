@@ -19,6 +19,8 @@ import AIChatPage from '@/pages/AIChatPage';
 import MarketplacePage from '@/pages/MarketplacePage';
 import AuthPage from '@/pages/AuthPage';
 import DashboardPage from '@/pages/DashboardPage';
+import SellerListingsPage from '@/pages/SellerListingsPage';
+import SellerProductFormPage from '@/pages/SellerProductFormPage';
 import { AuthProvider } from '@/lib/auth';
 
 function HomePage() {
@@ -243,6 +245,9 @@ function App() {
           <Route path="/login" element={<AuthPage />} />
           <Route path="/register" element={<AuthPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/dashboard/listings" element={<SellerListingsPage />} />
+          <Route path="/dashboard/listings/new" element={<SellerProductFormPage />} />
+          <Route path="/dashboard/listings/:id/edit" element={<SellerProductFormPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
