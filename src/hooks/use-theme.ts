@@ -13,9 +13,9 @@ function getInitialTheme(): Theme {
  * Shared dark/light theme hook.
  * The actual class toggle on <html> happens instantly here and is
  * mirrored to localStorage so the choice persists across page loads
- * and route changes. A blocking boot script in __root.tsx applies the
- * stored preference (or system preference) before paint to avoid any
- * flash of the wrong theme.
+ * and route changes. A blocking inline script in index.html applies the
+ * stored preference (or system preference, if never set) before paint
+ * to avoid any flash of the wrong theme.
  */
 export function useTheme() {
   const [theme, setTheme] = useState<Theme>(getInitialTheme);
