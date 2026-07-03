@@ -175,7 +175,7 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-600"
                   placeholder="Your name"
                 />
               </div>
@@ -183,7 +183,7 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
                 <input
                   type="email"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-600"
                   placeholder="your@email.com"
                 />
               </div>
@@ -191,13 +191,13 @@ function ContactPage() {
                 <label className="block text-sm font-medium mb-2 text-foreground">Message</label>
                 <textarea
                   rows={4}
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-emerald-600"
                   placeholder="How can we help?"
                 />
               </div>
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold hover:opacity-90 transition"
+                className="w-full py-3 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-800 text-white font-semibold hover:opacity-90 transition"
               >
                 Send Message
               </button>

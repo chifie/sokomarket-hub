@@ -66,13 +66,13 @@
 
 @layer utilities {
   .bg-gradient-primary {
-    @apply bg-gradient-to-br from-blue-500 to-blue-700;
+    @apply bg-gradient-to-br from-emerald-600 to-emerald-800;
   }
   .bg-gradient-brand {
-    @apply bg-gradient-to-br from-blue-500 via-blue-600 to-rose-500;
+    @apply bg-gradient-to-br from-emerald-600 via-emerald-700 to-amber-500;
   }
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-blue-500 to-rose-500 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-emerald-600 to-amber-500 bg-clip-text text-transparent;
   }
   .shadow-elegant {
     box-shadow: 0 4px 24px -6px rgba(37, 99, 235, 0.25);
