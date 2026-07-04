@@ -86,8 +86,8 @@ export default function AuthPage() {
                   onClick={() => setRole('buyer')}
                   className={`flex flex-col items-center gap-2 rounded-xl border p-4 text-sm transition ${
                     role === 'buyer'
-                      ? 'border-emerald-600 bg-emerald-600/10 text-emerald-700 dark:text-emerald-500'
-                      : 'border-border hover:border-emerald-600/50'
+                      ? 'border-indigo-600 bg-indigo-600/10 text-indigo-700 dark:text-indigo-500'
+                      : 'border-border hover:border-indigo-600/50'
                   }`}
                 >
                   <ShoppingBag className="h-5 w-5" />
@@ -116,7 +116,7 @@ export default function AuthPage() {
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                    className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
                     placeholder="Jane Doe"
                   />
                 </div>
@@ -128,7 +128,7 @@ export default function AuthPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
                   placeholder="you@example.com"
                 />
               </div>
@@ -140,7 +140,7 @@ export default function AuthPage() {
                   minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                  className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
                   placeholder="••••••••"
                 />
               </div>
@@ -154,7 +154,7 @@ export default function AuthPage() {
               <button
                 type="submit"
                 disabled={busy}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-emerald-600 to-amber-500 py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-amber-500 py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
               >
                 {busy && <Loader2 className="h-4 w-4 animate-spin" />}
                 {mode === 'login' ? 'Sign in' : 'Create account'}
@@ -179,14 +179,14 @@ export default function AuthPage() {
               {mode === 'login' ? (
                 <>
                   New to SokoDigital?{' '}
-                  <button className="font-semibold text-emerald-600 hover:underline" onClick={() => setMode('register')}>
+                  <button className="font-semibold text-indigo-600 hover:underline" onClick={() => setMode('register')}>
                     Create an account
                   </button>
                 </>
               ) : (
                 <>
                   Already have an account?{' '}
-                  <button className="font-semibold text-emerald-600 hover:underline" onClick={() => setMode('login')}>
+                  <button className="font-semibold text-indigo-600 hover:underline" onClick={() => setMode('login')}>
                     Sign in
                   </button>
                 </>

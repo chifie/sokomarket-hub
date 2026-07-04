@@ -120,7 +120,7 @@ export const SHOPS = [
     city: "Dar es Salaam",
     rating: 4.9,
     products: 320,
-    hue: "from-amber-500 to-emerald-600",
+    hue: "from-amber-500 to-indigo-600",
     category: "Electronics",
   },
   {
@@ -136,7 +136,7 @@ export const SHOPS = [
     city: "Moshi",
     rating: 5.0,
     products: 96,
-    hue: "from-emerald-600 to-lime-500",
+    hue: "from-indigo-600 to-lime-500",
     category: "Agriculture",
   },
   {
@@ -160,7 +160,7 @@ export const SHOPS = [
     city: "Zanzibar",
     rating: 4.6,
     products: 172,
-    hue: "from-emerald-600 to-emerald-700",
+    hue: "from-indigo-600 to-indigo-700",
     category: "Electronics",
   },
   {
@@ -168,7 +168,7 @@ export const SHOPS = [
     city: "Dodoma",
     rating: 4.8,
     products: 89,
-    hue: "from-emerald-600 to-emerald-800",
+    hue: "from-indigo-600 to-indigo-800",
     category: "Sports",
   },
   {
