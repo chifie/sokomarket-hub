@@ -140,7 +140,7 @@ export function Navbar() {
 
           <Link
             to="/auth"
-            className="shrink-0 rounded-full bg-gradient-to-r from-indigo-700 to-amber-500 px-3 py-2 text-sm font-semibold text-white shadow-md transition hover:opacity-95 sm:px-4"
+            className="shrink-0 rounded-full bg-gradient-accent px-4 py-2 text-sm font-semibold text-white shadow-elegant transition hover:opacity-95 sm:px-5"
           >
             {t("nav.register")}
           </Link>
