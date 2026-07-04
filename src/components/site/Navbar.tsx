@@ -48,7 +48,7 @@ export function Navbar() {
       )}
     >
       {/* Top utility bar */}
-      <div className="hidden bg-indigo-900 text-white sm:block dark:bg-black/40">
+      <div className="hidden bg-secondary text-secondary-foreground sm:block">
         <div className="mx-auto flex h-9 max-w-7xl items-center gap-4 px-4 text-xs sm:px-6 lg:px-8">
           <span className="truncate opacity-90">{t("nav.trust")}</span>
           <div className="ml-auto flex shrink-0 items-center gap-4">
@@ -76,10 +76,10 @@ export function Navbar() {
 
       {/* Main row: logo, horizontal nav, actions — always horizontal, no collapse menu */}
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="flex shrink-0 items-center gap-2">
-          <img src={logoIcon} alt="SokoDigital" className="h-8 w-auto sm:h-9" />
-          <span className="hidden text-lg font-extrabold tracking-tight text-foreground sm:inline">
-            Soko<span className="text-indigo-700 dark:text-indigo-500">Digital</span>
+        <Link to="/" className="group flex shrink-0 items-center gap-2.5">
+          <img src={logoIcon} alt="SokoDigital" className="h-9 w-auto transition-transform group-hover:scale-105 sm:h-10" />
+          <span className="hidden text-xl font-extrabold tracking-tight text-foreground sm:inline">
+            Soko<span className="text-gradient-brand">Digital</span>
           </span>
         </Link>
 
