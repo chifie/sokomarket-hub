@@ -81,7 +81,7 @@ export default function SellerListingsPage() {
           {isSeller && (
             <Link
               to="/dashboard/listings/new"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-700 to-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-700 to-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
             >
               <Plus className="h-4 w-4" />
               Add product
@@ -115,7 +115,7 @@ export default function SellerListingsPage() {
             </p>
             <Link
               to="/dashboard/listings/new"
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-700 to-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-700 to-amber-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
             >
               <Plus className="h-4 w-4" />
               Add your first product
@@ -145,7 +145,7 @@ export default function SellerListingsPage() {
                   </div>
                   <p className="mt-1 text-sm text-muted-foreground">{p.category}</p>
                   <div className="mt-2 flex items-center justify-between">
-                    <span className="font-bold text-emerald-700 dark:text-emerald-500">
+                    <span className="font-bold text-indigo-700 dark:text-indigo-500">
                       {p.currency} {Number(p.price).toLocaleString()}
                     </span>
                     <span className="text-xs text-muted-foreground">

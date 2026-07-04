@@ -48,14 +48,14 @@ export default function DashboardPage() {
       <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-emerald-600 to-amber-500 text-white">
+            <div className="grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-indigo-600 to-amber-500 text-white">
               <Icon className="h-6 w-6" />
             </div>
             <div>
               <h1 className="text-2xl font-bold">Welcome back</h1>
               <p className="text-sm text-muted-foreground">
                 Signed in as <span className="font-medium text-foreground">{user.email}</span> ·{' '}
-                <span className="rounded-full bg-emerald-600/10 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:text-emerald-500">
+                <span className="rounded-full bg-indigo-600/10 px-2 py-0.5 text-xs font-semibold text-indigo-700 dark:text-indigo-500">
                   {label}
                 </span>
               </p>
@@ -100,7 +100,7 @@ export default function DashboardPage() {
               <DashCard icon={<ShoppingBag className="h-5 w-5" />} title="Your orders" desc="Track shipments and past purchases." />
               <DashCard icon={<Package className="h-5 w-5" />} title="Wishlist" desc="Save products for later." />
               <div className="rounded-2xl border border-border bg-card p-6">
-                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600/10 text-emerald-700 dark:text-emerald-500">
+                <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600/10 text-indigo-700 dark:text-indigo-500">
                   <Store className="h-5 w-5" />
                 </div>
                 <h3 className="font-semibold">Become a seller</h3>
@@ -111,7 +111,7 @@ export default function DashboardPage() {
                 <button
                   onClick={becomeSeller}
                   disabled={becomingSeller}
-                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-700 to-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 disabled:opacity-60"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-indigo-700 to-amber-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:opacity-95 disabled:opacity-60"
                 >
                   {becomingSeller && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
                   Start selling
@@ -139,7 +139,7 @@ function DashCard({
 }) {
   const content = (
     <>
-      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600/10 text-emerald-700 dark:text-emerald-500">
+      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600/10 text-indigo-700 dark:text-indigo-500">
         {icon}
       </div>
       <h3 className="font-semibold">{title}</h3>
@@ -149,7 +149,7 @@ function DashCard({
 
   if (to) {
     return (
-      <Link to={to} className="block rounded-2xl border border-border bg-card p-6 transition hover:shadow-elegant hover:border-emerald-600/40">
+      <Link to={to} className="block rounded-2xl border border-border bg-card p-6 transition hover:shadow-elegant hover:border-indigo-600/40">
         {content}
       </Link>
     );

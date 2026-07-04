@@ -88,12 +88,12 @@ export default function AIChatPage() {
 
       <div className="fixed top-16 left-0 right-0 z-40 border-b border-border bg-background/95 backdrop-blur px-4 py-3">
         <div className="max-w-3xl mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-emerald-700 to-emerald-800">
+          <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-700 to-indigo-800">
             <Bot className="w-6 h-6 text-white" />
           </div>
           <div>
             <h2 className="font-semibold text-foreground">SokoDigital AI</h2>
-            <p className="text-sm text-emerald-600">Always ready to help</p>
+            <p className="text-sm text-indigo-600">Always ready to help</p>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function AIChatPage() {
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
-                    ? 'bg-emerald-600 text-white'
+                    ? 'bg-indigo-600 text-white'
                     : 'border border-border bg-card text-foreground'
                 }`}
               >
@@ -121,9 +121,9 @@ export default function AIChatPage() {
             <div className="flex justify-start">
               <div className="flex items-center gap-1 rounded-2xl px-4 py-3 border border-border bg-card">
                 <div className="flex gap-1">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function AIChatPage() {
                   setInput(action.query);
                   setTimeout(() => handleSend(), 100);
                 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap bg-muted text-muted-foreground hover:bg-emerald-100 hover:text-emerald-700 dark:hover:bg-emerald-900/50 transition"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap bg-muted text-muted-foreground hover:bg-indigo-100 hover:text-indigo-700 dark:hover:bg-indigo-900/50 transition"
               >
                 <action.icon className="w-4 h-4" />
                 {action.label}
@@ -158,14 +158,14 @@ export default function AIChatPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              className="flex-1 px-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-emerald-600"
+              className="flex-1 px-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-indigo-600"
             />
             <button
               onClick={handleSend}
               disabled={!input.trim()}
               className={`p-3 rounded-xl transition ${
                 input.trim()
-                  ? 'bg-emerald-600 text-white hover:bg-emerald-700'
+                  ? 'bg-indigo-600 text-white hover:bg-indigo-700'
                   : 'bg-muted text-muted-foreground'
               }`}
             >

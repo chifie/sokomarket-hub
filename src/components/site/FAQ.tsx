@@ -31,7 +31,7 @@ export function FAQ() {
     <section className="py-20 lg:py-28">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <span className="text-sm font-semibold uppercase tracking-widest text-emerald-600">
+          <span className="text-sm font-semibold uppercase tracking-widest text-indigo-600">
             FAQ
           </span>
           <h2 className="mt-2 text-3xl font-black tracking-tight sm:text-4xl lg:text-5xl text-foreground">

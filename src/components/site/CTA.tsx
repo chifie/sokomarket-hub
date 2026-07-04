@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export function CTA() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r from-emerald-600 to-emerald-800 py-24 text-white">
+    <section className="relative overflow-hidden bg-gradient-to-r from-indigo-600 to-indigo-800 py-24 text-white">
       <div className="pointer-events-none absolute inset-0 opacity-25">
         <div className="absolute -top-20 left-1/3 h-80 w-80 rounded-full bg-white/30 blur-3xl" />
         <div className="absolute bottom-0 right-1/4 h-80 w-80 rounded-full bg-yellow-400/50 blur-3xl" />
@@ -24,7 +24,7 @@ export function CTA() {
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link
             to="/marketplace"
-            className="h-12 rounded-full bg-white px-8 font-semibold text-emerald-700 inline-flex items-center justify-center hover:bg-white/90 transition"
+            className="h-12 rounded-full bg-white px-8 font-semibold text-indigo-700 inline-flex items-center justify-center hover:bg-white/90 transition"
           >
             Shop Now
           </Link>

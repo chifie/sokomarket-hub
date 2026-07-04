@@ -24,14 +24,14 @@ const CATS = [
   },
   { icon: Shirt, name: "Fashion", count: "9,320+", tint: "from-amber-500/15 to-amber-500/5" },
   { icon: Sprout, name: "Agriculture", count: "4,150+", tint: "from-green-500/15 to-green-500/5" },
-  { icon: Phone, name: "Phones", count: "6,800+", tint: "from-emerald-600/15 to-emerald-600/5" },
+  { icon: Phone, name: "Phones", count: "6,800+", tint: "from-indigo-600/15 to-indigo-600/5" },
   { icon: Laptop, name: "Computers", count: "3,240+", tint: "from-indigo-500/15 to-indigo-500/5" },
   { icon: Sofa, name: "Furniture", count: "2,100+", tint: "from-orange-500/15 to-orange-500/5" },
   { icon: Sparkles, name: "Beauty", count: "5,600+", tint: "from-pink-500/15 to-pink-500/5" },
   { icon: UtensilsCrossed, name: "Food", count: "7,900+", tint: "from-red-500/15 to-red-500/5" },
   { icon: Car, name: "Automotive", count: "1,850+", tint: "from-slate-500/15 to-slate-500/5" },
   { icon: BookOpen, name: "Books", count: "3,110+", tint: "from-yellow-500/15 to-yellow-500/5" },
-  { icon: Dumbbell, name: "Sports", count: "2,300+", tint: "from-emerald-600/15 to-emerald-600/5" },
+  { icon: Dumbbell, name: "Sports", count: "2,300+", tint: "from-indigo-600/15 to-indigo-600/5" },
   { icon: HeartPulse, name: "Health", count: "4,700+", tint: "from-amber-500/15 to-amber-500/5" },
 ];
 
