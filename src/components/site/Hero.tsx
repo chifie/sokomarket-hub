@@ -1,137 +1,197 @@
 import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Truck, BadgeCheck, Package, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import {
+  ArrowRight,
+  Smartphone,
+  Shirt,
+  Sofa,
+  Sprout,
+  Laptop,
+  Sparkles,
+  Car,
+  Dumbbell,
+  ChevronRight,
+  Zap,
+  Truck,
+  ShieldCheck,
+} from "lucide-react";
+
+const RAIL = [
+  { icon: Smartphone, name: "Electronics" },
+  { icon: Shirt, name: "Fashion" },
+  { icon: Laptop, name: "Computers" },
+  { icon: Sofa, name: "Home & Furniture" },
+  { icon: Sparkles, name: "Beauty & Health" },
+  { icon: Sprout, name: "Agriculture" },
+  { icon: Car, name: "Automotive" },
+  { icon: Dumbbell, name: "Sports & Outdoors" },
+];
+
+const MINI_DEALS = [
+  {
+    title: "Consumer Electronics",
+    img: "https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  {
+    title: "Fashion & Style",
+    img: "https://images.pexels.com/photos/934070/pexels-photo-934070.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  {
+    title: "Home Essentials",
+    img: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+  {
+    title: "Beauty & Care",
+    img: "https://images.pexels.com/photos/2113855/pexels-photo-2113855.jpeg?auto=compress&cs=tinysrgb&w=600",
+  },
+];
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-amber-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 pt-28 pb-20 lg:pt-36 lg:pb-28">
-      {/* animated blobs */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -left-24 top-24 h-96 w-96 rounded-full bg-indigo-500/20 dark:bg-indigo-700/20 blur-3xl animate-pulse" />
-        <div className="absolute right-0 top-1/3 h-96 w-96 rounded-full bg-indigo-500/20 dark:bg-indigo-800/20 blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-amber-400/20 dark:bg-amber-500/20 blur-3xl" />
-      </div>
-
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="inline-flex items-center gap-2 rounded-full border border-indigo-600/20 bg-indigo-600/10 dark:bg-indigo-600/20 px-3 py-1 text-xs font-semibold text-indigo-700 dark:text-indigo-500">
-            <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
-            The World's Trusted Digital Marketplace
-          </span>
-          <h1 className="mt-5 text-4xl font-black leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
-            Buy and Sell Across{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-indigo-800 bg-clip-text text-transparent">
-              worldwide
-            </span>{" "}
-            with Confidence.
-          </h1>
-          <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
-            SokoDigital connects trusted sellers and millions of buyers through
-            a fast, secure, and modern online marketplace built for the world.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
+    <section className="bg-muted/40 pt-24 pb-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-4 lg:grid-cols-[240px_1fr_280px]">
+          {/* Category rail (Amazon-style) */}
+          <aside className="hidden lg:block overflow-hidden rounded-lg border border-border bg-card">
+            <div className="bg-secondary px-4 py-3 text-sm font-bold uppercase tracking-wide text-secondary-foreground">
+              Shop by category
+            </div>
+            <ul className="divide-y divide-border">
+              {RAIL.map((c) => (
+                <li key={c.name}>
+                  <Link
+                    to="/categories"
+                    className="group flex items-center justify-between px-4 py-2.5 text-sm text-foreground/80 hover:bg-muted hover:text-accent"
+                  >
+                    <span className="flex items-center gap-2.5">
+                      <c.icon className="h-4 w-4 text-muted-foreground group-hover:text-accent" />
+                      {c.name}
+                    </span>
+                    <ChevronRight className="h-4 w-4 opacity-0 transition group-hover:opacity-100" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <Link
               to="/marketplace"
-              className="h-12 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-800 px-6 text-base font-semibold text-white shadow-md transition hover:scale-[1.02] hover:opacity-95 inline-flex items-center justify-center"
+              className="block border-t border-border bg-muted/50 px-4 py-3 text-center text-sm font-semibold text-accent hover:bg-muted"
             >
-              Explore Marketplace <ArrowRight className="ml-1 h-4 w-4" />
+              See all departments
             </Link>
-            <Link
-              to="/chat"
-              className="h-12 rounded-full border border-border bg-background/60 px-6 text-base font-semibold backdrop-blur transition hover:bg-background inline-flex items-center justify-center text-foreground"
-            >
-              Ask AI Assistant
-            </Link>
-          </div>
+          </aside>
 
-          <div className="mt-10 grid max-w-lg grid-cols-2 gap-3 sm:grid-cols-4">
-            {[
-              { icon: ShieldCheck, label: "Secure Payments" },
-              { icon: BadgeCheck, label: "Verified Sellers" },
-              { icon: Truck, label: "Fast Delivery" },
-              { icon: Package, label: "1000s of Products" },
-            ].map((b) => (
-              <div
-                key={b.label}
-                className="flex items-center gap-2 rounded-xl border border-border/60 bg-background/70 px-3 py-2 text-xs font-medium backdrop-blur"
+          {/* Main banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative overflow-hidden rounded-lg border border-border bg-card"
+          >
+            <div className="relative aspect-[16/9] w-full lg:aspect-auto lg:h-[420px]">
+              <img
+                src="https://images.pexels.com/photos/1005638/pexels-photo-1005638.jpeg?auto=compress&cs=tinysrgb&w=1600"
+                alt="Global marketplace"
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
+              <div className="absolute inset-0 flex items-center">
+                <div className="max-w-lg p-6 sm:p-10 text-secondary-foreground">
+                  <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-primary-foreground">
+                    <Zap className="h-3 w-3" /> Mega Sale
+                  </span>
+                  <h1 className="mt-4 text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">
+                    Shop the world.
+                    <br />
+                    <span className="text-primary">Delivered to you.</span>
+                  </h1>
+                  <p className="mt-3 text-sm text-white/80 sm:text-base">
+                    Millions of products from verified global sellers — save up to 70%.
+                  </p>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link
+                      to="/marketplace"
+                      className="inline-flex h-11 items-center rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground shadow-md transition hover:brightness-110"
+                    >
+                      Shop deals <ArrowRight className="ml-1.5 h-4 w-4" />
+                    </Link>
+                    <Link
+                      to="/dashboard"
+                      className="inline-flex h-11 items-center rounded-full border border-white/30 bg-white/10 px-6 text-sm font-semibold text-white backdrop-blur hover:bg-white/20"
+                    >
+                      Start selling
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Side promo stack */}
+          <div className="hidden lg:flex flex-col gap-4">
+            <div className="relative overflow-hidden rounded-lg border border-border bg-card p-4">
+              <div className="text-xs font-semibold uppercase text-primary">Today only</div>
+              <div className="mt-1 text-lg font-black">Up to 60% off Electronics</div>
+              <img
+                src="https://images.pexels.com/photos/1841841/pexels-photo-1841841.jpeg?auto=compress&cs=tinysrgb&w=600"
+                alt="Electronics deal"
+                className="mt-3 h-32 w-full rounded object-cover"
+              />
+              <Link to="/marketplace" className="mt-3 inline-block text-sm font-semibold text-accent hover:underline">
+                Shop now →
+              </Link>
+            </div>
+            <div className="rounded-lg border border-border bg-secondary p-4 text-secondary-foreground">
+              <div className="text-xs font-semibold uppercase text-primary">Sign in for the best experience</div>
+              <div className="mt-2 text-sm text-white/70">Track orders, save favorites, and get personalized deals.</div>
+              <Link
+                to="/auth"
+                className="mt-3 inline-flex h-9 items-center rounded-full bg-primary px-4 text-xs font-bold text-primary-foreground hover:brightness-110"
               >
-                <b.icon className="h-4 w-4 shrink-0 text-indigo-600" />
-                <span className="truncate text-foreground">{b.label}</span>
-              </div>
-            ))}
+                Sign in / Register
+              </Link>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="relative"
-        >
-          <div className="relative mx-auto aspect-square w-full max-w-[500px] overflow-hidden rounded-[2rem] shadow-xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-indigo-800 opacity-90" />
-            <img
-              src="https://images.pexels.com/photos/1229861/pexels-photo-1229861.jpeg?auto=compress&cs=tinysrgb&w=800"
-              alt="Marketplace buyers and sellers"
-              className="relative h-full w-full object-cover mix-blend-luminosity opacity-90"
-            />
-            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-600/40 via-transparent to-indigo-500/30" />
-          </div>
+        {/* Mini deal tiles (Alibaba style) */}
+        <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {MINI_DEALS.map((d) => (
+            <Link
+              key={d.title}
+              to="/marketplace"
+              className="group overflow-hidden rounded-lg border border-border bg-card p-3 transition hover:shadow-md"
+            >
+              <div className="text-sm font-bold text-foreground">{d.title}</div>
+              <div className="mt-2 aspect-square overflow-hidden rounded">
+                <img
+                  src={d.img}
+                  alt={d.title}
+                  className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                />
+              </div>
+              <div className="mt-2 text-xs font-semibold text-accent">Shop now →</div>
+            </Link>
+          ))}
+        </div>
 
-          {/* floating cards */}
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="absolute -left-2 top-10 rounded-2xl bg-card border border-border p-3 shadow-lg dark:bg-gray-800 sm:-left-6"
-          >
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-yellow-500/15 text-yellow-500">
-                <Star className="h-5 w-5 fill-yellow-500" />
+        {/* Trust strip */}
+        <div className="mt-4 grid grid-cols-1 gap-4 rounded-lg border border-border bg-card p-4 sm:grid-cols-3">
+          {[
+            { icon: Truck, title: "Free global shipping", sub: "On orders over $50" },
+            { icon: ShieldCheck, title: "Buyer protection", sub: "Full refund if not delivered" },
+            { icon: Zap, title: "Fast checkout", sub: "Pay with card, PayPal, Stripe" },
+          ].map((t) => (
+            <div key={t.title} className="flex items-center gap-3">
+              <div className="grid h-10 w-10 place-items-center rounded-full bg-primary/10 text-primary">
+                <t.icon className="h-5 w-5" />
               </div>
               <div>
-                <div className="text-xs text-muted-foreground">Avg. Rating</div>
-                <div className="text-sm font-bold text-foreground">4.9 / 5.0</div>
+                <div className="text-sm font-bold text-foreground">{t.title}</div>
+                <div className="text-xs text-muted-foreground">{t.sub}</div>
               </div>
             </div>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 5, repeat: Infinity }}
-            className="absolute right-0 top-1/3 rounded-2xl bg-card border border-border p-3 shadow-lg dark:bg-gray-800"
-          >
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-indigo-600/15 text-indigo-600">
-                <Package className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">Daily Orders</div>
-                <div className="text-sm font-bold text-foreground">10,240+</div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4.5, repeat: Infinity, delay: 0.5 }}
-            className="absolute bottom-6 left-6 rounded-2xl bg-card border border-border p-3 shadow-lg dark:bg-gray-800"
-          >
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-indigo-600/15 text-indigo-600">
-                <BadgeCheck className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-xs text-muted-foreground">Status</div>
-                <div className="text-sm font-bold text-foreground">Verified Seller</div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

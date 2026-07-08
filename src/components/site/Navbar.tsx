@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Search, ShoppingCart, Moon, Sun, Store, HelpCircle, Globe } from "lucide-react";
+import { Search, ShoppingCart, Moon, Sun, MapPin, ChevronDown, User, Menu, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/use-theme";
 import { useLang } from "@/lib/i18n";
-import logoIcon from "@/assets/brand/logo-icon.png";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,120 +29,121 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isActive = (path: string) => {
-    if (path === "/") return location.pathname === "/";
-    return location.pathname.startsWith(path);
-  };
+  const isActive = (path: string) =>
+    path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
 
   return (
     <motion.header
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.35 }}
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-background/95 border-b border-border/60 shadow-sm backdrop-blur-md"
-          : "bg-background/80 backdrop-blur-md"
+        "fixed inset-x-0 top-0 z-50",
+        scrolled ? "shadow-md" : ""
       )}
     >
-      {/* Top utility bar */}
-      <div className="hidden bg-secondary text-secondary-foreground sm:block">
-        <div className="mx-auto flex h-9 max-w-7xl items-center gap-4 px-4 text-xs sm:px-6 lg:px-8">
-          <span className="truncate opacity-90">{t("nav.trust")}</span>
-          <div className="ml-auto flex shrink-0 items-center gap-4">
-            <Link to="/dashboard" className="flex items-center gap-1.5 opacity-90 transition hover:opacity-100">
-              <Store className="h-3.5 w-3.5" />
-              {t("nav.sell")}
-            </Link>
-            <Link to="/contact" className="hidden items-center gap-1.5 opacity-90 transition hover:opacity-100 md:flex">
-              <HelpCircle className="h-3.5 w-3.5" />
-              {t("nav.help")}
-            </Link>
-            <button
-              onClick={() => setLang(lang === "en" ? "sw" : "en")}
-              className="flex items-center gap-1.5 rounded-full border border-white/20 px-2 py-0.5 opacity-90 transition hover:opacity-100"
-              aria-label="Switch language"
-            >
-              <Globe className="h-3 w-3" />
-              <span className="font-semibold uppercase">{lang}</span>
-              <span className="opacity-60">/ {lang === "en" ? "sw" : "en"}</span>
+      {/* Top navy bar */}
+      <div className="bg-secondary text-secondary-foreground">
+        <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-3 sm:px-6 lg:px-8">
+          {/* Brand */}
+          <Link to="/" className="flex shrink-0 items-center gap-1 rounded border border-transparent px-2 py-1.5 hover:border-white/40">
+            <span className="text-xl font-black tracking-tight">
+              Soko<span className="text-primary">Digital</span>
+            </span>
+            <span className="text-[10px] text-white/60 mt-2">.com</span>
+          </Link>
+
+          {/* Deliver to */}
+          <button className="hidden md:flex shrink-0 items-center gap-1 rounded border border-transparent px-2 py-1.5 text-left text-xs hover:border-white/40">
+            <MapPin className="h-4 w-4 text-white/70" />
+            <div className="leading-tight">
+              <div className="text-white/60">Deliver to</div>
+              <div className="text-sm font-bold">Worldwide</div>
+            </div>
+          </button>
+
+          {/* Search */}
+          <div className="flex min-w-0 flex-1 items-stretch overflow-hidden rounded-md bg-white ring-2 ring-transparent focus-within:ring-primary">
+            <button className="hidden sm:flex shrink-0 items-center gap-1 bg-muted px-3 text-xs font-semibold text-foreground hover:bg-muted/80">
+              All <ChevronDown className="h-3 w-3" />
             </button>
-          </div>
-        </div>
-      </div>
-
-
-      {/* Main row: logo, horizontal nav, actions — always horizontal, no collapse menu */}
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="group flex shrink-0 items-center gap-2.5">
-          <img src={logoIcon} alt="SokoDigital" className="h-9 w-auto transition-transform group-hover:scale-105 sm:h-10" />
-          <span className="hidden text-xl font-extrabold tracking-tight text-foreground sm:inline">
-            Soko<span className="text-gradient-brand">Digital</span>
-          </span>
-        </Link>
-
-        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {NAV_LINKS.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className={cn(
-                "shrink-0 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                isActive(l.to)
-                  ? "text-indigo-700 bg-indigo-50 dark:text-indigo-500 dark:bg-indigo-950/50"
-                  : "text-foreground/70 hover:bg-muted hover:text-foreground"
-              )}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-          <div className="relative hidden xl:block">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               placeholder={t("nav.search")}
-              className="h-10 w-56 rounded-full border border-border bg-background/80 pl-9 pr-4 text-sm outline-none transition focus:border-indigo-600 focus:ring-2 focus:ring-indigo-600/20 text-foreground 2xl:w-72"
+              className="min-w-0 flex-1 bg-white px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground"
             />
+            <button aria-label="Search" className="grid shrink-0 place-items-center bg-primary px-4 text-primary-foreground hover:brightness-110">
+              <Search className="h-5 w-5" />
+            </button>
           </div>
+
+          {/* Language */}
           <button
-            aria-label="Search"
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-foreground/80 transition hover:bg-muted xl:hidden"
+            onClick={() => setLang(lang === "en" ? "sw" : "en")}
+            className="hidden sm:flex shrink-0 items-center gap-1 rounded border border-transparent px-2 py-1.5 text-xs font-bold hover:border-white/40"
           >
-            <Search className="h-5 w-5" />
+            <Globe className="h-4 w-4" />
+            <span className="uppercase">{lang}</span>
           </button>
 
-          <button
-            aria-label="Cart"
-            className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-foreground/80 transition hover:bg-muted"
+          {/* Account */}
+          <Link
+            to="/auth"
+            className="hidden lg:flex shrink-0 flex-col rounded border border-transparent px-2 py-1.5 text-xs leading-tight hover:border-white/40"
           >
-            <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-indigo-700 px-1 text-[10px] font-bold text-white">
-              3
+            <span className="text-white/60">Hello, sign in</span>
+            <span className="text-sm font-bold flex items-center gap-1">
+              Account <ChevronDown className="h-3 w-3" />
             </span>
-          </button>
+          </Link>
+          <Link
+            to="/auth"
+            aria-label="Account"
+            className="grid h-10 w-10 shrink-0 place-items-center rounded lg:hidden hover:bg-white/10"
+          >
+            <User className="h-5 w-5" />
+          </Link>
+
+          {/* Theme */}
           <button
             aria-label="Toggle dark mode"
             onClick={toggleTheme}
-            className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-foreground/80 transition hover:bg-muted"
+            className="grid h-10 w-10 shrink-0 place-items-center rounded hover:bg-white/10"
           >
             {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
           </button>
-          <Link
-            to="/auth"
-            className="hidden shrink-0 rounded-full px-4 py-2 font-medium text-foreground/80 transition hover:bg-muted sm:inline-block"
-          >
-            {t("nav.login")}
-          </Link>
 
-          <Link
-            to="/auth"
-            className="shrink-0 rounded-full bg-gradient-accent px-4 py-2 text-sm font-semibold text-white shadow-elegant transition hover:opacity-95 sm:px-5"
-          >
-            {t("nav.register")}
+          {/* Cart */}
+          <Link to="/marketplace" className="relative flex shrink-0 items-center gap-1 rounded border border-transparent px-2 py-1.5 hover:border-white/40">
+            <div className="relative">
+              <ShoppingCart className="h-6 w-6" />
+              <span className="absolute -right-2 -top-2 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-[10px] font-black text-primary-foreground">
+                3
+              </span>
+            </div>
+            <span className="hidden xl:inline text-sm font-bold">Cart</span>
           </Link>
+        </div>
+
+        {/* Secondary nav */}
+        <div className="border-t border-white/10 bg-secondary/95">
+          <div className="mx-auto flex h-10 max-w-7xl items-center gap-1 overflow-x-auto px-3 sm:px-6 lg:px-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <button className="flex shrink-0 items-center gap-1.5 rounded border border-transparent px-2 py-1 text-sm font-bold text-white hover:border-white/40">
+              <Menu className="h-4 w-4" /> All
+            </button>
+            {NAV_LINKS.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                className={cn(
+                  "shrink-0 rounded border border-transparent px-2 py-1 text-sm font-medium text-white/90 hover:border-white/40",
+                  isActive(l.to) && "border-white/60 font-bold"
+                )}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <span className="ml-auto shrink-0 text-xs text-primary font-bold">Free shipping on orders $50+</span>
+          </div>
         </div>
       </div>
     </motion.header>

@@ -4,31 +4,31 @@
 
 @layer base {
   :root {
-    /* SokoDigital — Premium Indigo / Cyan / Amber */
-    --background: 210 40% 98%;          /* #F8FAFC */
-    --foreground: 222 47% 11%;          /* #0F172A */
+    /* SokoDigital — Marketplace palette: Navy header + Orange CTA (Amazon/eBay/Alibaba inspired) */
+    --background: 0 0% 100%;
+    --foreground: 210 20% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 210 20% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 239 84% 60%;             /* #4F46E5 indigo */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 222 47% 11%;           /* deep slate */
-    --secondary-foreground: 210 40% 98%;
-    --muted: 214 32% 94%;
-    --muted-foreground: 215 16% 45%;    /* #64748B */
-    --accent: 189 94% 43%;              /* #06B6D4 cyan */
-    --accent-foreground: 222 47% 11%;
-    --highlight: 38 92% 50%;            /* #F59E0B amber */
-    --destructive: 0 84% 60%;           /* #EF4444 */
-    --destructive-foreground: 210 40% 98%;
-    --success: 142 71% 45%;             /* #22C55E */
+    --popover-foreground: 210 20% 12%;
+    --primary: 28 96% 52%;              /* #F59331 marketplace orange CTA */
+    --primary-foreground: 210 30% 10%;
+    --secondary: 210 45% 14%;           /* #131A22 deep navy header */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 16% 40%;
+    --accent: 199 89% 42%;              /* #0E7DBE trust blue links */
+    --accent-foreground: 0 0% 100%;
+    --highlight: 45 100% 51%;           /* #FFCE07 rating gold */
+    --destructive: 0 78% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 142 71% 38%;
     --warning: 38 92% 50%;
-    --danger: 0 84% 60%;
-    --border: 214 32% 88%;              /* #E2E8F0 */
-    --input: 214 32% 88%;
-    --ring: 239 84% 60%;
-    --radius: 0.85rem;
+    --danger: 0 78% 48%;
+    --border: 214 20% 90%;
+    --input: 214 20% 88%;
+    --ring: 28 96% 52%;
+    --radius: 0.5rem;
   }
 
   .dark {
@@ -73,19 +73,22 @@
 
 @layer utilities {
   .bg-gradient-primary {
-    @apply bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800;
+    background: linear-gradient(135deg, #F59331 0%, #EF6C1A 100%);
   }
   .bg-gradient-brand {
-    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 45%, #06B6D4 100%);
+    background: linear-gradient(135deg, #131A22 0%, #232F3E 100%);
   }
   .bg-gradient-accent {
-    background: linear-gradient(135deg, #4F46E5 0%, #F59E0B 100%);
+    background: linear-gradient(135deg, #F59331 0%, #FFCE07 100%);
   }
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent;
+    background: linear-gradient(90deg, #F59331, #FFCE07);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .text-gradient-brand {
-    background: linear-gradient(90deg, #4F46E5, #06B6D4);
+    background: linear-gradient(90deg, #F59331, #FFCE07);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
