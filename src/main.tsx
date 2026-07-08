@@ -1,6 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
-import { ConvexAuthProvider } from "@convex-dev/auth/react";
-import { ConvexReactClient } from "convex/react";
+import { ThemeProvider } from "@/hooks/use-theme";
 import React, { StrictMode, useEffect, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
@@ -20,21 +19,17 @@ function RouteLoading() {
   );
 }
 
-/** Hard guard so runtime errors never leave the preview as a blank page. */
+/** Error boundary that shows a readable error instead of a blank white page. */
 class RootErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; message: string; stack: string }
 > {
   state = { hasError: false, message: "", stack: "" };
   static getDerivedStateFromError(error: Error) {
-    return {
-      hasError: true,
-      message: error.message || "Unknown runtime error",
-      stack: error.stack || "",
-    };
+    return { hasError: true, message: error.message || "Unknown runtime error", stack: error.stack || "" };
   }
   componentDidCatch(err: Error) {
-    console.error("[WebContainer preview] Root crash:", err);
+    console.error("[Preview] Root crash:", err);
   }
   render() {
     if (this.state.hasError) {
@@ -42,13 +37,9 @@ class RootErrorBoundary extends React.Component<
         <div className="min-h-screen flex items-center justify-center bg-background text-foreground p-6">
           <div className="max-w-lg text-center">
             <p className="text-sm font-semibold">Preview runtime error</p>
-            <p className="mt-2 text-xs text-muted-foreground break-words">
-              {this.state.message}
-            </p>
+            <p className="mt-2 text-xs text-muted-foreground break-words">{this.state.message}</p>
             {this.state.stack && (
-              <pre className="mt-3 text-left text-[10px] leading-4 text-muted-foreground/80 max-h-40 overflow-auto rounded border border-border/60 p-2">
-                {this.state.stack}
-              </pre>
+              <pre className="mt-3 text-left text-[10px] leading-4 text-muted-foreground/80 max-h-40 overflow-auto rounded border border-border/60 p-2">{this.state.stack}</pre>
             )}
           </div>
         </div>
@@ -58,17 +49,11 @@ class RootErrorBoundary extends React.Component<
   }
 }
 
-const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
-
 function RouteSyncer() {
   const location = useLocation();
   useEffect(() => {
-    window.parent.postMessage(
-      { type: "iframe-route-change", path: location.pathname },
-      "*",
-    );
+    window.parent.postMessage({ type: "iframe-route-change", path: location.pathname }, "*");
   }, [location.pathname]);
-
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
       if (event.data?.type === "navigate") {
@@ -79,26 +64,25 @@ function RouteSyncer() {
     window.addEventListener("message", handleMessage);
     return () => window.removeEventListener("message", handleMessage);
   }, []);
-
   return null;
 }
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RootErrorBoundary>
-      <ConvexAuthProvider client={convex}>
+      <ThemeProvider defaultTheme="system" storageKey="soko-digital-theme">
         <BrowserRouter>
           <RouteSyncer />
           <Suspense fallback={<RouteLoading />}>
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path="/auth" element={<AuthPage redirectAfterAuth="/" />} />
+              <Route path="/auth" element={<AuthPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
         <Toaster />
-      </ConvexAuthProvider>
+      </ThemeProvider>
     </RootErrorBoundary>
   </StrictMode>,
 );
