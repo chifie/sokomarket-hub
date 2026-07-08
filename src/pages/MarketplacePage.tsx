@@ -14,10 +14,17 @@ const categories = ['All', 'Electronics', 'Fashion', 'Agriculture', 'Phones', 'C
 const FALLBACK_IMAGES = Object.values(PRODUCT_IMAGES);
 
 export default function MarketplacePage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'All';
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [liveProducts, setLiveProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const c = searchParams.get('category') || 'All';
+    setSelectedCategory(c);
+  }, [searchParams]);
 
   useEffect(() => {
     let cancelled = false;
