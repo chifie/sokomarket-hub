@@ -73,19 +73,22 @@
 
 @layer utilities {
   .bg-gradient-primary {
-    @apply bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800;
+    background: linear-gradient(135deg, #F59331 0%, #EF6C1A 100%);
   }
   .bg-gradient-brand {
-    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 45%, #06B6D4 100%);
+    background: linear-gradient(135deg, #131A22 0%, #232F3E 100%);
   }
   .bg-gradient-accent {
-    background: linear-gradient(135deg, #4F46E5 0%, #F59E0B 100%);
+    background: linear-gradient(135deg, #F59331 0%, #FFCE07 100%);
   }
   .text-gradient-primary {
-    @apply bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent;
+    background: linear-gradient(90deg, #F59331, #FFCE07);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .text-gradient-brand {
-    background: linear-gradient(90deg, #4F46E5, #06B6D4);
+    background: linear-gradient(90deg, #F59331, #FFCE07);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
