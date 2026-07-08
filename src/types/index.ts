@@ -299,6 +299,23 @@ export interface FilterState {
   onSale: boolean;
 }
 
+// ===== Testimonial & Stat Types =====
+export interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string;
+  content: string;
+  rating: number;
+}
+
+export interface Stat {
+  value: string;
+  label: string;
+  icon: string;
+  suffix?: string;
+}
+
 // ===== Flash Sale Types =====
 export interface FlashSale {
   id: string;
