@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Heart, Star, ShoppingCart, Grid, List } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
@@ -13,10 +14,17 @@ const categories = ['All', 'Electronics', 'Fashion', 'Agriculture', 'Phones', 'C
 const FALLBACK_IMAGES = Object.values(PRODUCT_IMAGES);
 
 export default function MarketplacePage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'All';
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [liveProducts, setLiveProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const c = searchParams.get('category') || 'All';
+    setSelectedCategory(c);
+  }, [searchParams]);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,7 +86,14 @@ export default function MarketplacePage() {
             {categories.slice(0, 8).map((category) => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  if (category === 'All') {
+                    setSearchParams({});
+                  } else {
+                    setSearchParams({ category });
+                  }
+                }}
                 className={`px-4 py-2 rounded-lg whitespace-nowrap font-medium transition ${
                   selectedCategory === category
                     ? 'bg-indigo-600 text-white'

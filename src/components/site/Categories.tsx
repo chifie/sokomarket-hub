@@ -40,7 +40,7 @@ export function Categories() {
               transition={{ duration: 0.3, delay: i * 0.03 }}
             >
               <Link
-                to="/marketplace"
+                to={`/marketplace?category=${encodeURIComponent(c.name.split(" ")[0])}`}
                 className="group block overflow-hidden rounded-lg border border-border bg-card transition hover:shadow-md"
               >
                 <div className="aspect-square overflow-hidden bg-muted">
