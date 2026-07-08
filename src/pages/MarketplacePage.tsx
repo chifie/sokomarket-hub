@@ -86,7 +86,14 @@ export default function MarketplacePage() {
             {categories.slice(0, 8).map((category) => (
               <button
                 key={category}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  if (category === 'All') {
+                    setSearchParams({});
+                  } else {
+                    setSearchParams({ category });
+                  }
+                }}
                 className={`px-4 py-2 rounded-lg whitespace-nowrap font-medium transition ${
                   selectedCategory === category
                     ? 'bg-indigo-600 text-white'
