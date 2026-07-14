@@ -154,6 +154,7 @@ function AboutPage() {
         </div>
       </div>
       <Footer />
+    </div>
   );
 }
 
