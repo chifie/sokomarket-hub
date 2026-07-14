@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { AIAssistant } from "@/components/ai/AIAssistant";
 import { Hero } from "@/components/landing/Hero";
 import { FeaturedCategories } from "@/components/landing/FeaturedCategories";
 import { ProductSection } from "@/components/landing/ProductSection";
@@ -33,7 +32,6 @@ export default function Landing() {
         <Newsletter />
       </main>
       <Footer />
-      <AIAssistant />
     </motion.div>
   );
 }
