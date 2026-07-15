@@ -21,6 +21,7 @@ import AuthPage from '@/pages/AuthPage';
 import DashboardPage from '@/pages/DashboardPage';
 import SellerListingsPage from '@/pages/SellerListingsPage';
 import SellerProductFormPage from '@/pages/SellerProductFormPage';
+import ProductDetailPage from '@/pages/ProductDetailPage';
 import { AuthProvider } from '@/lib/auth';
 import { LanguageProvider } from '@/lib/i18n';
 import { AIWidget } from '@/components/site/AIWidget';
@@ -238,6 +239,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/shops" element={<ShopsPage />} />
             <Route path="/deals" element={<DealsPage />} />
