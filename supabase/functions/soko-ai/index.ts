@@ -1,4 +1,4 @@
-import { convertToModelMessages, streamText, type UIMessage } from "npm:ai";
+import { generateText } from "npm:ai";
 import { createLovableAiGatewayProvider } from "../_shared/ai-gateway.ts";
 
 const corsHeaders = {
@@ -7,47 +7,39 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
-const SYSTEM_PROMPT = `You are Soko AI, the intelligent assistant for SokoDigital — a global AI-powered marketplace connecting buyers and sellers worldwide.
-
-You help with:
-- BUYERS: finding products, comparing prices, tracking orders, payment methods, shipping, returns, and personalized recommendations.
-- SELLERS: writing product descriptions, SEO titles, pricing strategy, inventory tips, marketing ideas, and store growth advice.
-
-Rules:
-- Be concise, friendly, and specific. Prefer short paragraphs and bullet lists.
-- If the user writes in Swahili, reply in Swahili. Otherwise reply in English.
-- Never invent order numbers, prices, or seller data. If you don't know, say so and suggest where to look in the dashboard.
-- For payments say: Visa/Mastercard, PayPal, and mobile wallets — secured end-to-end.
-- For shipping say: worldwide, typically 1–7 days depending on location.
-- To become a seller: Register → Dashboard → Add product (photos, price, specs).`;
+const SYSTEM_PROMPT = `You are Soko AI, the assistant for SokoDigital, a global AI-powered marketplace connecting buyers and sellers worldwide.
+- Help BUYERS find products, compare prices, understand shipping/returns/payments, and track orders.
+- Help SELLERS write listings, price items, and grow their store.
+- Be concise, friendly, and specific. Use short paragraphs and bullet points.
+- If the user writes in Swahili, reply in Swahili; otherwise reply in English.
+- Payments: Visa/Mastercard, PayPal, mobile wallets — secured end-to-end.
+- Shipping: worldwide, typically 1–7 days.
+- To sell: Register → Dashboard → Add product (photos, price, specs).
+Never invent order numbers, prices, or private seller data.`;
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
-
   try {
     const key = Deno.env.get("LOVABLE_API_KEY");
     if (!key) {
       return new Response(JSON.stringify({ error: "Missing LOVABLE_API_KEY" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
-
-    const { messages }: { messages: UIMessage[] } = await req.json();
+    const { messages, lang } = await req.json();
     const gateway = createLovableAiGatewayProvider(key);
-
-    const result = streamText({
+    const { text } = await generateText({
       model: gateway("google/gemini-3-flash-preview"),
-      system: SYSTEM_PROMPT,
-      messages: await convertToModelMessages(messages),
+      system: SYSTEM_PROMPT + (lang === "sw" ? "\nReply in Swahili." : ""),
+      messages: (messages ?? []).map((m: any) => ({ role: m.role, content: m.content })),
     });
-
-    return result.toUIMessageStreamResponse({ headers: corsHeaders });
+    return new Response(JSON.stringify({ text }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (e) {
     console.error("soko-ai error", e);
     return new Response(JSON.stringify({ error: String(e) }), {
-      status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 });
