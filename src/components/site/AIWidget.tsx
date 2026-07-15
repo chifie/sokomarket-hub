@@ -1,41 +1,22 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Bot, Send, X, MessageCircle } from 'lucide-react';
+import { Bot, Send, X, MessageCircle, Loader2 } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
+import { supabase } from '@/integrations/supabase/client';
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
-function reply(input: string, lang: 'en' | 'sw'): string {
-  const q = input.toLowerCase();
+function fallbackReply(input: string, lang: 'en' | 'sw'): string {
   const sw = lang === 'sw';
-  if (/(hi|hello|jambo|habari|mambo)/.test(q))
-    return sw
-      ? 'Habari! Karibu SokoDigital. Ungependa kutafuta bidhaa gani leo?'
-      : "Hello! Welcome to SokoDigital. What are you shopping for today?";
-  if (/(track|order|oda|fuatilia)/.test(q))
-    return sw
-      ? 'Nenda kwenye Dashibodi > Oda zangu ili kufuatilia oda yako kwa muda halisi.'
-      : 'Go to Dashboard > Your orders to track your order in real time.';
-  if (/(pay|payment|malipo|lipa)/.test(q))
-    return sw
-      ? 'Tunapokea kadi za Visa/Mastercard, PayPal, na pochi za simu.'
-      : 'We accept Visa/Mastercard, PayPal, and mobile wallets — all secured end-to-end.';
-  if (/(sell|uza|muuz)/.test(q))
-    return sw
-      ? 'Jisajili kama Muuzaji kisha nenda Dashibodi > Ongeza bidhaa kupakia picha, bei na maelezo.'
-      : 'Register as a Seller, then go to Dashboard > Add a product to upload photos, price and specs.';
-  if (/(deliver|ship|usafirish)/.test(q))
-    return sw
-      ? 'Usafirishaji hutolewa duniani kote; muda ni siku 1–7 kulingana na eneo.'
-      : 'We deliver worldwide, typically within 1–7 days depending on your location.';
   return sw
-    ? 'Naweza kukusaidia kutafuta bidhaa, malipo, oda, au kuwa muuzaji. Uliza chochote!'
-    : 'I can help with finding products, payments, orders, or becoming a seller. Ask me anything!';
+    ? 'Samahani, muunganisho umekwama kwa muda. Jaribu tena baada ya muda mfupi.'
+    : "Sorry, I couldn't reach the assistant just now. Please try again in a moment.";
 }
 
 export function AIWidget() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
   const { t, lang } = useLang();
   const location = useLocation();
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -47,20 +28,31 @@ export function AIWidget() {
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
-  }, [msgs, open]);
+  }, [msgs, open, loading]);
 
-  // Hide on the full-page /chat route
   if (location.pathname.startsWith('/chat')) return null;
 
-  const send = (text?: string) => {
+  const send = async (text?: string) => {
     const v = (text ?? input).trim();
-    if (!v) return;
-    setMsgs((m) => [...m, { role: 'user', content: v }]);
+    if (!v || loading) return;
+    const next: Msg[] = [...msgs, { role: 'user', content: v }];
+    setMsgs(next);
     setInput('');
-    setTimeout(() => {
-      setMsgs((m) => [...m, { role: 'assistant', content: reply(v, lang) }]);
-    }, 500);
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('soko-ai', {
+        body: { messages: next, lang },
+      });
+      if (error) throw error;
+      const reply = (data as { text?: string })?.text?.trim() || fallbackReply(v, lang);
+      setMsgs((m) => [...m, { role: 'assistant', content: reply }]);
+    } catch {
+      setMsgs((m) => [...m, { role: 'assistant', content: fallbackReply(v, lang) }]);
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   const quick = [
     t('ai.quick.find'),
@@ -123,7 +115,15 @@ export function AIWidget() {
                 </div>
               </div>
             ))}
+            {loading && (
+              <div className="flex justify-start">
+                <div className="max-w-[85%] rounded-2xl rounded-bl-sm border border-border bg-card px-3 py-2 text-sm text-muted-foreground inline-flex items-center gap-2">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Soko AI is typing…
+                </div>
+              </div>
+            )}
           </div>
+
 
           <div className="border-t border-border bg-card px-3 pt-2">
             <div className="mb-2 flex flex-wrap gap-1.5">
@@ -152,12 +152,13 @@ export function AIWidget() {
               />
               <button
                 type="submit"
-                disabled={!input.trim()}
+                disabled={!input.trim() || loading}
                 className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground disabled:opacity-50"
                 aria-label="Send"
               >
-                <Send className="h-4 w-4" />
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               </button>
+
             </form>
           </div>
         </div>

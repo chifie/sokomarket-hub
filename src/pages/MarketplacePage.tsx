@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Heart, Star, ShoppingCart, Grid, List } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
@@ -122,57 +122,58 @@ export default function MarketplacePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredProducts.map((product, i) => (
-            <motion.article
-              key={`${product.title}-${i}`}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="relative aspect-square overflow-hidden bg-muted">
-                <img
-                  src={product.img}
-                  alt={product.title}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                {product.discount > 0 && (
-                  <span className="absolute left-3 top-3 rounded-full bg-red-500 px-2 py-1 text-[10px] font-bold text-white">
-                    -{product.discount}%
-                  </span>
-                )}
-                <button
-                  aria-label="Add to wishlist"
-                  className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-background/90 text-foreground/80 shadow-sm transition hover:text-red-500"
+          {filteredProducts.map((product, i) => {
+            const slug = product.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            return (
+              <motion.div
+                key={`${product.title}-${i}`}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.05 }}
+              >
+                <Link
+                  to={`/product/${slug}`}
+                  className="group block overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <Heart className="h-4 w-4" />
-                </button>
-                <div className="absolute inset-x-3 bottom-3 flex translate-y-4 gap-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-                  <Button
-                    size="sm"
-                    className="flex-1 rounded-full bg-gradient-to-r from-indigo-600 to-indigo-800 text-white"
-                  >
-                    <ShoppingCart className="mr-1 h-4 w-4" /> Add
-                  </Button>
-                </div>
-              </div>
-              <div className="p-4">
-                <div className="text-xs text-muted-foreground">{product.seller}</div>
-                <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-foreground">{product.title}</h3>
-                <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-                  <Star className="h-3.5 w-3.5 fill-yellow-500 text-yellow-500" />
-                  <span className="font-semibold text-foreground">{product.rating || 'New'}</span>
-                </div>
-                <div className="mt-3 flex items-baseline gap-2">
-                  <span className="text-lg font-black text-indigo-600">{product.price}</span>
-                  {product.old && (
-                    <span className="text-xs text-muted-foreground line-through">{product.old}</span>
-                  )}
-                </div>
-              </div>
-            </motion.article>
-          ))}
+                  <div className="relative aspect-square overflow-hidden bg-muted">
+                    <img
+                      src={product.img}
+                      alt={product.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {product.discount > 0 && (
+                      <span className="absolute left-3 top-3 rounded-full bg-destructive px-2 py-1 text-[10px] font-bold text-white">
+                        -{product.discount}%
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      onClick={(e) => e.preventDefault()}
+                      aria-label="Add to wishlist"
+                      className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-background/90 text-foreground/80 shadow-sm transition hover:text-destructive"
+                    >
+                      <Heart className="h-4 w-4" />
+                    </button>
+                  </div>
+                  <div className="p-4">
+                    <div className="text-xs text-muted-foreground">{product.seller}</div>
+                    <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-foreground group-hover:text-primary">{product.title}</h3>
+                    <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
+                      <Star className="h-3.5 w-3.5 fill-yellow-500 text-yellow-500" />
+                      <span className="font-semibold text-foreground">{product.rating || 'New'}</span>
+                    </div>
+                    <div className="mt-3 flex items-baseline gap-2">
+                      <span className="text-lg font-black text-primary">{product.price}</span>
+                      {product.old && (
+                        <span className="text-xs text-muted-foreground line-through">{product.old}</span>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
         {filteredProducts.length === 0 && (
