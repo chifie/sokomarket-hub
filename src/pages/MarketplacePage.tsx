@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Heart, Star, ShoppingCart, Grid, List } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
