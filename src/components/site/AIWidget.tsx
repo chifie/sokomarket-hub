@@ -115,7 +115,15 @@ export function AIWidget() {
                 </div>
               </div>
             ))}
+            {loading && (
+              <div className="flex justify-start">
+                <div className="max-w-[85%] rounded-2xl rounded-bl-sm border border-border bg-card px-3 py-2 text-sm text-muted-foreground inline-flex items-center gap-2">
+                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Soko AI is typing…
+                </div>
+              </div>
+            )}
           </div>
+
 
           <div className="border-t border-border bg-card px-3 pt-2">
             <div className="mb-2 flex flex-wrap gap-1.5">
@@ -144,12 +152,13 @@ export function AIWidget() {
               />
               <button
                 type="submit"
-                disabled={!input.trim()}
+                disabled={!input.trim() || loading}
                 className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground disabled:opacity-50"
                 aria-label="Send"
               >
-                <Send className="h-4 w-4" />
+                {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
               </button>
+
             </form>
           </div>
         </div>
