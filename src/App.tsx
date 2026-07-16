@@ -16,7 +16,8 @@ import { CTA } from '@/components/site/CTA';
 import { Footer } from '@/components/site/Footer';
 import { PageHeader } from '@/components/site/PageHeader';
 import AIChatPage from '@/pages/AIChatPage';
-import MarketplacePage from '@/pages/MarketplacePage';
+import MarketplacePage from '@/pages/MarketplacePage';import json
+
 import AuthPage from '@/pages/AuthPage';
 import DashboardPage from '@/pages/DashboardPage';
 import SellerListingsPage from '@/pages/SellerListingsPage';
