@@ -5,7 +5,6 @@ import { Search, Grid, List } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
-import { AIAssistant } from "@/components/ai/AIAssistant";
 import { ProductCard } from "@/components/product/ProductCard";
 import { categories, products } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
@@ -175,7 +174,6 @@ export default function MarketplacePage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </motion.div>
   );
 }

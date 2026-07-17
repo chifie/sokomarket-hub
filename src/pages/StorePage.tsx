@@ -5,7 +5,6 @@ import { Store, Package, MapPin, BadgeCheck, Star, Clock, Users, ShoppingBag, Sh
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
-import { AIAssistant } from "@/components/ai/AIAssistant";
 import { ProductCard } from "@/components/product/ProductCard";
 import { sellers, products } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
@@ -169,7 +168,6 @@ export default function StorePage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </motion.div>
   );
 }

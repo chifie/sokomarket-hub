@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
-import { AIAssistant } from "@/components/ai/AIAssistant";
 import { ProductCard } from "@/components/product/ProductCard";
 import { products } from "@/lib/constants";
 import { cn, formatTZS, getRatingColor } from "@/lib/utils";
@@ -272,7 +271,6 @@ export default function ProductDetailPage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </motion.div>
   );
 }
