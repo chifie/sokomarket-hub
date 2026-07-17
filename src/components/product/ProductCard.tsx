@@ -138,18 +138,17 @@ export function ProductCard({ product, index = 0, featured = false }: ProductCar
                     </>
                   ) : (
                     <>
-                      <ShoppingCart className="h-3.5 w-3.5" /> Add to Cart
+                      <ShoppingCart className="h-3.5 w-3.5" /> Cart
                     </>
                   )}
                 </Button>
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  className="h-9 w-9 bg-white/90 hover:bg-white text-gray-700 shadow-lg rounded-xl"
-                  onClick={(e) => e.preventDefault()}
+                <Link
+                  to={`/product/${product.slug}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex-1 h-9 text-xs gap-1.5 shadow-lg rounded-xl bg-white text-gray-900 hover:bg-gray-100 inline-flex items-center justify-center font-medium"
                 >
-                  <Eye className="h-4 w-4" />
-                </Button>
+                  Buy Now
+                </Link>
               </div>
             </motion.div>
           </div>
