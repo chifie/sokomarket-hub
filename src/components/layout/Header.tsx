@@ -41,7 +41,7 @@ export function Header() {
     <header className="sticky top-0 z-50 shadow-sm bg-primary">
       <div className="px-4 sm:px-8 lg:px-12 xl:px-16 py-3 flex items-center justify-between gap-2">
         {/* Logo */}
-        <Link to="/" className="shrink-0">
+        <Link to="/" className="shrink-0 group">
           <div className="flex items-center gap-2.5">
             <div className="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 group-hover:scale-105 transition-all duration-300">
               <Package className="h-6 w-6 text-white group-hover:rotate-[-8deg] transition-transform duration-300" />

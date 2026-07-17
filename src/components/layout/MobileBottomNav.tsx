@@ -31,7 +31,7 @@ export function MobileBottomNav() {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "relative flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all duration-200 active:scale-95",
+                  "relative flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all duration-200 active:scale-95 group",
                   isActive
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
