@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Search, ShoppingCart, Heart, Bell, MessageCircle,
-  Menu, X, Sparkles, Store, Package, Moon, Sun
+  Menu, X, Sparkles, Store, Package, Moon, Sun, User, LogOut, LayoutDashboard
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -13,23 +13,43 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { categories, trendingSearches } from "@/lib/constants";
+import { categories, trendingSearches, products } from "@/lib/constants";
 import { useTheme } from "@/hooks/use-theme";
 import { useCart } from "@/lib/cart-context";
+import { useAuth } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const searchRef = useRef<HTMLDivElement>(null);
-  const isAuthenticated = false;
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
-
   const { itemCount: cartCount } = useCart();
+  const { user, loading: authLoading, signOut } = useAuth();
   const wishlistCount = 5;
   const notificationCount = 2;
 
+  // Debounce search query
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedQuery(searchQuery), 250);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  // Filter products based on debounced search query
+  const searchResults = useMemo(() => {
+    if (!debouncedQuery.trim()) return [];
+    const q = debouncedQuery.toLowerCase();
+    return products
+      .filter((p) => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q) || p.tags?.some((t) => t.toLowerCase().includes(q)))
+      .slice(0, 6);
+  }, [debouncedQuery]);
+
+  // Close search suggestions on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
@@ -39,6 +59,18 @@ export function Header() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/marketplace?search=${encodeURIComponent(searchQuery.trim())}`);
+      setShowSearchSuggestions(false);
+    }
+  };
+
+  // Get user display info
+  const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
+  const userAvatar = user?.user_metadata?.avatar_url || user?.user_metadata?.picture || "";
 
   return (
     <header className="sticky top-0 z-50 shadow-sm bg-primary">
@@ -57,14 +89,20 @@ export function Header() {
 
         {/* Search Bar - Desktop */}
         <div ref={searchRef} className="flex-1 max-w-md mx-4 hidden md:block relative">
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSearchSubmit}>
             <div className="relative">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" />
               <input
+                ref={searchInputRef}
                 type="text"
                 placeholder="Search products..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white/15 text-white text-sm placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 backdrop-blur-sm"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setShowSearchSuggestions(true);
+                }}
                 onFocus={() => setShowSearchSuggestions(true)}
+                className="w-full pl-10 pr-4 py-2.5 rounded-full bg-white/15 text-white text-sm placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30 backdrop-blur-sm"
               />
             </div>
           </form>
@@ -78,19 +116,74 @@ export function Header() {
                 exit={{ opacity: 0, y: -4 }}
                 className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl overflow-hidden z-50"
               >
-                <div className="p-3">
-                  <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Trending</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {trendingSearches.slice(0, 5).map((term) => (
-                      <button
-                        key={term}
-                        className="px-3 py-1.5 rounded-full bg-gray-100 text-xs text-gray-600 hover:bg-gray-200 transition-colors"
+                {searchQuery.trim() && searchResults.length > 0 ? (
+                  <div className="py-2">
+                    <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider px-3 mb-1">
+                      Products
+                    </p>
+                    {searchResults.map((p) => (
+                      <Link
+                        key={p.id}
+                        to={`/product/${p.slug}`}
+                        onClick={() => { setShowSearchSuggestions(false); setSearchQuery(""); }}
+                        className="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 transition-colors"
                       >
-                        {term}
-                      </button>
+                        <div className="h-10 w-10 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                          <img src={p.images[0]} alt="" className="h-full w-full object-cover" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="text-sm font-medium text-gray-900 truncate">{p.name}</p>
+                          <p className="text-xs text-gray-500">
+                            Tshs {(p.discountPrice || p.price).toLocaleString()}/=
+                          </p>
+                        </div>
+                      </Link>
                     ))}
+                    <div className="border-t border-gray-100 mt-1 pt-1 px-3">
+                      <button
+                        onClick={handleSearchSubmit}
+                        className="w-full text-left py-2 text-sm text-primary font-medium hover:text-primary/80 transition-colors"
+                      >
+                        View all results for "{searchQuery}"
+                      </button>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="p-3">
+                    <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Trending</p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {trendingSearches.slice(0, 5).map((term) => (
+                        <button
+                          key={term}
+                          onClick={() => {
+                            setSearchQuery(term);
+                            navigate(`/marketplace?search=${encodeURIComponent(term)}`);
+                            setShowSearchSuggestions(false);
+                          }}
+                          className="px-3 py-1.5 rounded-full bg-gray-100 text-xs text-gray-600 hover:bg-gray-200 transition-colors"
+                        >
+                          {term}
+                        </button>
+                      ))}
+                    </div>
+                    {/* Category quick links */}
+                    <div className="mt-3 pt-3 border-t border-gray-100">
+                      <p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-2">Categories</p>
+                      <div className="grid grid-cols-2 gap-1">
+                        {categories.slice(0, 6).map((cat) => (
+                          <Link
+                            key={cat.id}
+                            to={`/marketplace?category=${cat.slug}`}
+                            onClick={() => setShowSearchSuggestions(false)}
+                            className="text-xs text-gray-600 hover:text-primary py-1 transition-colors"
+                          >
+                            {cat.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>
@@ -178,26 +271,46 @@ export function Header() {
           </Link>
 
           {/* Auth */}
-          {isAuthenticated ? (
+          {!authLoading && user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className="text-white p-1.5">
-                  <div className="h-7 w-7 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold text-white">
-                    U
-                  </div>
+                <button className="text-white p-1.5 group/avatar">
+                  {userAvatar ? (
+                    <div className="h-7 w-7 rounded-full ring-2 ring-white/30 overflow-hidden group-hover/avatar:ring-white/60 transition-all">
+                      <img src={userAvatar} alt={userName} className="h-full w-full object-cover" />
+                    </div>
+                  ) : (
+                    <div className="h-7 w-7 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold text-white group-hover/avatar:bg-white/30 transition-all">
+                      {userName.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48 rounded-xl">
-                <DropdownMenuItem className="cursor-pointer">Profile</DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">Orders</DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer">Wishlist</DropdownMenuItem>
+              <DropdownMenuContent align="end" className="w-56 rounded-xl">
+                <DropdownMenuLabel className="text-sm font-semibold">
+                  <div className="truncate">{userName}</div>
+                  <div className="text-xs font-normal text-muted-foreground truncate">{user.email}</div>
+                </DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer text-rose-500">Sign Out</DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer gap-3" onClick={() => navigate("/dashboard")}>
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer gap-3" onClick={() => navigate("/dashboard/listings")}>
+                  <Store className="h-4 w-4" />
+                  My Listings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer gap-3 text-rose-500" onClick={() => signOut()}>
+                  <LogOut className="h-4 w-4" />
+                  Sign Out
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link to="/auth" className="hidden sm:inline text-sm font-semibold text-white hover:underline">
-              Log In
+            <Link to="/auth" className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:underline">
+              <User className="h-4 w-4" />
+              {authLoading ? "..." : "Log In"}
             </Link>
           )}
 
@@ -217,15 +330,19 @@ export function Header() {
             exit={{ height: 0, opacity: 0 }}
             className="md:hidden px-4 pb-3"
           >
-            <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" />
-              <input
-                type="text"
-                placeholder="Search products..."
-                className="w-full pl-10 pr-4 py-2 rounded-full bg-white/15 text-white text-sm placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
-                autoFocus
-              />
-            </div>
+            <form onSubmit={(e) => { e.preventDefault(); if (searchQuery.trim()) { navigate(`/marketplace?search=${encodeURIComponent(searchQuery.trim())}`); setShowSearch(false); }}}>
+              <div className="relative">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-white/60" />
+                <input
+                  type="text"
+                  placeholder="Search products..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 rounded-full bg-white/15 text-white text-sm placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-white/30"
+                  autoFocus
+                />
+              </div>
+            </form>
           </motion.div>
         )}
       </AnimatePresence>
@@ -240,8 +357,23 @@ export function Header() {
             className="sm:hidden overflow-hidden bg-primary/95 backdrop-blur-sm"
           >
             <div className="px-4 pb-4 space-y-1">
-              <Link to="/auth" className="block px-4 py-2.5 rounded-lg text-white/90 text-sm font-medium hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
-                Log In / Sign Up
+              {user ? (
+                <div className="px-4 py-3 flex items-center gap-3 border-b border-white/10 mb-2">
+                  {userAvatar ? (
+                    <img src={userAvatar} alt="" className="h-9 w-9 rounded-full ring-2 ring-white/30 object-cover" />
+                  ) : (
+                    <div className="h-9 w-9 rounded-full bg-white/20 flex items-center justify-center text-sm font-bold text-white">
+                      {userName.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <div className="text-white">
+                    <p className="text-sm font-semibold truncate">{userName}</p>
+                    <p className="text-xs text-white/60 truncate">{user.email}</p>
+                  </div>
+                </div>
+              ) : null}
+              <Link to={user ? "/dashboard" : "/auth"} className="block px-4 py-2.5 rounded-lg text-white/90 text-sm font-medium hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
+                {user ? "Dashboard" : "Log In / Sign Up"}
               </Link>
               <Link to="/sell" className="block px-4 py-2.5 rounded-lg text-white/90 text-sm font-medium hover:bg-white/10" onClick={() => setIsMenuOpen(false)}>
                 <Store className="h-4 w-4 inline mr-2" />
@@ -257,6 +389,15 @@ export function Header() {
                   {cat.name}
                 </Link>
               ))}
+              {user && (
+                <button
+                  onClick={() => { signOut(); setIsMenuOpen(false); }}
+                  className="w-full text-left px-4 py-2.5 rounded-lg text-rose-300 text-sm font-medium hover:bg-white/10 mt-2"
+                >
+                  <LogOut className="h-4 w-4 inline mr-2" />
+                  Sign Out
+                </button>
+              )}
             </div>
           </motion.div>
         )}
