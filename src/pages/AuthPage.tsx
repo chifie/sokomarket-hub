@@ -44,8 +44,8 @@ export default function AuthPage() {
         if (error) throw error;
       }
       navigate('/dashboard', { replace: true });
-    } catch (err: any) {
-      setError(err?.message ?? 'Something went wrong');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
       setBusy(false);
     }
@@ -56,9 +56,10 @@ export default function AuthPage() {
     try {
       const { lovable } = await import('@/integrations/lovable/index');
       const r = await lovable.auth.signInWithOAuth('google', { redirect_uri: window.location.origin });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if (r?.error) setError((r.error as any)?.message ?? 'Google sign-in failed');
-    } catch (err: any) {
-      setError(err?.message ?? 'Google sign-in unavailable');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Google sign-in unavailable');
     }
   };
 

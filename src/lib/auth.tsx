@@ -22,7 +22,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   const loadRoles = async (uid: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data } = await supabase.from('user_roles' as any).select('role').eq('user_id', uid);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setRoles(((data as any) ?? []).map((r: any) => r.role as AppRole));
   };
 
