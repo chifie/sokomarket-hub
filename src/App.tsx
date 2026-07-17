@@ -1,9 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { PageHeader } from '@/components/site/PageHeader';
 import Landing from '@/pages/Landing';
 import AIChatPage from '@/pages/AIChatPage';
 import MarketplacePage from '@/pages/MarketplacePage';
-
 import AuthPage from '@/pages/AuthPage';
 import DashboardPage from '@/pages/DashboardPage';
 import SellerListingsPage from '@/pages/SellerListingsPage';
@@ -16,186 +14,92 @@ import AdminDashboardPage from '@/pages/AdminDashboardPage';
 import { AuthProvider } from '@/lib/auth';
 import { LanguageProvider } from '@/lib/i18n';
 import { AIWidget } from '@/components/site/AIWidget';
-
-
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
+import { AIAssistant } from '@/components/ai/AIAssistant';
 
 function CategoriesPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <PageHeader
-        eyebrow="Categories"
-        title="Browse All Categories"
-        description="Explore thousands of products across every category"
-        crumb="Categories"
-      />
-      <div className="py-12">
-        <Categories />
-      </div>
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1 pb-16 lg:pb-0">
+        <div className="mx-auto max-w-7xl px-4 py-20 text-center">
+          <h1 className="text-3xl font-bold">Categories</h1>
+          <p className="text-muted-foreground mt-2">Browse all categories coming soon</p>
+        </div>
+      </main>
       <Footer />
+      <MobileBottomNav />
+      <AIAssistant />
     </div>
   );
 }
 
 function ShopsPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <PageHeader
-        eyebrow="Shops"
-        title="Discover Trusted Sellers"
-        description="Connect with verified sellers from across the world"
-        crumb="Shops"
-      />
-      <div className="py-12">
-        <Shops />
-      </div>
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1 pb-16 lg:pb-0">
+        <div className="mx-auto max-w-7xl px-4 py-20 text-center">
+          <h1 className="text-3xl font-bold">Shops</h1>
+          <p className="text-muted-foreground mt-2">Discover stores coming soon</p>
+        </div>
+      </main>
       <Footer />
+      <MobileBottomNav />
+      <AIAssistant />
     </div>
   );
 }
 
 function DealsPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <PageHeader
-        eyebrow="Deals"
-        title="Flash Sales & Offers"
-        description="Limited time deals on top products"
-        crumb="Deals"
-      />
-      <div className="py-12">
-        <Deals />
-        <Products />
-      </div>
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1 pb-16 lg:pb-0">
+        <div className="mx-auto max-w-7xl px-4 py-20 text-center">
+          <h1 className="text-3xl font-bold">Deals</h1>
+          <p className="text-muted-foreground mt-2">Flash sales coming soon</p>
+        </div>
+      </main>
       <Footer />
+      <MobileBottomNav />
+      <AIAssistant />
     </div>
   );
 }
 
 function AboutPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <PageHeader
-        eyebrow="About"
-        title="About SokoDigital"
-        description="A global digital marketplace connecting buyers and sellers across every continent."
-        crumb="About"
-      />
-      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          <div className="rounded-2xl border border-border bg-card p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-foreground">Our Mission</h2>
-            <p className="text-muted-foreground">
-              SokoDigital is a worldwide digital marketplace built to connect verified sellers
-              with millions of buyers across the globe. We empower entrepreneurs of every size and
-              bring a trusted commerce experience to every device, everywhere.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-card p-8 mb-8">
-            <h2 className="text-2xl font-bold mb-4 text-foreground">Why Choose SokoDigital?</h2>
-            <ul className="space-y-4 text-muted-foreground">
-              <li>
-                <strong className="text-foreground">Trust & Safety</strong>
-                <p className="mt-1">Every seller is verified and products are quality-checked.</p>
-              </li>
-              <li>
-                <strong className="text-foreground">Global Community</strong>
-                <p className="mt-1">We connect buyers and sellers across borders and currencies.</p>
-              </li>
-              <li>
-                <strong className="text-foreground">Growth & Opportunity</strong>
-                <p className="mt-1">Tools, analytics, and support to help every business thrive.</p>
-              </li>
-            </ul>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-card p-8">
-            <h2 className="text-2xl font-bold mb-4 text-foreground">Contact Us</h2>
-            <div className="space-y-3 text-muted-foreground">
-              <p>support@sokodigital.com</p>
-              <p>+1 (800) 555-0140</p>
-              <p>Support available 24/7 worldwide</p>
-            </div>
-          </div>
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1 pb-16 lg:pb-0">
+        <div className="mx-auto max-w-3xl px-4 py-12">
+          <h1 className="text-3xl font-bold mb-4">About SokoDigital</h1>
+          <p className="text-muted-foreground">Tanzania's premier online marketplace connecting buyers and sellers across the nation.</p>
         </div>
-      </div>
+      </main>
       <Footer />
+      <MobileBottomNav />
+      <AIAssistant />
     </div>
   );
 }
 
 function ContactPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <PageHeader
-        eyebrow="Contact"
-        title="Get in Touch"
-        description="We'd love to hear from you. Reach out to our team."
-        crumb="Contact"
-      />
-      <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="rounded-2xl border border-border bg-card p-8">
-            <h2 className="text-xl font-bold mb-6 text-foreground">Send us a message</h2>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">Name</label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">Email</label>
-                <input
-                  type="email"
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2 text-foreground">Message</label>
-                <textarea
-                  rows={4}
-                  className="w-full px-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-indigo-600"
-                  placeholder="How can we help?"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-indigo-800 text-white font-semibold hover:opacity-90 transition"
-              >
-                Send Message
-              </button>
-            </form>
-          </div>
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">Email</h3>
-              <p className="text-muted-foreground">support@sokodigital.com</p>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">Phone</h3>
-              <p className="text-muted-foreground">+1 (800) 555-0140</p>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">Location</h3>
-              <p className="text-muted-foreground">Operating worldwide</p>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-6">
-              <h3 className="font-bold text-foreground mb-2">Hours</h3>
-              <p className="text-muted-foreground">24 / 7 across every timezone</p>
-            </div>
-          </div>
+    <div className="min-h-screen flex flex-col bg-background">
+      <Header />
+      <main className="flex-1 pb-16 lg:pb-0">
+        <div className="mx-auto max-w-3xl px-4 py-12">
+          <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
+          <p className="text-muted-foreground">support@sokodigital.co.tz</p>
         </div>
-      </div>
+      </main>
       <Footer />
+      <MobileBottomNav />
+      <AIAssistant />
     </div>
   );
 }
