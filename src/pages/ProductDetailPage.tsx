@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link, useParams, useNavigate } from "react-router";
-import { motion } from "framer-motion";import { ArrowLeft, Heart, ShoppingCart, Star, Truck, Shield,
-  Check, Share2, ChevronRight, MapPin, BadgeCheck, Plus, Minus, RotateCcw
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowLeft, Heart, ShoppingCart, Star, Truck, Shield,
+  Check, Share2, ChevronRight, MapPin, BadgeCheck, Plus, Minus,
+  RotateCcw, Camera, Upload, ThumbsUp, MessageSquare, Send
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
@@ -14,12 +18,53 @@ import { useCart } from "@/lib/cart-context";
 import { cn, formatTZS, getRatingColor } from "@/lib/utils";
 import { toast } from "sonner";
 
-const reviews = [
-  { id: "r1", user: "Amina K.", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=AminaK", rating: 5, date: "2 weeks ago", text: "Amazing product! Exceeded my expectations. The quality is outstanding and delivery was fast.", likes: 24 },
-  { id: "r2", user: "David M.", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=DavidM", rating: 4, date: "1 month ago", text: "Great value for money. Would definitely recommend to others.", likes: 12 },
-  { id: "r3", user: "Sarah J.", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=SarahJ", rating: 5, date: "3 weeks ago", text: "Perfect! Exactly as described. Very happy with my purchase.", likes: 18 },
+// ===== StarRating Component =====
+function StarRating({ value, onChange, size = "md", interactive = false }: {
+  value: number;
+  onChange?: (v: number) => void;
+  size?: "sm" | "md" | "lg";
+  interactive?: boolean;
+}) {
+  const [hovered, setHovered] = useState(0);
+  return (
+    <div className="flex items-center gap-0.5">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <button
+          key={star}
+          type="button"
+          disabled={!interactive}
+          onClick={() => onChange?.(star)}
+          onMouseEnter={() => interactive && setHovered(star)}
+          onMouseLeave={() => interactive && setHovered(0)}
+          className={cn(
+            "transition-all",
+            interactive && "cursor-pointer hover:scale-110",
+            !interactive && "cursor-default",
+            size === "sm" ? "h-3.5 w-3.5" : size === "lg" ? "h-6 w-6" : "h-4 w-4"
+          )}
+        >
+          <Star
+            className={cn(
+              "w-full h-full transition-colors",
+              (hovered || value) >= star
+                ? "text-amber-400 fill-amber-400"
+                : "text-muted-foreground/20"
+            )}
+          />
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// ===== Review Data =====
+const existingReviews = [
+  { id: "r1", user: "Amina K.", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=AminaK", rating: 5, date: "2 weeks ago", text: "Amazing product! Exceeded my expectations. The quality is outstanding and delivery was fast.", likes: 24, images: [] as string[] },
+  { id: "r2", user: "David M.", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=DavidM", rating: 4, date: "1 month ago", text: "Great value for money. Would definitely recommend to others.", likes: 12, images: [] as string[] },
+  { id: "r3", user: "Sarah J.", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=SarahJ", rating: 5, date: "3 weeks ago", text: "Perfect! Exactly as described. Very happy with my purchase.", likes: 18, images: [] as string[] },
 ];
 
+// ===== Main Page =====
 export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,10 +74,60 @@ export default function ProductDetailPage() {
   const [isAdded, setIsAdded] = useState(false);
   const { addItem } = useCart();
 
+  // Review state
+  const [reviews, setReviews] = useState(existingReviews);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [newRating, setNewRating] = useState(0);
+  const [newReviewText, setNewReviewText] = useState("");
+  const [reviewImages, setReviewImages] = useState<string[]>([]);
+  const [submittingReview, setSubmittingReview] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const product = products.find((p) => p.slug === id) || products[0];
   const discount = product.discountPrice ? Math.round(((product.price - product.discountPrice) / product.price) * 100) : 0;
   const displayPrice = product.discountPrice || product.price;
   const oldPrice = product.discountPrice ? product.price : undefined;
+
+  // Average rating
+  const avgRating = reviews.reduce((s, r) => s + r.rating, 0) / reviews.length;
+  const ratingDistribution = [0, 0, 0, 0, 0];
+  reviews.forEach((r) => { if (r.rating > 0) ratingDistribution[Math.round(r.rating) - 1]++; });
+
+  const handleSubmitReview = () => {
+    if (!newRating || !newReviewText.trim()) {
+      toast.error("Please provide a rating and review text");
+      return;
+    }
+    setSubmittingReview(true);
+    setTimeout(() => {
+      const newReview = {
+        id: `r${Date.now()}`,
+        user: "You",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=You",
+        rating: newRating,
+        date: "Just now",
+        text: newReviewText.trim(),
+        likes: 0,
+        images: reviewImages,
+      };
+      setReviews((prev) => [newReview, ...prev]);
+      setNewRating(0);
+      setNewReviewText("");
+      setReviewImages([]);
+      setShowReviewForm(false);
+      setSubmittingReview(false);
+      toast.success("Review submitted successfully!");
+    }, 800);
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+    Array.from(files).slice(0, 3).forEach((file) => {
+      const url = URL.createObjectURL(file);
+      setReviewImages((prev) => [...prev, url]);
+    });
+  };
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
@@ -50,6 +145,7 @@ export default function ProductDetailPage() {
             <span className="text-foreground font-medium truncate max-w-[200px]">{product.name}</span>
           </div>
 
+          {/* Product Main Section */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Left - Image Gallery */}
             <div className="space-y-3">
@@ -71,8 +167,6 @@ export default function ProductDetailPage() {
                   <Share2 className="h-4 w-4 text-muted-foreground" />
                 </button>
               </div>
-
-              {/* Thumbnails */}
               <div className="grid grid-cols-4 gap-2">
                 {product.images.map((img, i) => (
                   <button key={i} onClick={() => setSelectedImage(i)}
@@ -97,16 +191,15 @@ export default function ProductDetailPage() {
                 {product.seller.verified && <BadgeCheck className="h-3.5 w-3.5 text-primary fill-primary" />}
               </div>
 
-              {/* Title */}
               <h1 className="text-xl md:text-2xl font-bold leading-tight">{product.name}</h1>
 
-              {/* Rating + Sold */}
+              {/* Rating */}
               <div className="flex items-center gap-3 text-sm">
-                <div className="flex items-center">
-                  <Star className={cn("h-4 w-4 fill-current", getRatingColor(product.rating))} />
+                <div className="flex items-center gap-1">
+                  <StarRating value={Math.round(product.rating)} size="sm" />
                   <span className={cn("text-sm font-bold ml-1", getRatingColor(product.rating))}>{product.rating}</span>
                 </div>
-                <span className="text-muted-foreground">({product.reviewCount.toLocaleString()} reviews)</span>
+                <span className="text-muted-foreground">({reviews.length} reviews)</span>
                 <span className="text-muted-foreground">•</span>
                 <span className="text-muted-foreground">{product.sold.toLocaleString()} sold</span>
               </div>
@@ -118,29 +211,23 @@ export default function ProductDetailPage() {
                 {discount > 0 && <Badge className="bg-secondary/10 text-secondary border-0 text-xs font-semibold">Save {discount}%</Badge>}
               </div>
 
-              {/* Colors */}
+              {/* Colors & Sizes - same as before */}
               {product.colors && product.colors.length > 0 && (
                 <div>
                   <p className="text-xs font-medium mb-1.5">Color: <span className="text-muted-foreground font-normal">{product.colors[0]}</span></p>
                   <div className="flex gap-1.5 flex-wrap">
                     {product.colors.map((color) => (
-                      <button key={color} className={cn("px-3 py-1.5 rounded-lg border text-xs transition-all", color === product.colors![0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30")}>
-                        {color}
-                      </button>
+                      <button key={color} className={cn("px-3 py-1.5 rounded-lg border text-xs transition-all", color === product.colors![0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30")}>{color}</button>
                     ))}
                   </div>
                 </div>
               )}
-
-              {/* Sizes */}
               {product.sizes && product.sizes.length > 0 && (
                 <div>
                   <p className="text-xs font-medium mb-1.5">Size: <span className="text-muted-foreground font-normal">{product.sizes[0]}</span></p>
                   <div className="flex gap-1.5 flex-wrap">
                     {product.sizes.map((size) => (
-                      <button key={size} className={cn("px-3 py-1.5 rounded-lg border text-xs transition-all min-w-[40px]", size === product.sizes![0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30")}>
-                        {size}
-                      </button>
+                      <button key={size} className={cn("px-3 py-1.5 rounded-lg border text-xs transition-all min-w-[40px]", size === product.sizes![0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30")}>{size}</button>
                     ))}
                   </div>
                 </div>
@@ -166,14 +253,9 @@ export default function ProductDetailPage() {
                 <Button size="lg" className="flex-1 h-11 rounded-lg text-sm font-semibold gap-2" onClick={() => {
                   setIsAdded(true);
                   addItem({
-                    productId: product.id,
-                    name: product.name,
-                    image: product.images[0],
-                    price: product.discountPrice || product.price,
-                    quantity,
-                    sellerId: product.seller.id,
-                    sellerName: product.seller.storeName,
-                    maxQuantity: product.quantity,
+                    productId: product.id, name: product.name, image: product.images[0],
+                    price: product.discountPrice || product.price, quantity,
+                    sellerId: product.seller.id, sellerName: product.seller.storeName, maxQuantity: product.quantity,
                   });
                   toast.success(`${product.name.slice(0, 30)}... added to cart!`, { duration: 2000, icon: <ShoppingCart className="h-4 w-4" /> });
                   setTimeout(() => setIsAdded(false), 2000);
@@ -207,7 +289,7 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          {/* Product Details + Reviews Grid */}
+          {/* Description + Reviews */}
           <div className="mt-10 grid lg:grid-cols-3 gap-8">
             {/* Description + Specs */}
             <div className="lg:col-span-2 space-y-6">
@@ -215,8 +297,6 @@ export default function ProductDetailPage() {
                 <h2 className="text-base font-bold mb-2">Description</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">{product.description}</p>
               </div>
-
-              {/* Specifications */}
               <div>
                 <h2 className="text-base font-bold mb-3">Specifications</h2>
                 <div className="rounded-lg border border-border/50 overflow-hidden text-sm">
@@ -241,12 +321,125 @@ export default function ProductDetailPage() {
               </div>
             </div>
 
-            {/* Reviews */}
+            {/* Reviews Section */}
             <div>
-              <h2 className="text-base font-bold mb-3">Reviews ({reviews.length})</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-base font-bold">Reviews ({reviews.length})</h2>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="rounded-full text-xs gap-1"
+                  onClick={() => setShowReviewForm(!showReviewForm)}
+                >
+                  <MessageSquare className="h-3.5 w-3.5" />
+                  Write
+                </Button>
+              </div>
+
+              {/* Rating Summary */}
+              <div className="p-4 rounded-xl border border-border/50 bg-card mb-4">
+                <div className="flex items-center gap-4">
+                  <div className="text-center">
+                    <p className="text-3xl font-bold">{avgRating.toFixed(1)}</p>
+                    <StarRating value={Math.round(avgRating)} size="sm" />
+                    <p className="text-[10px] text-muted-foreground mt-1">{reviews.length} reviews</p>
+                  </div>
+                  <div className="flex-1 space-y-1">
+                    {[5, 4, 3, 2, 1].map((star) => {
+                      const count = ratingDistribution[star - 1] || 0;
+                      const pct = reviews.length > 0 ? (count / reviews.length) * 100 : 0;
+                      return (
+                        <div key={star} className="flex items-center gap-2 text-[11px]">
+                          <span className="w-3 text-muted-foreground">{star}</span>
+                          <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+                          <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+                            <div className="h-full rounded-full bg-amber-400" style={{ width: `${pct}%` }} />
+                          </div>
+                          <span className="w-6 text-right text-muted-foreground">{count}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Review Form */}
+              <AnimatePresence>
+                {showReviewForm && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="overflow-hidden mb-4"
+                  >
+                    <div className="p-4 rounded-xl border border-border/50 bg-card space-y-3">
+                      <h3 className="text-sm font-semibold">Write a Review</h3>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1.5">Your Rating</p>
+                        <StarRating value={newRating} onChange={setNewRating} size="lg" interactive />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1.5">Your Review</p>
+                        <Textarea
+                          placeholder="Share your experience with this product..."
+                          value={newReviewText}
+                          onChange={(e) => setNewReviewText(e.target.value)}
+                          className="min-h-[80px] text-sm rounded-lg resize-none"
+                        />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1.5">Add Photos (optional)</p>
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => fileInputRef.current?.click()}
+                            className="h-16 w-16 rounded-lg border-2 border-dashed border-border flex items-center justify-center hover:border-primary/50 transition-colors"
+                          >
+                            <Camera className="h-5 w-5 text-muted-foreground" />
+                          </button>
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            multiple
+                            className="hidden"
+                            onChange={handleImageUpload}
+                          />
+                          {reviewImages.map((img, i) => (
+                            <div key={i} className="relative h-16 w-16 rounded-lg overflow-hidden border border-border/50">
+                              <img src={img} alt="" className="h-full w-full object-cover" />
+                              <button
+                                onClick={() => setReviewImages((prev) => prev.filter((_, j) => j !== i))}
+                                className="absolute top-0.5 right-0.5 h-4 w-4 rounded-full bg-black/50 text-white flex items-center justify-center"
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="flex gap-2 pt-1">
+                        <Button size="sm" className="rounded-lg text-xs gap-1" onClick={handleSubmitReview} disabled={submittingReview}>
+                          {submittingReview ? "Submitting..." : <><Send className="h-3.5 w-3.5" /> Submit Review</>}
+                        </Button>
+                        <Button variant="ghost" size="sm" className="rounded-lg text-xs" onClick={() => setShowReviewForm(false)}>
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Review List */}
               <div className="space-y-3">
-                {reviews.map((review) => (
-                  <div key={review.id} className="p-3 rounded-lg border border-border/50 bg-card">
+                {reviews.map((review, i) => (
+                  <motion.div
+                    key={review.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    className="p-3 rounded-lg border border-border/50 bg-card hover:shadow-sm transition"
+                  >
                     <div className="flex items-center gap-2 mb-1.5">
                       <div className="h-7 w-7 rounded-full bg-muted flex items-center justify-center text-xs font-bold text-primary overflow-hidden">
                         {review.avatar ? <img src={review.avatar} alt="" className="h-full w-full object-cover" /> : review.user[0]}
@@ -255,16 +448,24 @@ export default function ProductDetailPage() {
                         <p className="text-xs font-medium">{review.user}</p>
                         <p className="text-[10px] text-muted-foreground">{review.date}</p>
                       </div>
-                      <div className="ml-auto flex items-center">
-                        <Star className="h-3 w-3 text-amber-500 fill-amber-500" />
-                        <span className="text-[11px] font-medium ml-0.5">{review.rating}</span>
+                      <div className="ml-auto">
+                        <StarRating value={review.rating} size="sm" />
                       </div>
                     </div>
                     <p className="text-xs text-muted-foreground">{review.text}</p>
-                    <button className="text-[11px] text-muted-foreground hover:text-primary mt-1.5 flex items-center gap-1">
-                      <Heart className="h-3 w-3" /> {review.likes}
+                    {review.images && review.images.length > 0 && (
+                      <div className="flex gap-1.5 mt-2">
+                        {review.images.map((img, j) => (
+                          <div key={j} className="h-12 w-12 rounded-lg overflow-hidden border border-border/30">
+                            <img src={img} alt="" className="h-full w-full object-cover" />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    <button className="text-[11px] text-muted-foreground hover:text-primary mt-1.5 flex items-center gap-1 transition-colors">
+                      <ThumbsUp className="h-3 w-3" /> {review.likes}
                     </button>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -287,5 +488,14 @@ export default function ProductDetailPage() {
       <Footer />
       <MobileBottomNav />
     </motion.div>
+  );
+}
+
+// Local X icon since it wasn't imported at top
+function X({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
   );
 }
