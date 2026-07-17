@@ -23,6 +23,9 @@ import DashboardPage from '@/pages/DashboardPage';
 import SellerListingsPage from '@/pages/SellerListingsPage';
 import SellerProductFormPage from '@/pages/SellerProductFormPage';
 import ProductDetailPage from '@/pages/ProductDetailPage';
+import CartPage from '@/pages/CartPage';
+import CheckoutPage from '@/pages/CheckoutPage';
+import SellerOnboardingPage from '@/pages/SellerOnboardingPage';
 import { AuthProvider } from '@/lib/auth';
 import { LanguageProvider } from '@/lib/i18n';
 import { AIWidget } from '@/components/site/AIWidget';
@@ -254,6 +257,9 @@ function App() {
             <Route path="/dashboard/listings" element={<SellerListingsPage />} />
             <Route path="/dashboard/listings/new" element={<SellerProductFormPage />} />
             <Route path="/dashboard/listings/:id/edit" element={<SellerProductFormPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/sell" element={<SellerOnboardingPage />} />
           </Routes>
           <AIWidget />
         </AuthProvider>
