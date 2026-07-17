@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, TrendingUp, Star, Flame, Sparkles } from "lucide-react";
+import { ArrowRight, Star, Flame, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ProductCard } from "@/components/product/ProductCard";

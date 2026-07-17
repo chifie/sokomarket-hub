@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Star, Shield, Package, Users, MapPin, Clock, BadgeCheck } from "lucide-react";
+import { ArrowRight, Star, Package, Users, MapPin, Clock, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { sellers } from "@/lib/constants";
 import { cn } from "@/lib/utils";

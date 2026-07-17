@@ -9,7 +9,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { sellers, products } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+
 
 export default function StorePage() {
   const { id } = useParams();

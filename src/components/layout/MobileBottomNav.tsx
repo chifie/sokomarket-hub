@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router";
 import { motion } from "framer-motion";
 import {
-  Home, Grid3X3, Sparkles, ShoppingCart, User,
-  Heart, Store, Search
+  Home, Sparkles, ShoppingCart, User,
+  Search
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/lib/cart-context";

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router";
-import { ArrowRight, Smartphone, Shirt, Home, Sparkles, Trophy, BookOpen, Car, HeartPulse, Package, Armchair, ChefHat, Gamepad2, Baby, ShoppingBag, Headphones } from "lucide-react";
+import { ArrowRight, Smartphone, Shirt, Sparkles, Trophy, BookOpen, Car, HeartPulse, Package, Armchair, ChefHat, Gamepad2, Baby, ShoppingBag, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/lib/constants";
 import { cn } from "@/lib/utils";

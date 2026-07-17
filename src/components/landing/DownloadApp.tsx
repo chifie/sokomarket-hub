@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { Smartphone, Apple, MessageCircleCode, QrCode, Check, Star, Shield, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Smartphone, Apple, MessageCircleCode, QrCode, Check, Star, Shield } from "lucide-react";
 
 const benefits = [
   "Shop on-the-go anytime, anywhere",
