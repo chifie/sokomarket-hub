@@ -5,7 +5,7 @@ import { banners } from "@/lib/constants";
 
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isAutoPlaying] = useState(true);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 

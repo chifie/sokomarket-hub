@@ -28,6 +28,7 @@ export function ThemeProvider({
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     const root = window.document.documentElement;
     root.classList.remove("light", "dark");
 
