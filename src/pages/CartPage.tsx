@@ -12,38 +12,15 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { AIAssistant } from "@/components/ai/AIAssistant";
+import { useCart } from "@/lib/cart-context";
 import { paymentMethods } from "@/lib/constants";
 import { cn, formatTZS } from "@/lib/utils";
-import type { CartItem } from "@/types";
-
-// Demo cart items
-const demoCartItems: CartItem[] = [
-  { productId: "p1", name: "iPhone 15 Pro Max 256GB", image: "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=200&q=80", price: 3490000, quantity: 1, sellerId: "s1", sellerName: "TechHub Tanzania", maxQuantity: 50 },
-  { productId: "p4", name: "Wireless Noise-Cancelling Headphones", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80", price: 349000, quantity: 2, sellerId: "s3", sellerName: "Soko Gadgets", maxQuantity: 200 },
-  { productId: "p9", name: "Organic Skincare Bundle", image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80", price: 89000, quantity: 1, sellerId: "s6", sellerName: "Beauty & Glow TZ", maxQuantity: 200 },
-];
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState<CartItem[]>(demoCartItems);
+  const { items: cartItems, removeItem, updateQuantity, subtotal, clearCart } = useCart();
   const [couponCode, setCouponCode] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const navigate = useNavigate();
-
-  const updateQuantity = (id: string, delta: number) => {
-    setCartItems((prev) =>
-      prev.map((item) => {
-        if (item.productId !== id) return item;
-        const newQty = Math.max(1, Math.min(item.quantity + delta, item.maxQuantity));
-        return { ...item, quantity: newQty };
-      })
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.productId !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = subtotal >= 500000 ? 0 : 15000;
   const discount = couponApplied ? subtotal * 0.1 : 0;
   const total = subtotal + shipping - discount;

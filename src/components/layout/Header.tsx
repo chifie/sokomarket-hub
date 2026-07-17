@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { categories, trendingSearches } from "@/lib/constants";
 import { useTheme } from "@/hooks/use-theme";
+import { useCart } from "@/lib/cart-context";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +26,7 @@ export function Header() {
   const navigate = useNavigate();
   const { isDark, toggleTheme } = useTheme();
 
-  const cartCount = 3;
+  const { itemCount: cartCount } = useCart();
   const wishlistCount = 5;
   const notificationCount = 2;
 
@@ -168,9 +169,9 @@ export function Header() {
 
           {/* Cart */}
           <Link to="/cart" className="relative text-white p-1.5" title="Cart">
-            <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
+            <ShoppingCart data-cart-target className="h-5 w-5 sm:h-6 sm:w-6" />
             {cartCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-white text-[8px] font-bold text-primary flex items-center justify-center shadow-sm ring-2 ring-primary">
+              <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-white text-[8px] font-bold text-primary flex items-center justify-center shadow-sm ring-2 ring-primary animate-scale-in">
                 {cartCount}
               </span>
             )}

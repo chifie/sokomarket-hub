@@ -5,17 +5,19 @@ import {
   Heart, Store, Search
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/lib/cart-context";
 
 const navItems = [
   { icon: Home, label: "Home", path: "/" },
   { icon: Search, label: "Search", path: "/marketplace" },
   { icon: Sparkles, label: "AI Assist", path: "/chat" },
-  { icon: ShoppingCart, label: "Cart", path: "/cart", badge: 3 },
+  { icon: ShoppingCart, label: "Cart", path: "/cart" },
   { icon: User, label: "Profile", path: "/auth" },
 ];
 
 export function MobileBottomNav() {
   const location = useLocation();
+  const { itemCount } = useCart();
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 lg:hidden">
@@ -43,9 +45,9 @@ export function MobileBottomNav() {
                     isActive && "scale-110",
                     !isActive && "group-hover:scale-105"
                   )} />
-                  {item.badge && (
+                  {item.path === "/cart" && itemCount > 0 && (
                     <span className="absolute -top-1.5 -right-2 h-4 w-4 rounded-full bg-primary text-[8px] font-bold text-primary-foreground flex items-center justify-center shadow-sm ring-2 ring-background">
-                      {item.badge}
+                      {itemCount > 9 ? "9+" : itemCount}
                     </span>
                   )}
                 </div>

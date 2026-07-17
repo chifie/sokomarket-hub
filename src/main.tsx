@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/hooks/use-theme";
+import { CartProvider } from "@/lib/cart-context";
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -39,8 +40,10 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <RootErrorBoundary>
       <ThemeProvider defaultTheme="system" storageKey="soko-digital-theme">
-        <App />
-        <Toaster />
+        <CartProvider>
+          <App />
+          <Toaster />
+        </CartProvider>
       </ThemeProvider>
     </RootErrorBoundary>
   </StrictMode>,

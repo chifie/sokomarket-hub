@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router";
-import { motion } from "framer-motion";
-import {
-  ArrowLeft, Heart, ShoppingCart, Star, Truck, Shield,
+import { motion } from "framer-motion";import { ArrowLeft, Heart, ShoppingCart, Star, Truck, Shield,
   Check, Share2, ChevronRight, MapPin, BadgeCheck, Plus, Minus, RotateCcw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +10,9 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { ProductCard } from "@/components/product/ProductCard";
 import { products } from "@/lib/constants";
+import { useCart } from "@/lib/cart-context";
 import { cn, formatTZS, getRatingColor } from "@/lib/utils";
+import { toast } from "sonner";
 
 const reviews = [
   { id: "r1", user: "Amina K.", avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=AminaK", rating: 5, date: "2 weeks ago", text: "Amazing product! Exceeded my expectations. The quality is outstanding and delivery was fast.", likes: 24 },
@@ -27,6 +27,7 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const { addItem } = useCart();
 
   const product = products.find((p) => p.slug === id) || products[0];
   const discount = product.discountPrice ? Math.round(((product.price - product.discountPrice) / product.price) * 100) : 0;
@@ -162,7 +163,21 @@ export default function ProductDetailPage() {
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                <Button size="lg" className="flex-1 h-11 rounded-lg text-sm font-semibold gap-2" onClick={() => { setIsAdded(true); setTimeout(() => setIsAdded(false), 2000); }}>
+                <Button size="lg" className="flex-1 h-11 rounded-lg text-sm font-semibold gap-2" onClick={() => {
+                  setIsAdded(true);
+                  addItem({
+                    productId: product.id,
+                    name: product.name,
+                    image: product.images[0],
+                    price: product.discountPrice || product.price,
+                    quantity,
+                    sellerId: product.seller.id,
+                    sellerName: product.seller.storeName,
+                    maxQuantity: product.quantity,
+                  });
+                  toast.success(`${product.name.slice(0, 30)}... added to cart!`, { duration: 2000, icon: <ShoppingCart className="h-4 w-4" /> });
+                  setTimeout(() => setIsAdded(false), 2000);
+                }}>
                   {isAdded ? <><Check className="h-4 w-4" /> Added</> : <><ShoppingCart className="h-4 w-4" /> Add to Cart</>}
                 </Button>
                 <Button size="lg" variant="outline" className="h-11 rounded-lg text-sm font-semibold" onClick={() => navigate("/checkout")}>Buy Now</Button>

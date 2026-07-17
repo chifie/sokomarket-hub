@@ -1,19 +1,32 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Heart, ShoppingCart } from "lucide-react";
+import { useState, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, ShoppingCart, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 import { Link, useNavigate } from "react-router";
+import { useCart } from "@/lib/cart-context";
+import { toast } from "sonner";
 
 interface ProductCardProps {
   product: Product;
   index?: number;
 }
 
+interface FlyElement {
+  id: string;
+  startX: number;
+  startY: number;
+}
+
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const navigate = useNavigate();
+  const { addItem, itemCount } = useCart();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [flyElements, setFlyElements] = useState<FlyElement[]>([]);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const discount = product.discountPrice
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
@@ -25,16 +38,71 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const isLowStock = product.quantity > 0 && product.quantity <= 10;
   const isOutOfStock = product.quantity === 0;
 
+  const handleAddToCart = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isAdding) return;
+
+    // Get the cart icon position for the fly animation
+    const cartIcon = document.querySelector('[data-cart-target]');
+    const button = buttonRef.current;
+
+    if (button && cartIcon) {
+      const btnRect = button.getBoundingClientRect();
+      const cartRect = cartIcon.getBoundingClientRect();
+
+      const flyId = Date.now().toString();
+      const flyEl: FlyElement = {
+        id: flyId,
+        startX: btnRect.left + btnRect.width / 2,
+        startY: btnRect.top,
+      };
+
+      setFlyElements((prev) => [...prev, flyEl]);
+
+      // Remove fly element after animation completes
+      setTimeout(() => {
+        setFlyElements((prev) => prev.filter((f) => f.id !== flyId));
+      }, 700);
+    }
+
+    // Add to cart
+    setIsAdding(true);
+    addItem({
+      productId: product.id,
+      name: product.name,
+      image: product.images[0],
+      price: product.discountPrice || product.price,
+      quantity: 1,
+      sellerId: product.seller.id,
+      sellerName: product.seller.storeName,
+      maxQuantity: product.quantity,
+    });
+
+    toast.success(`${product.name.slice(0, 30)}... added to cart!`, {
+      duration: 2000,
+      icon: <ShoppingCart className="h-4 w-4" />,
+    });
+
+    setTimeout(() => setIsAdding(false), 1200);
+  }, [product, addItem, isAdding]);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group"
+      className="group relative"
     >
       <Link to={`/product/${product.slug}`} className="block cursor-pointer">
         <div className="bg-card rounded-xl shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 dark:border dark:border-border/50">
         <div className="aspect-square overflow-hidden relative bg-muted/50 rounded-t-xl dark:bg-muted/20">
+          {/* Blur-up placeholder */}
+          {!imgLoaded && !imgError && (
+            <div className="absolute inset-0 shimmer" />
+          )}
+
           {/* Wishlist button */}
           <button
             onClick={(e) => {
@@ -66,7 +134,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             </span>
           )}
 
-          {/* Loading/Error state */}
+          {/* Image with blur-up transition */}
           {imgError ? (
             <div className="w-full h-full flex items-center justify-center bg-muted/50">
               <span className="text-[10px] text-muted-foreground">No image</span>
@@ -77,9 +145,10 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               alt={product.name}
               loading="lazy"
               className={cn(
-                "w-full h-full object-contain group-hover:scale-105 transition-all duration-300",
-                imgError ? "opacity-0" : "opacity-100"
+                "w-full h-full object-contain group-hover:scale-105 transition-all duration-500",
+                imgLoaded ? "opacity-100 blur-0" : "opacity-0 blur-sm scale-95"
               )}
+              onLoad={() => setImgLoaded(true)}
               onError={() => setImgError(true)}
             />
           )}
@@ -116,14 +185,21 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           {/* Action buttons */}
           <div className="flex gap-1 mt-1.5">
             <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-              }}
-              className="flex-1 text-[10px] py-1.5 px-1 rounded-md border border-secondary text-secondary hover:bg-secondary/5 hover:shadow-sm active:scale-[0.95] transition-all duration-200 inline-flex items-center justify-center gap-0.5"
+              ref={buttonRef}
+              onClick={handleAddToCart}
+              disabled={isAdding || isOutOfStock}
+              className={cn(
+                "flex-1 text-[10px] py-1.5 px-1 rounded-md border border-secondary text-secondary hover:bg-secondary/5 hover:shadow-sm active:scale-[0.95] transition-all duration-200 inline-flex items-center justify-center gap-0.5",
+                isAdding && "bg-secondary/10 border-secondary/50",
+                isOutOfStock && "opacity-50 cursor-not-allowed"
+              )}
             >
-              <ShoppingCart className="h-3 w-3" />
-              Add
+              {isAdding ? (
+                <Check className="h-3 w-3" />
+              ) : (
+                <ShoppingCart className="h-3 w-3" />
+              )}
+              {isAdding ? "Added" : "Add"}
             </button>
             <button
               onClick={(e) => {
@@ -139,6 +215,43 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
         </div>
       </Link>
+
+      {/* Fly-to-cart animation elements */}
+      <AnimatePresence>
+        {flyElements.map((fly) => (
+          <motion.div
+            key={fly.id}
+            initial={{
+              position: "fixed",
+              top: fly.startY,
+              left: fly.startX,
+              x: "-50%",
+              y: 0,
+              scale: 1,
+              opacity: 1,
+              zIndex: 9999,
+            }}
+            animate={{
+              top: 48,
+              left: window.innerWidth - 60,
+              x: "-50%",
+              y: "-50%",
+              scale: 0.2,
+              opacity: 0,
+            }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.6,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="pointer-events-none"
+          >
+            <div className="h-8 w-8 rounded-full bg-secondary shadow-lg flex items-center justify-center">
+              <ShoppingCart className="h-4 w-4 text-white" />
+            </div>
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </motion.div>
   );
 }
