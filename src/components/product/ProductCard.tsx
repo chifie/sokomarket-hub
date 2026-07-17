@@ -33,8 +33,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       className="group"
     >
       <Link to={`/product/${product.slug}`} className="block cursor-pointer">
-        <div className="bg-card rounded-xl shadow-sm overflow-hidden">
-        <div className="aspect-square overflow-hidden relative bg-muted/50 rounded-t-xl">
+        <div className="bg-card rounded-xl shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 dark:border dark:border-border/50">
+        <div className="aspect-square overflow-hidden relative bg-muted/50 rounded-t-xl dark:bg-muted/20">
           {/* Wishlist button */}
           <button
             onClick={(e) => {
@@ -120,7 +120,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.preventDefault();
                 e.stopPropagation();
               }}
-              className="flex-1 text-[10px] py-1.5 px-1 rounded-md border border-secondary text-secondary hover:bg-secondary/5 transition-colors inline-flex items-center justify-center gap-0.5"
+              className="flex-1 text-[10px] py-1.5 px-1 rounded-md border border-secondary text-secondary hover:bg-secondary/5 hover:shadow-sm active:scale-[0.95] transition-all duration-200 inline-flex items-center justify-center gap-0.5"
             >
               <ShoppingCart className="h-3 w-3" />
               Add
@@ -131,7 +131,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.stopPropagation();
                 navigate(`/checkout?product=${product.slug}`);
               }}
-              className="flex-1 text-[10px] py-1.5 px-1 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors font-medium shadow-sm"
+              className="flex-1 text-[10px] py-1.5 px-1 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:shadow-md active:scale-[0.95] transition-all duration-200 font-medium shadow-sm"
             >
               Shop Now
             </button>
