@@ -5,7 +5,8 @@ import {
   Search, ShoppingCart, Heart, Bell, User, ChevronDown,
   Menu, X, Sparkles, Store, ChevronRight, Package, LogOut,
   Settings, Grid3X3, Mic, ImageIcon, TrendingUp, Clock,
-  ArrowRight, Shield, Phone, MessageCircle
+  ArrowRight, Shield, Phone, MessageCircle,
+  Trophy, BookOpen, HeartPulse
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -286,6 +287,11 @@ export function Header() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-1">
+          {/* Messages */}
+          <Button variant="ghost" size="icon" className="relative h-9 w-9 rounded-xl hover:bg-muted transition-colors">
+            <MessageCircle className="h-4 w-4" />
+          </Button>
+
           {/* AI Assistant */}
           <Button
             variant="ghost"

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ArrowRight, Clock, Zap, Tag, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,54 +7,15 @@ import { cn } from "@/lib/utils";
 import { banners } from "@/lib/constants";
 
 const heroProducts = [
-  {
-    image: "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500&q=80",
-    name: "iPhone 15 Pro Max",
-    floatDelay: 0,
-    x: "15%",
-    y: "10%",
-    scale: 1.1,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
-    name: "MacBook Pro",
-    floatDelay: 1,
-    x: "72%",
-    y: "8%",
-    scale: 0.9,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
-    name: "Headphones",
-    floatDelay: 2,
-    x: "85%",
-    y: "45%",
-    scale: 0.8,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1546868871-af0de0ae72e6?w=500&q=80",
-    name: "Smart Watch",
-    floatDelay: 0.5,
-    x: "5%",
-    y: "55%",
-    scale: 0.85,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
-    name: "Running Shoes",
-    floatDelay: 1.5,
-    x: "20%",
-    y: "65%",
-    scale: 0.75,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&q=80",
-    name: "Handbag",
-    floatDelay: 3,
-    x: "65%",
-    y: "70%",
-    scale: 0.7,
-  },
+  { image: "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=500&q=80", name: "iPhone 15 Pro Max", floatDelay: 0, x: "12%", y: "8%", scale: 1.1 },
+  { image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80", name: "MacBook Pro", floatDelay: 1, x: "72%", y: "5%", scale: 0.9 },
+  { image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80", name: "Headphones", floatDelay: 2, x: "88%", y: "40%", scale: 0.8 },
+  { image: "https://images.unsplash.com/photo-1546868871-af0de0ae72e6?w=500&q=80", name: "Smart Watch", floatDelay: 0.5, x: "3%", y: "50%", scale: 0.85 },
+  { image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80", name: "Running Shoes", floatDelay: 1.5, x: "18%", y: "68%", scale: 0.75 },
+  { image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=500&q=80", name: "Handbag", floatDelay: 3, x: "62%", y: "72%", scale: 0.7 },
+  { image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80", name: "Smart Watch Ultra", floatDelay: 2.5, x: "80%", y: "65%", scale: 0.65 },
+  { image: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500&q=80", name: "Perfume", floatDelay: 4, x: "45%", y: "15%", scale: 0.6 },
+  { image: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&q=80", name: "Smart TV", floatDelay: 3.5, x: "30%", y: "5%", scale: 0.65 },
 ];
 
 function FloatingProduct({ image, name, floatDelay, x, y, scale }: typeof heroProducts[0]) {
@@ -93,6 +54,8 @@ function FloatingProduct({ image, name, floatDelay, x, y, scale }: typeof heroPr
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
 
   const activeBanners = banners.filter((b) => b.isActive && b.type === "hero");
 
@@ -109,6 +72,23 @@ export function Hero() {
     const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide, activeBanners.length]);
+
+  // Touch swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  };
 
   if (activeBanners.length === 0) {
     return (
@@ -137,7 +117,12 @@ export function Hero() {
       ))}
 
       <div className="relative mx-auto max-w-7xl px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-8 min-h-[500px] lg:min-h-[550px] py-12 lg:py-0">
+        <div
+          className="flex flex-col lg:flex-row items-center gap-8 min-h-[500px] lg:min-h-[550px] py-12 lg:py-0"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {/* Left Content */}
           <div className="flex-1 text-center lg:text-left lg:max-w-xl z-10">
             <AnimatePresence mode="wait">
@@ -242,12 +227,14 @@ export function Hero() {
             <button
               onClick={prevSlide}
               className="absolute left-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center hover:bg-background transition-all shadow-sm z-20 hidden lg:flex"
+              aria-label="Previous slide"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={nextSlide}
               className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center hover:bg-background transition-all shadow-sm z-20 hidden lg:flex"
+              aria-label="Next slide"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -266,6 +253,7 @@ export function Hero() {
                     ? "w-8 bg-primary"
                     : "w-2 bg-border hover:bg-border/80"
                 }`}
+                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
             <button
@@ -273,6 +261,7 @@ export function Hero() {
               className={`ml-3 h-6 w-6 rounded-full flex items-center justify-center text-[10px] transition-colors ${
                 isAutoPlaying ? "text-primary" : "text-muted-foreground"
               }`}
+              aria-label={isAutoPlaying ? "Pause auto-play" : "Start auto-play"}
             >
               {isAutoPlaying ? "⏸" : "▶"}
             </button>

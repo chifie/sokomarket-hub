@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router';
 import { Navbar } from '@/components/site/Navbar';
 import { Hero } from '@/components/site/Hero';
 import { Partners } from '@/components/site/Partners';
@@ -16,7 +16,7 @@ import { CTA } from '@/components/site/CTA';
 import { Footer } from '@/components/site/Footer';
 import { PageHeader } from '@/components/site/PageHeader';
 import AIChatPage from '@/pages/AIChatPage';
-import MarketplacePage from '@/pages/MarketplacePage';import json
+import MarketplacePage from '@/pages/MarketplacePage';
 
 import AuthPage from '@/pages/AuthPage';
 import DashboardPage from '@/pages/DashboardPage';

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles, X, Send, MessageCircle, Bot, Search,
-  TrendingDown, Smartphone, Zap, ArrowRight
+  TrendingDown, Smartphone, Zap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -172,9 +172,10 @@ export function AIAssistant() {
                 <div className="px-4 pb-3">
                   <p className="text-[11px] text-muted-foreground mb-2 font-medium">Try asking:</p>
                   <div className="flex flex-wrap gap-1.5">
-                    {aiSuggestions.slice(0, 4).map((suggestion) => {
-                      const Icon = iconMap[suggestion.icon] || Search;
-                      return (
+                {aiSuggestions.slice(0, 4).map((suggestion) => {
+                  const iconKey = suggestion.icon as keyof typeof iconMap;
+                  const Icon = iconMap[iconKey] || Search;
+                  return (
                         <button
                           key={suggestion.id}
                           onClick={() => handleSuggestion(suggestion.text)}
