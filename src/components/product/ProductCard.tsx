@@ -137,6 +137,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             </button>
           </div>
         </div>
+        </div>
       </Link>
     </motion.div>
   );
