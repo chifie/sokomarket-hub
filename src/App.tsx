@@ -133,6 +133,7 @@ function App() {
             <Route path="/sell" element={<SellerOnboardingPage />} />
             <Route path="/admin" element={<AdminDashboardPage />} />
           </Routes>
+          <AIAssistant />
           <AIWidget />
         </AuthProvider>
       </LanguageProvider>
