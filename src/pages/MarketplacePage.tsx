@@ -1,191 +1,181 @@
-import { useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router';
-import { motion } from 'framer-motion';
-import { Search, Heart, Star, ShoppingCart, Grid, List } from 'lucide-react';
-import { Navbar } from '@/components/site/Navbar';
-import { Footer } from '@/components/site/Footer';
-import { PageHeader } from '@/components/site/PageHeader';
-import { PRODUCTS, PRODUCT_IMAGES, type Product } from '@/lib/marketplace-data';
-import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
-
-const categories = ['All', 'Electronics', 'Fashion', 'Agriculture', 'Phones', 'Computers', 'Furniture', 'Beauty', 'Food', 'Automotive', 'Books', 'Sports'];
-
-const FALLBACK_IMAGES = Object.values(PRODUCT_IMAGES);
+import { useState, useEffect } from "react";
+import { useSearchParams, Link } from "react-router";
+import { motion } from "framer-motion";
+import { Search, Grid, List, ChevronDown, SlidersHorizontal } from "lucide-react";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
+import { AIAssistant } from "@/components/ai/AIAssistant";
+import { ProductCard } from "@/components/product/ProductCard";
+import { categories, products } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function MarketplacePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialCategory = searchParams.get('category') || 'All';
-  const [searchQuery, setSearchQuery] = useState('');
+  const initialCategory = searchParams.get("category") || "All";
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [liveProducts, setLiveProducts] = useState<Product[]>([]);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [sortBy, setSortBy] = useState("popular");
 
   useEffect(() => {
-    const c = searchParams.get('category') || 'All';
+    const c = searchParams.get("category") || "All";
     setSelectedCategory(c);
   }, [searchParams]);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { data } = await supabase
-        .from('products')
-        .select('*')
-        .order('created_at', { ascending: false });
-      if (cancelled || !data) return;
-      const mapped: Product[] = data.map((p, i) => ({
-        img: p.image_url || FALLBACK_IMAGES[i % FALLBACK_IMAGES.length],
-        title: p.name,
-        seller: p.seller_name || 'SokoDigital Seller',
-        price: `${p.currency} ${Number(p.price).toLocaleString()}`,
-        old: '',
-        rating: Number(p.rating) || 0,
-        discount: 0,
-        category: p.category,
-      }));
-      setLiveProducts(mapped);
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const allCategories = ["All", ...categories.map((c) => c.name)];
 
-  const allProducts = [...liveProducts, ...PRODUCTS];
-
-  const filteredProducts = allProducts.filter((product) => {
-    const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+  const filteredProducts = products.filter((p) => {
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || p.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <PageHeader
-        eyebrow="Marketplace"
-        title="Explore Our Marketplace"
-        description="Discover thousands of products from trusted sellers across the world"
-        crumb="Marketplace"
-      />
+  // Sort products
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case "price-asc": return a.price - b.price;
+      case "price-desc": return b.price - a.price;
+      case "rating": return b.rating - a.rating;
+      case "newest": return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      default: return b.sold - a.sold; // popular
+    }
+  });
 
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
-          <div className="flex-1 relative">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-indigo-600"
-            />
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    if (category === "All") setSearchParams({});
+    else setSearchParams({ category: category.toLowerCase().replace(/\s+/g, "-") });
+  };
+
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-background flex flex-col">
+      <Header />
+      <main className="flex-1 pb-16 lg:pb-0">
+        <div className="px-4 sm:px-8 lg:px-12 xl:px-16 py-6">
+          {/* Page Header */}
+          <div className="mb-6">
+            <h1 className="text-xl font-bold">Marketplace</h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              {sortedProducts.length} products found
+              {selectedCategory !== "All" && ` in "${selectedCategory}"`}
+            </p>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0">
-            {categories.slice(0, 8).map((category) => (
-              <button
-                key={category}
-                onClick={() => {
-                  setSelectedCategory(category);
-                  if (category === 'All') {
-                    setSearchParams({});
-                  } else {
-                    setSearchParams({ category });
-                  }
-                }}
-                className={`px-4 py-2 rounded-lg whitespace-nowrap font-medium transition ${
-                  selectedCategory === category
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
+          {/* Search + Sort Bar */}
+          <div className="flex flex-col lg:flex-row gap-3 mb-4">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 rounded-lg border border-border bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30 transition-all"
+              />
+            </div>
+            <div className="flex gap-2">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-3 py-2.5 rounded-lg border border-border bg-background text-sm text-foreground outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer"
               >
-                {category}
+                <option value="popular">Most Popular</option>
+                <option value="newest">Newest</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+              <div className="flex rounded-lg border border-border overflow-hidden">
+                <button onClick={() => setViewMode("grid")} className={cn("p-2.5 transition-colors", viewMode === "grid" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:text-foreground")}>
+                  <Grid className="h-4 w-4" />
+                </button>
+                <button onClick={() => setViewMode("list")} className={cn("p-2.5 transition-colors", viewMode === "list" ? "bg-primary text-primary-foreground" : "bg-background text-muted-foreground hover:text-foreground")}>
+                  <List className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Category Pills */}
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-6" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+            {allCategories.slice(0, 20).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategoryChange(cat)}
+                className={cn(
+                  "shrink-0 px-4 py-1.5 rounded-full text-xs font-medium transition-colors border",
+                  selectedCategory === cat
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-card text-muted-foreground hover:text-foreground border-border bg-card"
+                )}
+              >
+                {cat}
               </button>
             ))}
           </div>
 
-          <div className="flex gap-2">
-            <button
-              onClick={() => setViewMode('grid')}
-              className={`p-2 rounded-lg transition ${viewMode === 'grid' ? 'bg-indigo-600 text-white' : 'bg-muted text-muted-foreground'}`}
-            >
-              <Grid className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => setViewMode('list')}
-              className={`p-2 rounded-lg transition ${viewMode === 'list' ? 'bg-indigo-600 text-white' : 'bg-muted text-muted-foreground'}`}
-            >
-              <List className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredProducts.map((product, i) => {
-            const slug = product.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-            return (
-              <motion.div
-                key={`${product.title}-${i}`}
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-              >
-                <Link
-                  to={`/product/${slug}`}
-                  className="group block overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+          {/* Product Grid */}
+          {sortedProducts.length === 0 ? (
+            <div className="text-center py-20">
+              <Search className="w-12 h-12 mx-auto mb-3 text-muted-foreground opacity-30" />
+              <p className="text-base text-muted-foreground">No products found</p>
+              <p className="text-sm text-muted-foreground mt-1">Try adjusting your search or filter</p>
+              <Button variant="outline" size="sm" className="mt-4" onClick={() => { setSearchQuery(""); setSelectedCategory("All"); setSearchParams({}); }}>
+                Clear Filters
+              </Button>
+            </div>
+          ) : viewMode === "grid" ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
+              {sortedProducts.map((product, index) => (
+                <ProductCard key={product.id} product={product} index={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {sortedProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.03 }}
                 >
-                  <div className="relative aspect-square overflow-hidden bg-muted">
-                    <img
-                      src={product.img}
-                      alt={product.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    {product.discount > 0 && (
-                      <span className="absolute left-3 top-3 rounded-full bg-destructive px-2 py-1 text-[10px] font-bold text-white">
-                        -{product.discount}%
-                      </span>
-                    )}
-                    <button
-                      type="button"
-                      onClick={(e) => e.preventDefault()}
-                      aria-label="Add to wishlist"
-                      className="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-full bg-background/90 text-foreground/80 shadow-sm transition hover:text-destructive"
-                    >
-                      <Heart className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <div className="p-4">
-                    <div className="text-xs text-muted-foreground">{product.seller}</div>
-                    <h3 className="mt-1 line-clamp-2 text-sm font-semibold text-foreground group-hover:text-primary">{product.title}</h3>
-                    <div className="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
-                      <Star className="h-3.5 w-3.5 fill-yellow-500 text-yellow-500" />
-                      <span className="font-semibold text-foreground">{product.rating || 'New'}</span>
+                  <Link to={`/product/${product.slug}`} className="flex gap-4 p-3 rounded-lg border border-border/50 bg-card hover:shadow-sm transition group">
+                    <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0">
+                      <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
                     </div>
-                    <div className="mt-3 flex items-baseline gap-2">
-                      <span className="text-lg font-black text-primary">{product.price}</span>
-                      {product.old && (
-                        <span className="text-xs text-muted-foreground line-through">{product.old}</span>
-                      )}
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium group-hover:text-primary transition-colors">{product.name}</p>
+                      <p className="text-xs text-muted-foreground mt-0.5">{product.seller.storeName}</p>
+                      <div className="flex items-center gap-2 mt-1.5">
+                        <span className="text-sm font-bold">Tshs {product.discountPrice ? product.discountPrice.toLocaleString() : product.price.toLocaleString()}/=</span>
+                        {product.discountPrice && (
+                          <span className="text-xs text-muted-foreground line-through">Tshs {product.price.toLocaleString()}/=</span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-2 mt-1 text-[11px] text-muted-foreground">
+                        <span>{product.rating} ★</span>
+                        <span>•</span>
+                        <span>{product.sold.toLocaleString()} sold</span>
+                        {product.quantity > 0 && (
+                          <>
+                            <span>•</span>
+                            <span className="text-emerald-600">{product.quantity} in stock</span>
+                          </>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              </motion.div>
-            );
-          })}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
-
-        {filteredProducts.length === 0 && (
-          <div className="text-center py-20">
-            <Search className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
-            <p className="text-xl text-muted-foreground">No products found</p>
-            <p className="mt-2 text-muted-foreground">Try adjusting your search or filter</p>
-          </div>
-        )}
-      </div>
-
+      </main>
       <Footer />
-    </div>
+      <MobileBottomNav />
+      <AIAssistant />
+    </motion.div>
   );
 }
