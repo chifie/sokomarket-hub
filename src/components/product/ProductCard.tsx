@@ -143,7 +143,7 @@ export function ProductCard({ product, index = 0, featured = false }: ProductCar
                   )}
                 </Button>
                 <Link
-                  to={`/product/${product.slug}`}
+                  to="/checkout"
                   onClick={(e) => e.stopPropagation()}
                   className="flex-1 h-9 text-xs gap-1.5 shadow-lg rounded-xl bg-white text-gray-900 hover:bg-gray-100 inline-flex items-center justify-center font-medium"
                 >

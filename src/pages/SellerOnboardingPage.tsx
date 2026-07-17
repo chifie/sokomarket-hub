@@ -3,17 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router";
 import {
   ArrowLeft, ArrowRight, Check, Store, User, MapPin,
-  Shield, CreditCard, Truck, Image, FileText, Sparkles,
-  Smartphone, Landmark, Building2, CircleUser, Phone, Mail,
-  Lock, Globe, Camera, ChevronRight, Package, BadgeCheck,
-  Upload, X, Plus
+  Shield, CreditCard, Truck, Image, FileText,
+  Smartphone, Landmark, Globe, Camera, Upload
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";

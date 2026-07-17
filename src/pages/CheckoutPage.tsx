@@ -3,15 +3,13 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import {
   ArrowLeft, MapPin, Truck, CreditCard, Smartphone, Landmark,
-  Shield, Check, ChevronRight, Package, Building2, Wallet,
-  CircleUser, Phone, Mail, Lock, Sparkles
+  Shield, Check, Lock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";

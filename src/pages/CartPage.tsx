@@ -3,19 +3,16 @@ import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
 import {
   ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag,
-  Truck, Shield, CreditCard, ArrowRight, Heart,
-  Smartphone, Landmark, ChevronRight, Sparkles, Package,
-  RotateCcw
+  Truck, Shield, CreditCard, ArrowRight, Heart, RotateCcw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { AIAssistant } from "@/components/ai/AIAssistant";
-import { products, paymentMethods } from "@/lib/constants";
+import { paymentMethods } from "@/lib/constants";
 import { cn, formatTZS } from "@/lib/utils";
 import type { CartItem } from "@/types";
 
