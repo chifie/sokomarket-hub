@@ -3,7 +3,7 @@ import { ArrowRight, Star, Package, Users, MapPin, Clock, BadgeCheck } from "luc
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { sellers } from "@/lib/constants";
-import { cn } from "@/lib/utils";
+
 import { Link } from "react-router";
 
 export function PopularSellers() {

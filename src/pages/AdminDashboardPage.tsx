@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router";
 import {
   Users, Store, Package, ShoppingCart, BarChart3, Shield,
   FileText, Check, X, Image,
@@ -69,7 +68,6 @@ const maxAmount = Math.max(...weeklySales.map((s) => s.amount));
 
 export default function AdminDashboardPage() {
   const [activeTab, setActiveTab] = useState("overview");
-  const navigate = useNavigate();
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import {
   User, Package, Heart, MapPin, CreditCard, Clock,
   ShoppingBag, Star, ChevronRight, LogOut, Shield,

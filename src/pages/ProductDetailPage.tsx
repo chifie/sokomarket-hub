@@ -15,7 +15,7 @@ import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { ProductCard } from "@/components/product/ProductCard";
 import { products } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
-import { cn, formatTZS, getRatingColor } from "@/lib/utils";
+import { cn, getRatingColor } from "@/lib/utils";
 import { toast } from "sonner";
 
 // ===== StarRating Component =====
