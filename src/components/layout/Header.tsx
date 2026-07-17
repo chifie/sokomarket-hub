@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { categories, trendingSearches } from "@/lib/constants";
 import { useTheme } from "@/hooks/use-theme";
-import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
