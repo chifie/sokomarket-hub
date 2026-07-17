@@ -17,7 +17,6 @@ import { categories, trendingSearches, products } from "@/lib/constants";
 import { useTheme } from "@/hooks/use-theme";
 import { useCart } from "@/lib/cart-context";
 import { useAuth } from "@/lib/auth";
-import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
