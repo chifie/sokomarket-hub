@@ -32,7 +32,6 @@ function CategoriesPage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </div>
   );
 }
@@ -49,7 +48,6 @@ function ShopsPage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </div>
   );
 }
@@ -66,7 +64,6 @@ function DealsPage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </div>
   );
 }
@@ -83,7 +80,6 @@ function AboutPage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </div>
   );
 }
@@ -100,7 +96,6 @@ function ContactPage() {
       </main>
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </div>
   );
 }
