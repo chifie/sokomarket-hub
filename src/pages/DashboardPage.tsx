@@ -2,9 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
 import {
-  User, Package, Heart, MapPin, CreditCard, Clock, Settings,
-  ShoppingBag, Star, ChevronRight, LogOut, Shield, Truck,
-  RotateCcw, HelpCircle, Bell, Store, Plus, ArrowRight, Sparkles
+  User, Package, Heart, MapPin, CreditCard, Clock,
+  ShoppingBag, Star, ChevronRight, LogOut, Shield,
+  Bell, Store, Plus, ArrowRight, Mail, Phone
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
