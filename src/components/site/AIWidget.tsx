@@ -23,6 +23,7 @@ export function AIWidget() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMsgs([{ role: 'assistant', content: t('ai.welcome') }]);
   }, [lang, t]);
 

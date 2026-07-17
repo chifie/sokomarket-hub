@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import { Flame, ArrowRight } from "lucide-react";
 
 function useCountdown(target: number) {
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
@@ -17,8 +17,7 @@ function useCountdown(target: number) {
 }
 
 export function Deals() {
-  const target = typeof window !== "undefined" ? Date.now() + 1000 * 60 * 60 * 8 : 0;
-  const { h, m, s } = useCountdown(target);
+  const { h, m, s } = useCountdown(Date.now() + 1000 * 60 * 60 * 8);
 
   return (
     <section className="py-20 lg:py-28">

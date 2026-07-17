@@ -202,7 +202,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     try {
       localStorage.setItem(STORAGE_KEY, lang);
       document.documentElement.lang = lang;
-    } catch {}
+    } catch { /* localStorage may be unavailable */ }
   }, [lang]);
 
   const t = (key: string, params?: Record<string, string | number>) => {

@@ -181,16 +181,15 @@ export default function MarketplacePage() {
           <div className="flex gap-6">
             {/* Filter Sidebar - Desktop */}
             <AnimatePresence>
-              {true && (
-                <motion.aside
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  className={cn(
-                    "shrink-0 w-56 space-y-5",
-                    "hidden lg:block",
-                    showFilters && "block lg:hidden fixed inset-0 z-50 bg-background p-6 overflow-y-auto"
-                  )}
+              <motion.aside
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className={cn(
+                  "shrink-0 w-56 space-y-5",
+                  "hidden lg:block",
+                  showFilters && "block lg:hidden fixed inset-0 z-50 bg-background p-6 overflow-y-auto"
+                )}
                 >
                   <div className="flex items-center justify-between mb-4 lg:hidden">
                     <h2 className="font-bold">Filters</h2>
@@ -278,8 +277,7 @@ export default function MarketplacePage() {
                   <Button variant="outline" size="sm" className="w-full rounded-lg text-xs" onClick={clearFilters}>
                     Clear All Filters
                   </Button>
-                </motion.aside>
-              )}
+              </motion.aside>
             </AnimatePresence>
 
             {/* Main Content */}
