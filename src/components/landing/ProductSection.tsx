@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, TrendingUp, Star, Flame } from "lucide-react";
+import { ArrowRight, TrendingUp, Star, Flame, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/ProductCard";
 import { products } from "@/lib/constants";
 
 const tabs = [
   { id: "featured", label: "Featured", icon: Star },
-  { id: "trending", label: "Trending", icon: TrendingUp },
-  { id: "recommended", label: "Recommended", icon: Flame },
+  { id: "trending", label: "Trending Now", icon: Flame },
+  { id: "recommended", label: "For You", icon: Sparkles },
 ];
 
 export function ProductSection() {
@@ -17,7 +17,7 @@ export function ProductSection() {
   const filteredProducts = products.filter((p) => {
     if (activeTab === "featured") return p.featured;
     if (activeTab === "trending") return p.trending;
-    return true; // recommended = all
+    return true;
   });
 
   return (
@@ -26,8 +26,9 @@ export function ProductSection() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10">
           <div>
-            <h2 className="text-2xl md:text-3xl font-bold">Discover Products</h2>
-            <p className="text-muted-foreground mt-2 text-sm">
+            <span className="text-xs font-semibold text-primary uppercase tracking-wider">Products</span>
+            <h2 className="text-2xl md:text-3xl font-bold mt-1">Discover Products</h2>
+            <p className="text-muted-foreground mt-1.5 text-sm">
               Handpicked selections just for you
             </p>
           </div>
@@ -40,11 +41,12 @@ export function ProductSection() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={cn(
+                    "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
                     activeTab === tab.id
                       ? "bg-background text-foreground shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  )}
                 >
                   <Icon className="h-3.5 w-3.5" />
                   {tab.label}
@@ -72,9 +74,9 @@ export function ProductSection() {
 
         {/* View All */}
         <div className="mt-10 text-center">
-          <Button variant="outline" size="lg" className="rounded-full h-12 px-8 text-sm font-medium border-border/50 gap-2">
+          <Button variant="outline" size="lg" className="rounded-full h-12 px-8 text-sm font-medium border-border/50 gap-2 group">
             View All Products
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </Button>
         </div>
       </div>

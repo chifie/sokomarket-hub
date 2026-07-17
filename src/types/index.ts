@@ -327,3 +327,26 @@ export interface FlashSale {
   discount: number;
   isActive: boolean;
 }
+
+// ===== Banner Types =====
+export interface Banner {
+  id: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  cta?: string;
+  link?: string;
+  desktopImage: string;
+  mobileImage?: string;
+  backgroundImage?: string;
+  badge?: string;
+  discount?: number;
+  countdownTo?: string;
+  type: "hero" | "flash-sale" | "category" | "brand" | "vendor" | "seasonal" | "announcement" | "promotional";
+  priority: number;
+  isActive: boolean;
+  startDate: string;
+  endDate: string;
+  bgColor?: string;
+  textColor?: string;
+}

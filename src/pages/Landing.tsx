@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { Hero } from "@/components/landing/Hero";
 import { FeaturedCategories } from "@/components/landing/FeaturedCategories";
 import { ProductSection } from "@/components/landing/ProductSection";
@@ -10,6 +11,7 @@ import { Testimonials } from "@/components/landing/Testimonials";
 import { Statistics } from "@/components/landing/Statistics";
 import { DownloadApp } from "@/components/landing/DownloadApp";
 import { Newsletter } from "@/components/landing/Newsletter";
+import { AIAssistant } from "@/components/ai/AIAssistant";
 
 export default function Landing() {
   return (
@@ -20,18 +22,20 @@ export default function Landing() {
       className="min-h-screen flex flex-col"
     >
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 pb-16 lg:pb-0">
         <Hero />
         <FeaturedCategories />
-        <ProductSection />
         <FlashSaleBanner />
+        <ProductSection />
         <PopularSellers />
-        <Testimonials />
         <Statistics />
+        <Testimonials />
         <DownloadApp />
         <Newsletter />
       </main>
       <Footer />
+      <MobileBottomNav />
+      <AIAssistant />
     </motion.div>
   );
 }
