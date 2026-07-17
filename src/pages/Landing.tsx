@@ -4,8 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { Hero } from "@/components/landing/Hero";
-import { AIAssistant } from "@/components/ai/AIAssistant";
-import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCard} from "@/components/product/ProductCard";
 import { categories, products, sellers } from "@/lib/constants";
 import { ShoppingCart, Package, BadgeCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -203,7 +202,6 @@ export default function Landing() {
 
       <Footer />
       <MobileBottomNav />
-      <AIAssistant />
     </motion.div>
   );
 }
