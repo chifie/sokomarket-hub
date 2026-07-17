@@ -24,7 +24,7 @@ export function DownloadApp() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-blue-700 to-indigo-900 p-8 md:p-12 premium-shadow"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-secondary to-amber-900 p-8 md:p-12 premium-shadow"
         >
           {/* Background decoration */}
           <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl" />

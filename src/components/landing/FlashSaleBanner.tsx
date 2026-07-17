@@ -51,7 +51,7 @@ export function FlashSaleBanner() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-rose-600 via-rose-700 to-red-800 p-6 md:p-10 mb-8"
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-secondary via-[#E8912E] to-[#D4781F] p-6 md:p-10 mb-8"
         >
           <div className="absolute inset-0 opacity-[0.08]">
             <div className="absolute inset-0" style={{
@@ -69,7 +69,7 @@ export function FlashSaleBanner() {
                 </div>
                 <div>
                   <div className="flex items-center gap-2.5 mb-1">
-                    <Badge className="bg-amber-500/20 text-amber-300 border-0 text-xs font-semibold px-3 py-1 rounded-full">
+                    <Badge className="bg-amber-500/20 text-amber-200 border-0 text-xs font-semibold px-3 py-1 rounded-full">
                       <Flame className="h-3 w-3 mr-1" />
                       Limited Time
                     </Badge>

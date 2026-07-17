@@ -55,7 +55,7 @@ export function PopularSellers() {
                         <AvatarFallback className="rounded-2xl text-lg">{seller.name[0]}</AvatarFallback>
                       </Avatar>
                       {seller.verified && (
-                        <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-blue-500 border-[3px] border-background flex items-center justify-center shadow-sm">
+                        <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-primary border-[3px] border-background flex items-center justify-center shadow-sm">
                           <BadgeCheck className="h-3.5 w-3.5 text-white" />
                         </div>
                       )}
