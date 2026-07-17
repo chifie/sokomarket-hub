@@ -1,5 +1,5 @@
 import { useEffect, useState, FormEvent } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router';
 import { Loader2, Upload, X, Plus, ArrowLeft } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';

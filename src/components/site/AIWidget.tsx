@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 import { Bot, Send, X, MessageCircle, Loader2 } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { supabase } from '@/integrations/supabase/client';

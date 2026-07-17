@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Star, ArrowRight, TrendingUp } from "lucide-react";
 import { PRODUCTS } from "@/lib/marketplace-data";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { Plus, Pencil, Trash2, Package, Loader2, ImageOff } from 'lucide-react';
 import { Navbar } from '@/components/site/Navbar';
 import { Footer } from '@/components/site/Footer';

@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import logoIcon from "@/assets/brand/logo-icon.png";
 
 const ROUTES: Record<string, string> = {

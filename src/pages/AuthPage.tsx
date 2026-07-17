@@ -1,5 +1,5 @@
 import { useState, FormEvent, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import { ShoppingBag, Store, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth, AppRole } from '@/lib/auth';
