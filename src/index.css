@@ -67,8 +67,8 @@
   }
 
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--primary) 30%, transparent); }
-    50% { box-shadow: 0 0 20px 6px color-mix(in oklch, var(--primary) 15%, transparent); }
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--secondary) 30%, transparent); }
+    50% { box-shadow: 0 0 20px 6px color-mix(in oklch, var(--secondary) 15%, transparent); }
   }
 
   @keyframes slide-up {
@@ -92,79 +92,79 @@
   }
 }
 
-/* Kichi Tanzania-inspired color scheme */
+/* Kichi Market-inspired orange color scheme */
 :root {
-  --radius: 0.5rem;
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.16 0.02 260);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.02 260);
+  --radius: 0.75rem; /* 12px border radius for cards */
+  --background: oklch(0.935 0.004 60);   /* #EDEDED - page background */
+  --foreground: oklch(0.155 0.012 260);  /* #26292D - primary text */
+  --card: oklch(1 0 0);                   /* #FFFFFF - card background */
+  --card-foreground: oklch(0.155 0.012 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.02 260);
-  /* Kichi deep navy/blue ~ #1E3A5F */
-  --primary: oklch(0.35 0.06 260);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.25 0.04 260);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.965 0.005 340);
-  --muted-foreground: oklch(0.5 0.02 340);
-  /* Amber gold ~ #FFCE07 for ratings/badges */
-  --accent: oklch(0.83 0.17 85);
-  --accent-foreground: oklch(0.2 0.03 85);
+  --popover-foreground: oklch(0.155 0.012 260);
+  /* Main Orange #F8B149 - header backgrounds, highlights, active states */
+  --primary: oklch(0.80 0.17 68);
+  --primary-foreground: oklch(1 0 0);     /* White text on orange */
+  /* Button Orange #FFA000 - CTA buttons */
+  --secondary: oklch(0.70 0.20 65);
+  --secondary-foreground: oklch(1 0 0);   /* White text on dark orange */
+  --muted: oklch(0.95 0.004 60);
+  --muted-foreground: oklch(0.505 0.035 55); /* #8C7560 - secondary text */
+  --accent: oklch(0.70 0.20 65);           /* #FFA000 */
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.58 0.22 25);
-  --border: oklch(0.92 0.01 340);
-  --input: oklch(0.92 0.01 340);
-  --ring: oklch(0.35 0.06 260);
-  --chart-1: oklch(0.35 0.06 260);
-  --chart-2: oklch(0.6 0.12 185);
-  --chart-3: oklch(0.4 0.07 227);
+  --border: oklch(0.904 0.003 60);        /* #E5E5E5 - light border */
+  --input: oklch(0.904 0.003 60);          /* #E5E5E5 */
+  --ring: oklch(0.80 0.17 68);             /* #F8B149 - focus ring */
+  --chart-1: oklch(0.80 0.17 68);          /* #F8B149 */
+  --chart-2: oklch(0.70 0.20 65);          /* #FFA000 */
+  --chart-3: oklch(0.60 0.15 220);
   --chart-4: oklch(0.83 0.19 84);
   --chart-5: oklch(0.77 0.19 70);
   --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.16 0.02 260);
-  --sidebar-primary: oklch(0.35 0.06 260);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.965 0.005 340);
-  --sidebar-accent-foreground: oklch(0.16 0.02 260);
-  --sidebar-border: oklch(0.92 0.01 340);
-  --sidebar-ring: oklch(0.35 0.06 260);
+  --sidebar-foreground: oklch(0.155 0.012 260);
+  --sidebar-primary: oklch(0.80 0.17 68);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.95 0.004 60);
+  --sidebar-accent-foreground: oklch(0.155 0.012 260);
+  --sidebar-border: oklch(0.904 0.003 60);
+  --sidebar-ring: oklch(0.80 0.17 68);
   --success: oklch(0.6 0.18 145);
   --warning: oklch(0.75 0.18 75);
   --info: oklch(0.6 0.15 220);
 }
 
 .dark {
-  --background: oklch(0.14 0.01 260);
+  --background: oklch(0.14 0.01 60);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.01 260);
+  --card: oklch(0.18 0.01 60);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0.01 260);
+  --popover: oklch(0.18 0.01 60);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.45 0.07 260);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.25 0.04 260);
+  --primary: oklch(0.70 0.15 65);          /* Darker orange for dark mode */
+  --primary-foreground: oklch(0.14 0.01 60);
+  --secondary: oklch(0.62 0.18 65);        /* Darker button orange */
   --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.23 0.01 260);
-  --muted-foreground: oklch(0.68 0.02 340);
-  --accent: oklch(0.83 0.17 85);
-  --accent-foreground: oklch(0.2 0.03 85);
+  --muted: oklch(0.22 0.01 60);
+  --muted-foreground: oklch(0.68 0.02 55);
+  --accent: oklch(0.62 0.18 65);
+  --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.62 0.22 25);
-  --border: oklch(0.27 0.01 260);
-  --input: oklch(0.27 0.01 260);
-  --ring: oklch(0.45 0.07 260);
-  --chart-1: oklch(0.45 0.07 260);
-  --chart-2: oklch(0.6 0.12 185);
-  --chart-3: oklch(0.4 0.07 227);
-  --chart-4: oklch(0.83 0.19 84);
-  --chart-5: oklch(0.77 0.19 70);
-  --sidebar: oklch(0.18 0.01 260);
+  --border: oklch(0.27 0.01 60);
+  --input: oklch(0.27 0.01 60);
+  --ring: oklch(0.70 0.15 65);
+  --chart-1: oklch(0.70 0.15 65);
+  --chart-2: oklch(0.62 0.18 65);
+  --chart-3: oklch(0.55 0.12 220);
+  --chart-4: oklch(0.75 0.17 84);
+  --chart-5: oklch(0.70 0.17 70);
+  --sidebar: oklch(0.18 0.01 60);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.45 0.07 260);
-  --sidebar-primary-foreground: oklch(0.14 0.01 260);
-  --sidebar-accent: oklch(0.23 0.01 260);
-  --sidebar-accent-foreground: oklch(0.7 0.02 340);
-  --sidebar-border: oklch(0.27 0.01 260);
-  --sidebar-ring: oklch(0.45 0.07 260);
+  --sidebar-primary: oklch(0.70 0.15 65);
+  --sidebar-primary-foreground: oklch(0.14 0.01 60);
+  --sidebar-accent: oklch(0.22 0.01 60);
+  --sidebar-accent-foreground: oklch(0.7 0.02 55);
+  --sidebar-border: oklch(0.27 0.01 60);
+  --sidebar-ring: oklch(0.70 0.15 65);
   --success: oklch(0.55 0.18 145);
   --warning: oklch(0.7 0.18 75);
   --info: oklch(0.55 0.15 220);
@@ -198,30 +198,30 @@ html {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: oklch(0.8 0.005 264);
+  background: oklch(0.8 0.005 60);
   border-radius: 4px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.7 0.005 264);
+  background: oklch(0.7 0.005 60);
   border: 2px solid transparent;
   background-clip: content-box;
 }
 .dark ::-webkit-scrollbar-thumb {
-  background: oklch(0.35 0.005 264);
+  background: oklch(0.35 0.005 60);
   border: 2px solid transparent;
   background-clip: content-box;
 }
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: oklch(0.4 0.005 264);
+  background: oklch(0.4 0.005 60);
   border: 2px solid transparent;
   background-clip: content-box;
 }
 
 /* Selection styling */
 ::selection {
-  background-color: oklch(0.52 0.21 264 / 0.2);
+  background-color: oklch(0.80 0.17 68 / 0.2);
 }
 
 /* Glass effect utility */
@@ -229,11 +229,11 @@ html {
   background: oklch(1 0 0 / 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid oklch(0.922 0.005 264 / 0.5);
+  border: 1px solid oklch(0.904 0.003 60 / 0.5);
 }
 .dark .glass {
-  background: oklch(0.16 0.005 264 / 0.7);
-  border: 1px solid oklch(0.25 0.005 264 / 0.5);
+  background: oklch(0.16 0.005 60 / 0.7);
+  border: 1px solid oklch(0.25 0.005 60 / 0.5);
 }
 
 /* Premium card shadow */
@@ -252,7 +252,7 @@ html {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -262,9 +262,9 @@ html {
 .shimmer {
   background: linear-gradient(
     90deg,
-    oklch(0.965 0.005 264) 25%,
-    oklch(0.95 0.005 264) 50%,
-    oklch(0.965 0.005 264) 75%
+    oklch(0.965 0.005 60) 25%,
+    oklch(0.95 0.005 60) 50%,
+    oklch(0.965 0.005 60) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 2s ease-in-out infinite;
@@ -272,9 +272,9 @@ html {
 .dark .shimmer {
   background: linear-gradient(
     90deg,
-    oklch(0.21 0.005 264) 25%,
-    oklch(0.25 0.005 264) 50%,
-    oklch(0.21 0.005 264) 75%
+    oklch(0.21 0.005 60) 25%,
+    oklch(0.25 0.005 60) 50%,
+    oklch(0.21 0.005 60) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 2s ease-in-out infinite;
