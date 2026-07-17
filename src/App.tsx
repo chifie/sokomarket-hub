@@ -1,20 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router';
-import { Navbar } from '@/components/site/Navbar';
-import { Hero } from '@/components/site/Hero';
-import { Partners } from '@/components/site/Partners';
-import { Categories } from '@/components/site/Categories';
-import { Products } from '@/components/site/Products';
-import { Features } from '@/components/site/Features';
-import { Stats } from '@/components/site/Stats';
-import { Shops } from '@/components/site/Shops';
-import { Deals } from '@/components/site/Deals';
-import { Testimonials } from '@/components/site/Testimonials';
-import { AppPromo } from '@/components/site/AppPromo';
-import { FAQ } from '@/components/site/FAQ';
-import { Newsletter } from '@/components/site/Newsletter';
-import { CTA } from '@/components/site/CTA';
-import { Footer } from '@/components/site/Footer';
 import { PageHeader } from '@/components/site/PageHeader';
+import Landing from '@/pages/Landing';
 import AIChatPage from '@/pages/AIChatPage';
 import MarketplacePage from '@/pages/MarketplacePage';
 
@@ -31,29 +17,7 @@ import { AuthProvider } from '@/lib/auth';
 import { LanguageProvider } from '@/lib/i18n';
 import { AIWidget } from '@/components/site/AIWidget';
 
-function HomePage() {
-  return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      <main>
-        <Hero />
-        <Partners />
-        <Categories />
-        <Products />
-        <Features />
-        <Stats />
-        <Shops />
-        <Deals />
-        <Testimonials />
-        <AppPromo />
-        <FAQ />
-        <Newsletter />
-        <CTA />
-      </main>
-      <Footer />
-    </div>
-  );
-}
+
 
 function CategoriesPage() {
   return (
@@ -242,7 +206,7 @@ function App() {
       <LanguageProvider>
         <AuthProvider>
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<Landing />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/categories" element={<CategoriesPage />} />
