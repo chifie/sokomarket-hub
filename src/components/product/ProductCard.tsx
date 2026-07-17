@@ -57,7 +57,6 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
     if (button && cartIcon) {
       const btnRect = button.getBoundingClientRect();
-      const cartRect = cartIcon.getBoundingClientRect();
 
       const flyId = Date.now().toString();
       const flyEl: FlyElement = {
