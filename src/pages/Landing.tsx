@@ -159,7 +159,7 @@ export default function Landing() {
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground mt-1">Let Us Shopping Today!</h2>
               <Button
                 size="lg"
-                className="mt-4 rounded-lg bg-primary text-primary-foreground font-semibold hover:bg-primary/90 shadow-md"
+                className="mt-4 shadow-md"
                 asChild
               >
                 <Link to="/marketplace">Shop Now</Link>
@@ -188,10 +188,7 @@ export default function Landing() {
             ))}
           </div>
           <div className="flex justify-end mt-6">
-            <Button
-              className="inline-flex items-center gap-1 px-5 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
-              asChild
-            >
+            <Button className="shadow-sm" asChild>
               <Link to="/products">
                 View more →
               </Link>

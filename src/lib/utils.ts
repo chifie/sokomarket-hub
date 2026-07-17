@@ -30,7 +30,7 @@ export function getTimeRemaining(endTime: string): { days: number; hours: number
 }
 
 export function getRatingColor(rating: number): string {
-  if (rating >= 4.5) return "text-amber-500";
+  if (rating >= 4.5) return "text-amber-400";
   if (rating >= 4.0) return "text-amber-500";
   if (rating >= 3.0) return "text-orange-500";
   return "text-red-500";

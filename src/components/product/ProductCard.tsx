@@ -130,7 +130,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.stopPropagation();
                 navigate(`/checkout?product=${product.slug}`);
               }}
-              className="flex-1 text-[10px] py-1.5 px-1 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
+              className="flex-1 text-[10px] py-1.5 px-1 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 transition-colors font-medium shadow-sm"
             >
               Shop Now
             </button>
