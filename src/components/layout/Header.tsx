@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Search, ShoppingCart, Heart, Bell, MessageCircle,
-  Menu, X, Sparkles, Store, Package
+  Menu, X, Sparkles, Store, Package, Moon, Sun
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { categories, trendingSearches } from "@/lib/constants";
+import { useTheme } from "@/hooks/use-theme";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,6 +24,7 @@ export function Header() {
   const searchRef = useRef<HTMLDivElement>(null);
   const isAuthenticated = false;
   const navigate = useNavigate();
+  const { isDark, toggleTheme } = useTheme();
 
   const cartCount = 3;
   const wishlistCount = 5;
@@ -114,6 +117,19 @@ export function Header() {
               </span>
             )}
           </Link>
+
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="relative text-white p-1.5 hover:bg-white/10 rounded-full transition-all duration-200 active:scale-95"
+            title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            {isDark ? (
+              <Sun className="h-5 w-5 sm:h-5 sm:w-5" />
+            ) : (
+              <Moon className="h-5 w-5 sm:h-5 sm:w-5" />
+            )}
+          </button>
 
           {/* Notifications */}
           <DropdownMenu>
