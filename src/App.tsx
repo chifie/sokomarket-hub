@@ -26,6 +26,7 @@ import ProductDetailPage from '@/pages/ProductDetailPage';
 import CartPage from '@/pages/CartPage';
 import CheckoutPage from '@/pages/CheckoutPage';
 import SellerOnboardingPage from '@/pages/SellerOnboardingPage';
+import AdminDashboardPage from '@/pages/AdminDashboardPage';
 import { AuthProvider } from '@/lib/auth';
 import { LanguageProvider } from '@/lib/i18n';
 import { AIWidget } from '@/components/site/AIWidget';
@@ -260,6 +261,7 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/sell" element={<SellerOnboardingPage />} />
+            <Route path="/admin" element={<AdminDashboardPage />} />
           </Routes>
           <AIWidget />
         </AuthProvider>
