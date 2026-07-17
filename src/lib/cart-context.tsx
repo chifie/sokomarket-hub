@@ -1,5 +1,7 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
 import type { CartItem } from "@/types";
+
+const STORAGE_KEY = "soko-digital-cart";
 
 interface CartContextValue {
   items: CartItem[];
@@ -14,14 +16,35 @@ interface CartContextValue {
 
 const CartContext = createContext<CartContextValue | undefined>(undefined);
 
-const initialItems: CartItem[] = [
+function loadCartFromStorage(): CartItem[] {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch {
+    // corrupted data — ignore
+  }
+  return [];
+}
+
+const demoItems: CartItem[] = [
   { productId: "p1", name: "iPhone 15 Pro Max 256GB", image: "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=200&q=80", price: 3490000, quantity: 1, sellerId: "s1", sellerName: "TechHub Tanzania", maxQuantity: 50 },
   { productId: "p4", name: "Wireless Noise-Cancelling Headphones", image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&q=80", price: 349000, quantity: 2, sellerId: "s3", sellerName: "Soko Gadgets", maxQuantity: 200 },
   { productId: "p9", name: "Organic Skincare Bundle", image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=200&q=80", price: 89000, quantity: 1, sellerId: "s6", sellerName: "Beauty & Glow TZ", maxQuantity: 200 },
 ];
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(initialItems);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    const stored = loadCartFromStorage();
+    return stored.length > 0 ? stored : demoItems;
+  });
+
+  // Persist to localStorage whenever items change
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }, [items]);
 
   const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
