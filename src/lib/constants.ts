@@ -359,10 +359,11 @@ export const trendingSearches = [
 
 // ===== Footer Links =====
 export const footerLinks: Record<string, string[]> = {
-  "Shop": ["Phones & Tablets", "Computers", "Electronics", "Fashion", "Shoes", "Beauty", "Groceries", "Furniture"],
-  "Sell": ["Start Selling", "Seller Dashboard", "Seller Academy", "Seller Fees", "Advertising", "Seller Tools"],
-  "Help": ["Help Center", "Shipping Info", "Returns", "Payment Methods", "Contact Us", "FAQ"],
-  "About": ["About SokoDigital", "Careers", "Press Kit", "Blog", "Terms of Service", "Privacy Policy"],
+  "Sell on SokoDigital": ["Become a Vendor", "Become a Manufacturer", "Seller Dashboard", "Seller Academy", "Advertising"],
+  "Get Support": ["Help Center", "Check Order Status", "Live Chat", "Refund Policy", "Contact Us"],
+  "Payment & Protection": ["Safe and Easy Payment", "Money Back Policy", "On-Time Shipping", "After Sales Protection", "Secure Checkout"],
+  "Resources": ["SokoDigital Logistics", "Sales Tax & VAT", "Shipping Info", "Returns Center", "FAQ"],
+  "Get to Know Us": ["About SokoDigital", "Corporate Responsibility", "News Center", "Careers", "Press Kit"],
 };
 
 // ===== Payment Methods =====
