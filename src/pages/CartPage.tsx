@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router";
 import {
   ShoppingCart, Trash2, Minus, Plus, ArrowLeft, Tag,
   Truck, Shield, CreditCard, ArrowRight, Heart,
-  Smartphone, Landmark, ChevronRight, Sparkles, Package
+  Smartphone, Landmark, ChevronRight, Sparkles, Package,
+  RotateCcw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
