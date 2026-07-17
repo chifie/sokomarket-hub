@@ -11,6 +11,7 @@ import CartPage from '@/pages/CartPage';
 import CheckoutPage from '@/pages/CheckoutPage';
 import SellerOnboardingPage from '@/pages/SellerOnboardingPage';
 import AdminDashboardPage from '@/pages/AdminDashboardPage';
+import StorePage from '@/pages/StorePage';
 import { AuthProvider } from '@/lib/auth';
 import { LanguageProvider } from '@/lib/i18n';
 import { AIWidget } from '@/components/site/AIWidget';
@@ -117,6 +118,7 @@ function App() {
             <Route path="/shops" element={<ShopsPage />} />
             <Route path="/deals" element={<DealsPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/store/:id" element={<StorePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/chat" element={<AIChatPage />} />
             <Route path="/auth" element={<AuthPage />} />
