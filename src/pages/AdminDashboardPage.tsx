@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import {
   Users, Store, Package, ShoppingCart, BarChart3, Shield,
-  Image, FileText, Check, X, ChevronRight,
+  FileText, Check, X,
   Search, Filter, TrendingUp, DollarSign,
   AlertTriangle, Ban, UserCheck, Eye, Edit3, Trash2, Plus,
   ToggleLeft, ToggleRight, Download, RefreshCw
