@@ -20,7 +20,7 @@ interface FlyElement {
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const navigate = useNavigate();
-  const { addItem, itemCount } = useCart();
+  const { addItem } = useCart();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -28,6 +28,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [flyElements, setFlyElements] = useState<FlyElement[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const flyTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+
+  // Cleanup fly timeouts on unmount
+  useEffect(() => {
+    const timeouts = flyTimeoutsRef.current;
+    return () => timeouts.forEach(clearTimeout);
+  }, []);
 
   const discount = product.discountPrice
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
@@ -88,15 +94,6 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     });
 
     setTimeout(() => setIsAdding(false), 1200);
-  // Cleanup fly timeouts on unmount
-  const flyTimeouts = flyTimeoutsRef.current;
-  useEffect(() => {
-    return () => {
-      flyTimeouts.forEach(clearTimeout);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   }, [product, addItem, isAdding]);
 
   return (
