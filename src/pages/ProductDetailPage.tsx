@@ -112,9 +112,9 @@ export default function ProductDetailPage() {
 
               {/* Price */}
               <div className="flex items-baseline gap-3">
-                <span className="text-2xl md:text-3xl font-bold">Tshs {displayPrice.toLocaleString()}/=</span>
+                <span className="text-2xl md:text-3xl font-bold text-primary">Tshs {displayPrice.toLocaleString()}/=</span>
                 {oldPrice && <span className="text-base text-muted-foreground line-through">Tshs {oldPrice.toLocaleString()}/=</span>}
-                {discount > 0 && <Badge className="bg-rose-500/10 text-rose-600 border-0 text-xs font-semibold">Save {discount}%</Badge>}
+                {discount > 0 && <Badge className="bg-secondary/10 text-secondary border-0 text-xs font-semibold">Save {discount}%</Badge>}
               </div>
 
               {/* Colors */}

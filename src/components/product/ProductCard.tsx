@@ -33,7 +33,8 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       className="group"
     >
       <Link to={`/product/${product.slug}`} className="block cursor-pointer">
-        <div className="aspect-square overflow-hidden relative bg-muted/50 rounded-lg">
+        <div className="bg-card rounded-xl shadow-sm overflow-hidden">
+        <div className="aspect-square overflow-hidden relative bg-muted/50 rounded-t-xl">
           {/* Wishlist button */}
           <button
             onClick={(e) => {
@@ -91,7 +92,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </p>
 
           {/* Price */}
-          <p className="font-bold text-sm">
+          <p className="font-bold text-sm text-primary">
             Tshs {displayPrice.toLocaleString()}/=
           </p>
           {oldPrice && (
@@ -119,7 +120,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.preventDefault();
                 e.stopPropagation();
               }}
-              className="flex-1 text-[10px] py-1.5 px-1 rounded-md border border-border bg-card text-foreground hover:bg-muted transition-colors inline-flex items-center justify-center gap-0.5"
+              className="flex-1 text-[10px] py-1.5 px-1 rounded-md border border-secondary text-secondary hover:bg-secondary/5 transition-colors inline-flex items-center justify-center gap-0.5"
             >
               <ShoppingCart className="h-3 w-3" />
               Add
