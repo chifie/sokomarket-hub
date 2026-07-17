@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router";
 import { motion } from "framer-motion";
-import { Search, Grid, List, ChevronDown, SlidersHorizontal } from "lucide-react";
+import { Search, Grid, List } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
@@ -46,7 +46,7 @@ export default function MarketplacePage() {
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     if (category === "All") setSearchParams({});
-    else setSearchParams({ category: category.toLowerCase().replace(/\s+/g, "-") });
+    else setSearchParams({ category });
   };
 
   return (

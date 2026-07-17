@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, Heart, ShoppingCart, Star, Truck, Shield,
-  Check, Share2, ChevronRight, Store, MapPin, BadgeCheck, Plus, Minus, RotateCcw, Package
+  Check, Share2, ChevronRight, MapPin, BadgeCheck, Plus, Minus, RotateCcw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
