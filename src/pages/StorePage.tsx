@@ -27,7 +27,7 @@ export default function StorePage() {
       <Header />
       <main className="flex-1 pb-16 lg:pb-0">
         {/* Store Banner */}
-        <div className="relative h-40 sm:h-48 md:h-56 bg-gradient-to-r from-primary/80 via-primary to-blue-700 overflow-hidden">
+        <div className="relative h-40 sm:h-48 md:h-56 bg-gradient-to-r from-primary/80 via-primary to-secondary overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute inset-0" style={{
               backgroundImage: "radial-gradient(circle at 25% 25%, white 1px, transparent 1px)",

@@ -55,7 +55,7 @@ export function Shops() {
                   </span>
                   <span>{s.products} products</span>
                 </div>
-                <button className="mt-4 w-full rounded-full bg-gradient-to-r from-indigo-600 to-indigo-800 text-white font-medium py-2 hover:opacity-90 transition">
+                <button className="mt-4 w-full rounded-full bg-secondary text-white font-medium py-2 hover:bg-secondary/90 transition shadow-sm">
                   Visit Shop
                 </button>
               </div>

@@ -53,7 +53,7 @@ export function Hero() {
         <div className="grid gap-4 lg:grid-cols-[240px_1fr_280px]">
           {/* Category rail (Amazon-style) */}
           <aside className="hidden lg:block overflow-hidden rounded-lg border border-border bg-card">
-            <div className="bg-secondary px-4 py-3 text-sm font-bold uppercase tracking-wide text-secondary-foreground">
+            <div className="bg-primary/10 px-4 py-3 text-sm font-bold uppercase tracking-wide text-primary">
               Shop by category
             </div>
             <ul className="divide-y divide-border">
@@ -93,9 +93,9 @@ export function Hero() {
                 alt="Global marketplace"
                 className="h-full w-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/60 to-transparent" />
               <div className="absolute inset-0 flex items-center">
-                <div className="max-w-lg p-6 sm:p-10 text-secondary-foreground">
+                <div className="max-w-lg p-6 sm:p-10 text-white">
                   <span className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-2 py-0.5 text-xs font-bold uppercase tracking-wider text-primary-foreground">
                     <Zap className="h-3 w-3" /> Mega Sale
                   </span>
