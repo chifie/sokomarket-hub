@@ -39,7 +39,8 @@ function CountdownTimer({ endTime }: { endTime: string }) {
 }
 
 export function FlashSaleBanner() {
-  const { endTime, products, discount, title, description } = flashSale;
+  const flashSaleData = flashSale[0];
+  const { endTime, products, discount, title, description } = flashSaleData || {};
   const soldPercentage = 78; // Example: 78% sold
 
   return (
