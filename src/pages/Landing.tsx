@@ -7,7 +7,7 @@ import { Hero } from "@/components/landing/Hero";
 import { AIAssistant } from "@/components/ai/AIAssistant";
 import { ProductCard } from "@/components/product/ProductCard";
 import { categories, products, sellers } from "@/lib/constants";
-import { ShoppingCart, Package, BadgeCheck, Sparkles, Store } from "lucide-react";
+import { ShoppingCart, Package, BadgeCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Landing() {
