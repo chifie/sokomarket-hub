@@ -126,7 +126,7 @@ export function FlashSaleBanner() {
           <Button
             variant="outline"
             size="lg"
-            className="rounded-full h-12 px-8 text-sm font-medium border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/50 gap-2 group"
+            className="rounded-full h-12 px-8 text-sm font-medium border-secondary/30 text-secondary hover:bg-secondary/5 dark:hover:bg-secondary/10 gap-2 group"
           >
             View All Flash Deals
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
