@@ -3,11 +3,8 @@ import { Link, useNavigate } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Search, ShoppingCart, Heart, Bell, MessageCircle,
-  Menu, X, Sparkles, Store, ChevronDown, Package
+  Menu, X, Sparkles, Store, Package
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { categories, trendingSearches } from "@/lib/constants";
-import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
