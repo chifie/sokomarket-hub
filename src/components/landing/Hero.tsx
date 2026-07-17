@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Search } from "lucide-react";
+import { Sparkles, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 // ─── Premium 3D Product Images ───────────────────────────────────────────────
 const heroProducts = [
@@ -142,7 +141,7 @@ function FloatingProductCard({
         {/* Main glass card */}
         <div
           className="relative bg-white/75 dark:bg-white/10 backdrop-blur-2xl rounded-2xl p-2.5 shadow-[0_8px_32px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] border border-white/40 dark:border-white/10 hover:shadow-[0_16px_48px_rgba(99,102,241,0.15)] dark:hover:shadow-[0_16px_48px_rgba(99,102,241,0.1)] transition-shadow duration-500"
-          style={{ transform: `rotate(${rotate}deg)` }}
+          style={{ transform: `rotate(${rotate}deg)`, willChange: 'transform' }}
         >
           <div className="w-24 h-24 md:w-28 md:h-28 rounded-xl overflow-hidden bg-white/50">
             <img
@@ -205,11 +204,6 @@ export function Hero() {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Show fewer products on mobile
-  const displayProducts = typeof window !== "undefined" && window.innerWidth < 1024
-    ? heroProducts.slice(0, 6)
-    : heroProducts;
-
   return (
     <section
       ref={heroRef}
@@ -232,7 +226,7 @@ export function Hero() {
       />
 
       {/* ── Floating Products ── */}
-      {displayProducts.map((product) => (
+      {heroProducts.map((product) => (
         <FloatingProductCard key={product.id} {...product} />
       ))}
 
@@ -256,7 +250,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white leading-[1.1] max-w-2xl"
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 dark:text-white leading-[1.1] max-w-2xl"
         >
           Tanzania's{" "}
           <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
