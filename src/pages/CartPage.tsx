@@ -110,7 +110,13 @@ export default function CartPage() {
                   </motion.div>
                 ))}
 
-                {/* Wishlist suggestion */}
+                {/* Clear cart + Wishlist suggestion */}
+                <div className="flex items-center justify-between">
+                  <Button variant="ghost" size="sm" className="text-xs text-rose-500 hover:text-rose-600 gap-1.5 hover:bg-rose-50 dark:hover:bg-rose-950/30" onClick={clearCart}>
+                    <Trash2 className="h-3.5 w-3.5" /> Clear Cart
+                  </Button>
+                  <p className="text-xs text-muted-foreground">{cartItems.length} item{cartItems.length !== 1 ? "s" : ""}</p>
+                </div>
                 <div className="flex items-center gap-3 p-4 rounded-2xl bg-primary/5 border border-primary/10">
                   <Heart className="h-5 w-5 text-primary" />
                   <p className="text-sm text-muted-foreground flex-1">

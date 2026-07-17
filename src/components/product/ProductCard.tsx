@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, ShoppingCart, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -27,6 +27,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isAdding, setIsAdding] = useState(false);
   const [flyElements, setFlyElements] = useState<FlyElement[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const flyTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const discount = product.discountPrice
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
@@ -62,9 +63,10 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       setFlyElements((prev) => [...prev, flyEl]);
 
       // Remove fly element after animation completes
-      setTimeout(() => {
+      const timeout = setTimeout(() => {
         setFlyElements((prev) => prev.filter((f) => f.id !== flyId));
       }, 700);
+      flyTimeoutsRef.current.push(timeout);
     }
 
     // Add to cart
@@ -86,6 +88,15 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
     });
 
     setTimeout(() => setIsAdding(false), 1200);
+  // Cleanup fly timeouts on unmount
+  const flyTimeouts = flyTimeoutsRef.current;
+  useEffect(() => {
+    return () => {
+      flyTimeouts.forEach(clearTimeout);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   }, [product, addItem, isAdding]);
 
   return (
