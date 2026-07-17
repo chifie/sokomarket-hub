@@ -3,11 +3,10 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import {
   Users, Store, Package, ShoppingCart, BarChart3, Shield,
-  Image, FileText, Check, X, ChevronRight, MoreHorizontal,
-  Search, Filter, TrendingUp, DollarSign, Activity, Clock,
+  Image, FileText, Check, X, ChevronRight,
+  Search, Filter, TrendingUp, DollarSign,
   AlertTriangle, Ban, UserCheck, Eye, Edit3, Trash2, Plus,
-  Sparkles, ToggleLeft, ToggleRight, ArrowUp, ArrowDown,
-  Download, RefreshCw, Bell
+  ToggleLeft, ToggleRight, Download, RefreshCw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
