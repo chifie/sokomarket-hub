@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams, Link } from "react-router";
 import { motion } from "framer-motion";
-import { Store, Package, MapPin, Phone, Mail, BadgeCheck, Star, Clock, Users, ShoppingBag, ArrowRight, Share2, Facebook, Twitter, Instagram } from "lucide-react";
+import { Store, Package, MapPin, Phone, Mail, BadgeCheck, Star, Clock, Users, ShoppingBag, Share2 } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";

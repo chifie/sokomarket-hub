@@ -3,8 +3,7 @@ import { motion } from "framer-motion";
 import { Heart, ShoppingCart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
-import { Link } from "react-router";
-import { formatTZS } from "@/lib/utils";
+import { Link, useNavigate } from "react-router";
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +11,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, index = 0 }: ProductCardProps) {
+  const navigate = useNavigate();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [imgError, setImgError] = useState(false);
 
@@ -128,7 +128,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                window.location.href = `/checkout?product=${product.slug}`;
+                navigate(`/checkout?product=${product.slug}`);
               }}
               className="flex-1 text-[10px] py-1.5 px-1 rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors font-medium"
             >
