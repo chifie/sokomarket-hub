@@ -2,8 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Search, Grid, List, SlidersHorizontal, X, ChevronDown, ChevronUp,
-  Star, Tag, Package, TrendingUp, Sparkles, Filter
+  Search, Grid, List, X, Filter
 } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -182,7 +181,7 @@ export default function MarketplacePage() {
           <div className="flex gap-6">
             {/* Filter Sidebar - Desktop */}
             <AnimatePresence>
-              {(showFilters || true) && (
+              {true && (
                 <motion.aside
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}

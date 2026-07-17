@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, Heart, ShoppingCart, Star, Truck, Shield,
   Check, Share2, ChevronRight, MapPin, BadgeCheck, Plus, Minus,
-  RotateCcw, Camera, Upload, ThumbsUp, MessageSquare, Send
+  RotateCcw, Camera, ThumbsUp, MessageSquare, Send, X
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -123,7 +123,8 @@ export default function ProductDetailPage() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
-    Array.from(files).slice(0, 3).forEach((file) => {
+    const remaining = 3 - reviewImages.length;
+    Array.from(files).slice(0, remaining).forEach((file) => {
       const url = URL.createObjectURL(file);
       setReviewImages((prev) => [...prev, url]);
     });
@@ -408,7 +409,10 @@ export default function ProductDetailPage() {
                             <div key={i} className="relative h-16 w-16 rounded-lg overflow-hidden border border-border/50">
                               <img src={img} alt="" className="h-full w-full object-cover" />
                               <button
-                                onClick={() => setReviewImages((prev) => prev.filter((_, j) => j !== i))}
+                                onClick={() => {
+                                  URL.revokeObjectURL(reviewImages[i]);
+                                  setReviewImages((prev) => prev.filter((_, j) => j !== i));
+                                }}
                                 className="absolute top-0.5 right-0.5 h-4 w-4 rounded-full bg-black/50 text-white flex items-center justify-center"
                               >
                                 <X className="h-3 w-3" />
