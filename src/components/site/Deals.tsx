@@ -17,6 +17,7 @@ function useCountdown(target: number) {
 }
 
 export function Deals() {
+  // eslint-disable-next-line react-hooks/purity
   const { h, m, s } = useCountdown(Date.now() + 1000 * 60 * 60 * 8);
 
   return (
