@@ -67,8 +67,8 @@
   }
 
   @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 0 0 var(--primary / 0.3); }
-    50% { box-shadow: 0 0 20px 6px var(--primary / 0.15); }
+    0%, 100% { box-shadow: 0 0 0 0 color-mix(in oklch, var(--primary) 30%, transparent); }
+    50% { box-shadow: 0 0 20px 6px color-mix(in oklch, var(--primary) 15%, transparent); }
   }
 
   @keyframes slide-up {
