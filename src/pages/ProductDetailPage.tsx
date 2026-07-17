@@ -4,9 +4,8 @@ import { Link, useNavigate, useParams } from "react-router";
 import {
   ArrowLeft, Heart, ShoppingCart, Star, Truck, Shield,
   Check, Share2, ChevronRight, Store, Clock,
-  MapPin, BadgeCheck, Plus, Minus
+  MapPin, BadgeCheck, Plus, Minus, RotateCcw
 } from "lucide-react";
-import { RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -156,14 +155,14 @@ export default function ProductDetailPage() {
               </div>
 
               {/* Color Options */}
-              {product.colors && (
+              {product.colors && product.colors.length > 0 && (
                 <div>
                   <p className="text-sm font-medium mb-2">Color: <span className="text-muted-foreground font-normal">{product.colors[0]}</span></p>
                   <div className="flex gap-2">
                     {product.colors.map((color) => (
                       <button key={color} className={cn(
                         "px-4 py-2 rounded-xl border text-sm transition-all",
-                        color === product.colors[0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30"
+                        color === product.colors![0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30"
                       )}>
                         {color}
                       </button>
@@ -173,14 +172,14 @@ export default function ProductDetailPage() {
               )}
 
               {/* Size Options */}
-              {product.sizes && (
+              {product.sizes && product.sizes.length > 0 && (
                 <div>
                   <p className="text-sm font-medium mb-2">Size: <span className="text-muted-foreground font-normal">{product.sizes[0]}</span></p>
                   <div className="flex flex-wrap gap-2">
                     {product.sizes.map((size) => (
                       <button key={size} className={cn(
                         "px-4 py-2 rounded-xl border text-sm transition-all min-w-[48px]",
-                        size === product.sizes[0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30"
+                        size === product.sizes![0] ? "border-primary bg-primary/5 text-primary" : "border-border/50 hover:border-primary/30"
                       )}>
                         {size}
                       </button>
