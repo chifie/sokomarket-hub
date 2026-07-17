@@ -31,7 +31,7 @@ export function MobileBottomNav() {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "relative flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all duration-200",
+                  "relative flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition-all duration-200 active:scale-95",
                   isActive
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
@@ -40,7 +40,8 @@ export function MobileBottomNav() {
                 <div className="relative">
                   <Icon className={cn(
                     "h-5 w-5 transition-all duration-200",
-                    isActive && "scale-110"
+                    isActive && "scale-110",
+                    !isActive && "group-hover:scale-105"
                   )} />
                   {item.badge && (
                     <span className="absolute -top-1.5 -right-2 h-4 w-4 rounded-full bg-primary text-[8px] font-bold text-primary-foreground flex items-center justify-center shadow-sm ring-2 ring-background">

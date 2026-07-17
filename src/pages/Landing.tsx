@@ -29,7 +29,7 @@ export default function Landing() {
               <Link
                 key={cat.id}
                 to={`/marketplace?category=${cat.slug}`}
-                className="shrink-0 px-4 py-2 rounded-full bg-card border border-border text-sm text-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="shrink-0 px-4 py-2 rounded-full bg-card border border-border text-sm text-foreground hover:bg-primary hover:text-primary-foreground hover:shadow-md hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
               >
                 {cat.name}
               </Link>

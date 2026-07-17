@@ -43,8 +43,8 @@ export function Header() {
         {/* Logo */}
         <Link to="/" className="shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
-              <Package className="h-6 w-6 text-white" />
+            <div className="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 group-hover:scale-105 transition-all duration-300">
+              <Package className="h-6 w-6 text-white group-hover:rotate-[-8deg] transition-transform duration-300" />
             </div>
             <span className="hidden sm:block text-xl font-bold text-white tracking-tight">
               Soko<span className="font-light text-white/80">Digital</span>
@@ -109,7 +109,7 @@ export function Header() {
           <Link to="/wishlist" className="relative text-white p-1.5" title="Wishlist">
             <Heart className="h-5 w-5 sm:h-6 sm:w-6" />
             {wishlistCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-rose-500 text-[8px] font-bold text-white flex items-center justify-center shadow-sm ring-2 ring-primary">
+              <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-rose-500 text-[8px] font-bold text-white flex items-center justify-center shadow-sm ring-2 ring-primary animate-pulse-glow">
                 {wishlistCount}
               </span>
             )}
