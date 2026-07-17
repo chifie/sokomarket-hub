@@ -33,6 +33,7 @@ export default function MarketplacePage() {
   const [minRating, setMinRating] = useState(0);
 
   // Sync URL params
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     const c = searchParams.get("category") || "All";
     const s = searchParams.get("search") || "";

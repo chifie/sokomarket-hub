@@ -24,7 +24,7 @@ const deliveryOptions = [
 ];
 
 export default function CheckoutPage() {
-  const [step, setStep] = useState<"delivery" | "payment" | "confirm">("delivery");
+  const [step] = useState<"delivery" | "payment" | "confirm">("delivery");
   const [selectedDelivery, setSelectedDelivery] = useState("standard");
   const [selectedPayment, setSelectedPayment] = useState("mpesa");
   const [isProcessing, setIsProcessing] = useState(false);

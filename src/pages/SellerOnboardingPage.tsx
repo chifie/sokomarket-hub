@@ -386,7 +386,7 @@ function StepBranding({ formData, updateForm }: StepProps) {
   );
 }
 
-function StepReview({ formData }: StepProps) {
+function StepReview({ formData, updateForm: _updateForm }: StepProps) {
   return (
     <div className="space-y-4">
       {[

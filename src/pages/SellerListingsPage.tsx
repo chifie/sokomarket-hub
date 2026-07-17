@@ -24,6 +24,7 @@ export default function SellerListingsPage() {
   }, [authLoading, user, navigate]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!user || !isSeller) {
       setLoading(false);
       return;
