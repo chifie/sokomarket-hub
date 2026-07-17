@@ -664,6 +664,48 @@ export function getTimeRemaining(endTime: string): { hours: number; minutes: num
   };
 }
 
+// ===== Languages =====
+export const languages = [
+  { code: "en", name: "English", nativeName: "English" },
+  { code: "sw", name: "Swahili", nativeName: "Kiswahili" },
+];
+
+// ===== Trending Searches =====
+export const trendingSearches = [
+  "iPhone 15 Pro",
+  "Kitenge dresses",
+  "Smart TVs",
+  "Laptop deals",
+  "M-Pesa phones",
+  "Furniture",
+  "Sneakers",
+  "Beauty products",
+];
+
+// ===== Footer Links =====
+export const footerLinks: Record<string, string[]> = {
+  "Shop": ["Phones & Tablets", "Computers", "Electronics", "Fashion", "Shoes", "Beauty", "Groceries", "Furniture"],
+  "Sell": ["Start Selling", "Seller Dashboard", "Seller Academy", "Seller Fees", "Advertising", "Seller Tools"],
+  "Help": ["Help Center", "Shipping Info", "Returns", "Payment Methods", "Contact Us", "FAQ"],
+  "About": ["About SokoDigital", "Careers", "Press Kit", "Blog", "Terms of Service", "Privacy Policy"],
+};
+
+// ===== Payment Methods =====
+export const paymentMethods = [
+  { id: "mpesa", name: "M-Pesa", icon: "Smartphone", description: "Pay with M-Pesa mobile money" },
+  { id: "airtel", name: "Airtel Money", icon: "Smartphone", description: "Pay with Airtel Money" },
+  { id: "mixx", name: "Mixx by Yas", icon: "Smartphone", description: "Pay with Mixx" },
+  { id: "halopesa", name: "HaloPesa", icon: "Smartphone", description: "Pay with HaloPesa" },
+  { id: "visa", name: "Visa", icon: "CreditCard", description: "Pay with Visa card" },
+  { id: "mastercard", name: "Mastercard", icon: "CreditCard", description: "Pay with Mastercard" },
+  { id: "crdb", name: "CRDB Bank", icon: "Landmark", description: "Pay with CRDB Bank" },
+  { id: "nmb", name: "NMB Bank", icon: "Landmark", description: "Pay with NMB Bank" },
+  { id: "nbc", name: "NBC Bank", icon: "Landmark", description: "Pay with NBC Bank" },
+];
+
+// ===== Export flashSale (singular) alias for FlashSaleBanner =====
+export const flashSale = flashSales;
+
 export const formatDate = (date: string): string => {
   return new Date(date).toLocaleDateString("en-TZ", {
     year: "numeric",
