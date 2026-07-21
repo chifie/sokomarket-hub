@@ -30,7 +30,7 @@ const pageVariants = {
 };
 
 const pageTransition = {
-  type: 'spring',
+  type: 'spring' as const,
   stiffness: 200,
   damping: 25,
   duration: 0.3,
@@ -38,31 +38,28 @@ const pageTransition = {
 
 function AnimatedPage({ children }: { children: React.ReactNode }) {
   const pageRef = useRef<HTMLDivElement>(null);
-  const [isReady, setIsReady] = useState(false);
 
   // GSAP-powered entrance animation for each page
   useEffect(() => {
     const el = pageRef.current;
     if (!el) return;
 
-    // Initial setup
-    gsap.set(el, { opacity: 0, y: 20, scale: 0.98 });
-
+    // Initial visibility is set via CSS opacity-0 in the className
     const ctx = gsap.context(() => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.5,
-        ease: 'power3.out',
-        onComplete: () => setIsReady(true),
-      });
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 20, scale: 0.98 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: 'power3.out',
+        }
+      );
     }, el);
 
-    return () => {
-      ctx.revert();
-      setIsReady(false);
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -70,7 +67,7 @@ function AnimatedPage({ children }: { children: React.ReactNode }) {
       ref={pageRef}
       variants={pageVariants}
       initial="initial"
-      animate={isReady ? 'animate' : 'initial'}
+      animate="animate"
       exit="exit"
       transition={pageTransition}
     >
