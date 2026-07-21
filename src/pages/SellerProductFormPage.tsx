@@ -66,6 +66,11 @@ export default function SellerProductFormPage() {
       setLoadingExisting(false);
     })();
 
+    return () => {
+      cancelled = true;
+    };
+  }, [isEdit, id, user, roles]);
+
   useEffect(() => {
     const main = mainRef.current;
     if (!main) return;
@@ -79,11 +84,6 @@ export default function SellerProductFormPage() {
     }, main);
     return () => ctx.revert();
   }, []);
-
-    return () => {
-      cancelled = true;
-    };
-  }, [isEdit, id, user, roles]);
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -219,9 +219,7 @@ export default function SellerProductFormPage() {
         <h1 className="text-2xl font-bold">{isEdit ? 'Edit product' : 'Add a product'}</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           Add photos, a price, and specifications so buyers know exactly what they're getting.
-        </p>
-
-        <form onSubmit={submit} className="mt-8 space-y-6 rounded-2xl border border-border bg-card p-6 sm:p-8">
+        </p>          <form onSubmit={submit} className="spf-form mt-8 space-y-6 rounded-2xl border border-border bg-card p-6 sm:p-8">
           {error && (
             <div className="rounded-lg border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
               {error}
@@ -387,7 +385,7 @@ export default function SellerProductFormPage() {
             <button
               type="button"
               onClick={addSpecRow}
-              className="mt-2 inline-flex items-center gap-1.5 text-sm font-mediumtext-primary hover:underline dark:text-primary">
+              className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline dark:text-primary">
               <Plus className="h-3.5 w-3.5" />
               Add specification
             </button>

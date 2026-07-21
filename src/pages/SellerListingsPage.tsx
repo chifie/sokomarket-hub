@@ -52,20 +52,6 @@ export default function SellerListingsPage() {
     };
   }, [user, isSeller]);
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm('Delete this listing? This cannot be undone.')) return;
-    setDeletingId(id);
-    const { error } = await supabase.from('products').delete().eq('id', id);
-    if (error) {
-      setError(error.message);
-    } else {
-      setProducts((prev) => prev.filter((p) => p.id !== id));
-    }
-    setDeletingId(null);
-  };
-
-  if (authLoading || (loading && isSeller)) {
-
   useEffect(() => {
     const main = mainRef.current;
     if (!main) return;
@@ -86,6 +72,19 @@ export default function SellerListingsPage() {
     return () => ctx.revert();
   }, []);
 
+  const handleDelete = async (id: string) => {
+    if (!window.confirm('Delete this listing? This cannot be undone.')) return;
+    setDeletingId(id);
+    const { error } = await supabase.from('products').delete().eq('id', id);
+    if (error) {
+      setError(error.message);
+    } else {
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    }
+    setDeletingId(null);
+  };
+
+  if (authLoading || (loading && isSeller)) {
     return (
       <div className="grid min-h-screen place-items-center bg-background text-muted-foreground">
         <Loader2 className="h-6 w-6 animate-spin" />
