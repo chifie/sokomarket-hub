@@ -230,6 +230,14 @@ export function Hero() {
 
   const activeBanners = banners.filter((b) => b.isActive && b.type === "hero");
 
+  /* ─── Theme map keyed by title (not index) ─── */
+  const THEME_MAP: Record<string, "tech" | "sale" | "beauty" | "delivery"> = {
+    "Everything You Need, All in One Place": "tech",
+    "Flash Sale Up to 70% OFF": "sale",
+    "Glow with Premium Beauty": "beauty",
+    "Fast Delivery. Secure Payments. Trusted Sellers.": "delivery",
+  };
+
   useEffect(() => {
     return () => {
       if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
