@@ -296,7 +296,7 @@ export function Hero() {
   }, []);
 
   /* ─── Progress bar (uses handleNextRef to avoid stale closure) ─── */
-  const handleNextRef = useRef(handleNext);
+  const handleNextRef = useRef<() => void>(() => {});
   handleNextRef.current = handleNext;
 
   const startProgress = useCallback(() => {
