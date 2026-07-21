@@ -6,6 +6,10 @@ import type { Product } from "@/types";
 import { Link, useNavigate } from "react-router";
 import { useCart } from "@/lib/cart-context";
 import { toast } from "sonner";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ProductCardProps {
   product: Product;
@@ -28,12 +32,87 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [flyElements, setFlyElements] = useState<FlyElement[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const flyTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   // Cleanup fly timeouts on unmount
   useEffect(() => {
     const timeouts = flyTimeoutsRef.current;
     return () => timeouts.forEach(clearTimeout);
   }, []);
+
+  // GSAP scroll reveal and hover animations
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const ctx = gsap.context(() => {
+      // Scroll-triggered reveal
+      gsap.fromTo(
+        card,
+        { opacity: 0, y: 30, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "power3.out",
+          delay: index * 0.04,
+          scrollTrigger: {
+            trigger: card,
+            start: "top 90%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+
+      // Hover animation: subtle scale + elevation
+      card.addEventListener("mouseenter", () => {
+        const inner = card.querySelector(".product-card-inner");
+        if (inner) {
+          gsap.to(inner, {
+            y: -4,
+            scale: 1.01,
+            duration: 0.4,
+            ease: "power2.out",
+            boxShadow: "0 16px 48px rgba(0,0,0,0.12)",
+          });
+        }
+        // Animate image zoom
+        const img = card.querySelector(".product-card-image");
+        if (img) {
+          gsap.to(img, {
+            scale: 1.05,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        }
+      });
+
+      card.addEventListener("mouseleave", () => {
+        const inner = card.querySelector(".product-card-inner");
+        if (inner) {
+          gsap.to(inner, {
+            y: 0,
+            scale: 1,
+            duration: 0.4,
+            ease: "power2.out",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+          });
+        }
+        const img = card.querySelector(".product-card-image");
+        if (img) {
+          gsap.to(img, {
+            scale: 1,
+            duration: 0.5,
+            ease: "power2.out",
+          });
+        }
+      });
+    }, card);
+
+    return () => ctx.revert();
+  }, [index]);
 
   const discount = product.discountPrice
     ? Math.round(((product.price - product.discountPrice) / product.price) * 100)
@@ -96,14 +175,12 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
   }, [product, addItem, isAdding]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+    <div
+      ref={cardRef}
       className="group relative"
     >
       <Link to={`/product/${product.slug}`} className="block cursor-pointer">
-        <div className="bg-card rounded-xl shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 dark:border dark:border-border/50">
+        <div className="product-card-inner bg-card rounded-xl shadow-sm overflow-hidden dark:border dark:border-border/50">
         <div className="aspect-square overflow-hidden relative bg-muted/50 rounded-t-xl dark:bg-muted/20">
           {/* Blur-up placeholder */}
           {!imgLoaded && !imgError && (
@@ -152,7 +229,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
               alt={product.name}
               loading="lazy"
               className={cn(
-                "w-full h-full object-contain group-hover:scale-105 transition-all duration-500",
+                "product-card-image w-full h-full object-contain",
                 imgLoaded ? "opacity-100 blur-0" : "opacity-0 blur-sm scale-95"
               )}
               onLoad={() => setImgLoaded(true)}
@@ -259,6 +336,6 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           </motion.div>
         ))}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
