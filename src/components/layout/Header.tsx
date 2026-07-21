@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   Search, ShoppingCart, Heart, Bell, MessageCircle,
-  Menu, X, Sparkles, Store, Package, Moon, Sun, User, LogOut, LayoutDashboard
+  Menu, X, Sparkles, Store, Moon, Sun, User, LogOut, LayoutDashboard
 } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -77,8 +78,8 @@ export function Header() {
         {/* Logo */}
         <Link to="/" className="shrink-0 group">
           <div className="flex items-center gap-2.5">
-            <div className="h-10 w-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm group-hover:bg-white/30 group-hover:scale-105 transition-all duration-300">
-              <Package className="h-6 w-6 text-white group-hover:rotate-[-8deg] transition-transform duration-300" />
+            <div className="h-9 w-auto text-white group-hover:scale-105 transition-transform duration-300">
+              <Logo className="h-9 w-auto" />
             </div>
             <span className="hidden sm:block text-xl font-bold text-white tracking-tight">
               Soko<span className="font-light text-white/80">Digital</span>

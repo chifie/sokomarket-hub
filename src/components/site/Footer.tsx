@@ -1,6 +1,6 @@
 import { Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
 import { Link } from "react-router";
-import logoIcon from "@/assets/brand/logo-icon.png";
+import { Logo } from "@/components/Logo";
 
 const ROUTES: Record<string, string> = {
   About: "/about",
@@ -40,7 +40,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
           <div className="col-span-2 md:col-span-2">
             <div className="flex items-center gap-2">
-              <img src={logoIcon} alt="SokoDigital" className="h-9 w-auto" />
+              <Logo className="h-9 w-auto text-foreground" />
               <span className="text-lg font-extrabold text-foreground">
                 Soko<span className="text-indigo-700 dark:text-indigo-500">Digital</span>
               </span>

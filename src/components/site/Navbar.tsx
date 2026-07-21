@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
 import { motion } from "framer-motion";
 import { Search, ShoppingCart, Moon, Sun, MapPin, ChevronDown, User, Menu, Globe } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/use-theme";
 import { useLang } from "@/lib/i18n";
@@ -47,10 +48,10 @@ export function Navbar() {
         <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-3 sm:px-6 lg:px-8">
           {/* Brand */}
           <Link to="/" className="flex shrink-0 items-center gap-1 rounded border border-transparent px-2 py-1.5 hover:border-white/40">
+            <Logo className="h-8 w-auto text-white" />
             <span className="text-xl font-black tracking-tight">
               Soko<span className="text-primary">Digital</span>
             </span>
-            <span className="text-[10px] text-white/60 mt-2">.com</span>
           </Link>
 
           {/* Deliver to */}
