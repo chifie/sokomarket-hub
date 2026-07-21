@@ -86,19 +86,7 @@ export default function AIChatPage() {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
 
-      <div className="fixed top-[68px] left-0 right-0 z-40 border-b border-border bg-background/95 backdrop-blur px-4 py-3">
-        <div className="max-w-3xl mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-700 to-indigo-800">
-            <Bot className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h2 className="font-semibold text-foreground">SokoDigital AI</h2>
-            <p className="text-sm text-indigo-600">Always ready to help</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="flex-1 overflow-y-auto pt-32 pb-48">
+      <div className="flex-1 overflow-y-auto pt-6 pb-32">
         <div className="max-w-3xl mx-auto px-4 py-4 space-y-4">
           {messages.map((message, idx) => (
             <div
