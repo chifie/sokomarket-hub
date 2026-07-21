@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { gsap } from 'gsap';
 import Landing from '@/pages/Landing';
 import AIChatPage from '@/pages/AIChatPage';
 import MarketplacePage from '@/pages/MarketplacePage';
@@ -35,11 +37,40 @@ const pageTransition = {
 };
 
 function AnimatedPage({ children }: { children: React.ReactNode }) {
+  const pageRef = useRef<HTMLDivElement>(null);
+  const [isReady, setIsReady] = useState(false);
+
+  // GSAP-powered entrance animation for each page
+  useEffect(() => {
+    const el = pageRef.current;
+    if (!el) return;
+
+    // Initial setup
+    gsap.set(el, { opacity: 0, y: 20, scale: 0.98 });
+
+    const ctx = gsap.context(() => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.5,
+        ease: 'power3.out',
+        onComplete: () => setIsReady(true),
+      });
+    }, el);
+
+    return () => {
+      ctx.revert();
+      setIsReady(false);
+    };
+  }, []);
+
   return (
     <motion.div
+      ref={pageRef}
       variants={pageVariants}
       initial="initial"
-      animate="animate"
+      animate={isReady ? 'animate' : 'initial'}
       exit="exit"
       transition={pageTransition}
     >
