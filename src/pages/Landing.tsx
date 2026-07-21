@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 import { Header } from "@/components/layout/Header";
@@ -6,13 +6,51 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { Hero } from "@/components/landing/Hero";
 import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
 import { categories, products, sellers } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
-import { BadgeCheck, Smartphone, ArrowDown } from "lucide-react";
+import { BadgeCheck, Smartphone, ArrowDown, Loader2, Eye } from "lucide-react";
 import { useGsapScroll } from "@/hooks/use-gsap-scroll";
+
+const INITIAL_PRODUCTS = 12;
+const LOAD_MORE_COUNT = 8;
 
 export default function Landing() {
   const mainRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_PRODUCTS);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  const hasMore = visibleCount < products.length;
+
+  // Load more products (simulated async)
+  const loadMore = useCallback(() => {
+    if (isLoadingMore || !hasMore) return;
+    setIsLoadingMore(true);
+    // Simulate network delay
+    setTimeout(() => {
+      setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, products.length));
+      setIsLoadingMore(false);
+    }, 400);
+  }, [isLoadingMore, hasMore]);
+
+  // IntersectionObserver for infinite scroll
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoadingMore) {
+          loadMore();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [hasMore, isLoadingMore, loadMore]);
 
   useGsapScroll(mainRef, [
     // Category pills with scale-in
@@ -175,19 +213,46 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* ─── All Products ─── */}
+        {/* ─── All Products (Infinite Scroll) ─── */}
         <section className="landing-products-section px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
           <div className="flex items-center justify-between mb-4">
             <h2 className="landing-section-title text-sm font-bold text-foreground">All Products</h2>
+            <span className="text-xs text-muted-foreground">
+              Showing {Math.min(visibleCount, products.length)} of {products.length}
+            </span>
           </div>
+
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
-            {products.map((product, index) => (
+            {products.slice(0, visibleCount).map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} />
             ))}
+            {/* Loading skeletons */}
+            {isLoadingMore &&
+              Array.from({ length: LOAD_MORE_COUNT }).map((_, i) => (
+                <ProductCardSkeleton key={`skeleton-${i}`} />
+              ))}
           </div>
-          <div className="flex justify-end mt-6">
-            <Button className="shadow-sm" asChild>
-              <Link to="/marketplace">View more →</Link>
+
+          {/* Sentinel element for IntersectionObserver */}
+          <div ref={sentinelRef} className="w-full h-4" />
+
+          {/* Load More button (fallback) */}
+          <div className="flex flex-col items-center justify-center mt-6 gap-3">
+            {hasMore && !isLoadingMore && (
+              <Button
+                variant="outline"
+                className="rounded-full px-8 gap-2 shadow-sm"
+                onClick={loadMore}
+              >
+                <Eye className="h-4 w-4" />
+                Load More ({products.length - visibleCount} remaining)
+              </Button>
+            )}
+            {!hasMore && (
+              <p className="text-xs text-muted-foreground">You've viewed all products</p>
+            )}
+            <Button variant="ghost" size="sm" className="rounded-full text-xs" asChild>
+              <Link to="/marketplace">Browse full marketplace →</Link>
             </Button>
           </div>
         </section>
