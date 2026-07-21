@@ -1,10 +1,6 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
@@ -13,67 +9,33 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { categories, products, sellers } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { BadgeCheck, Smartphone, ArrowDown } from "lucide-react";
+import { useGsapScroll } from "@/hooks/use-gsap-scroll";
 
 export default function Landing() {
   const mainRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const main = mainRef.current;
-    if (!main) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        main.querySelectorAll(".landing-cat-pill"),
-        { opacity: 0, y: 15, scale: 0.9 },
-        {
-          opacity: 1, y: 0, scale: 1, duration: 0.4,
-          ease: "power3.out", stagger: 0.03,
-          scrollTrigger: { trigger: main.querySelector(".landing-cat-pills"), start: "top 90%", once: true },
-        }
-      );
-      gsap.fromTo(
-        main.querySelectorAll(".landing-grid-card"),
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.08,
-          scrollTrigger: { trigger: main.querySelector(".landing-grid-section"), start: "top 85%", once: true },
-        }
-      );
-      gsap.fromTo(
-        main.querySelectorAll(".landing-store-link"),
-        { opacity: 0, y: 15, scale: 0.95 },
-        {
-          opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "power3.out", stagger: 0.03,
-          scrollTrigger: { trigger: main.querySelector(".landing-stores-section"), start: "top 85%", once: true },
-        }
-      );
-      gsap.fromTo(
-        main.querySelector(".landing-deal-banner"),
-        { opacity: 0, y: 25, scale: 0.97 },
-        {
-          opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power3.out",
-          scrollTrigger: { trigger: main.querySelector(".landing-deal-banner"), start: "top 85%", once: true },
-        }
-      );
-      gsap.fromTo(
-        main.querySelector(".landing-products-section"),
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1, y: 0, duration: 0.6, ease: "power3.out",
-          scrollTrigger: { trigger: main.querySelector(".landing-products-section"), start: "top 85%", once: true },
-        }
-      );
-      gsap.fromTo(
-        main.querySelector(".landing-download-app"),
-        { opacity: 0, y: 25 },
-        {
-          opacity: 1, y: 0, duration: 0.6, ease: "power3.out",
-          scrollTrigger: { trigger: main.querySelector(".landing-download-app"), start: "top 85%", once: true },
-        }
-      );
-    }, main);
-    return () => ctx.revert();
-  }, []);
+  useGsapScroll(mainRef, [
+    // Category pills with scale-in
+    { selector: '.landing-cat-pill', stagger: 0.03, from: { y: 15, scale: 0.9 }, to: { scale: 1 }, duration: 0.4, ease: 'power3.out', start: 'top 90%', trigger: '.landing-cat-pills' },
+    // Grid cards (Top Selling, New Arrivals, Today's Deal)
+    { selector: '.landing-grid-card', stagger: 0.08, from: { y: 30 }, duration: 0.5, ease: 'power3.out' },
+    // Section titles fade-in
+    { selector: '.landing-section-title', single: true, stagger: 0, duration: 0.5, ease: 'power3.out', from: { y: 10 } },
+    // View more links
+    { selector: '.landing-view-more', stagger: 0.08, duration: 0.4, ease: 'power3.out', from: { y: 8 } },
+    // Store avatars
+    { selector: '.landing-store-link', stagger: 0.03, from: { y: 15, scale: 0.95 }, to: { scale: 1 }, duration: 0.35, ease: 'power3.out' },
+    // All products section
+    { selector: '.landing-products-section', single: true, duration: 0.6, ease: 'power3.out', from: { y: 20 } },
+    // Download app section
+    { selector: '.landing-download-app', single: true, duration: 0.6, ease: 'power3.out', from: { y: 25 } },
+    // Phone mockup in download section
+    { selector: '.landing-phone-mockup', single: true, duration: 0.7, ease: 'back.out(1.7)', from: { scale: 0.8 } },
+    // Store badges in download section
+    { selector: '.landing-store-badge', stagger: 0.12, duration: 0.5, ease: 'power3.out', from: { x: -15 } },
+    // Download section text
+    { selector: '.landing-feature-text', stagger: 0.08, duration: 0.5, ease: 'power3.out', from: { y: 15 } },
+  ]);
 
   return (
     <motion.div
