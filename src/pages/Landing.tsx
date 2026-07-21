@@ -69,7 +69,7 @@ export default function Landing() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
             {/* Top Selling */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col">
-              <h2 className="text-sm font-bold text-foreground mb-3">Top Selling</h2>
+              <h2 className="landing-section-title text-sm font-bold text-foreground mb-3">Top Selling</h2>
               <div className="grid grid-cols-2 gap-2">
                 {products.slice(0, 4).map((p) => (
                   <Link key={p.id} to={`/product/${p.slug}`} className="block aspect-square">
@@ -82,14 +82,14 @@ export default function Landing() {
                   </Link>
                 ))}
               </div>
-              <Link to="/marketplace" className="text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
+              <Link to="/marketplace" className="landing-view-more text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
                 View more →
               </Link>
             </div>
 
             {/* New Arrivals */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col">
-              <h2 className="text-sm font-bold text-foreground mb-3">New Arrivals</h2>
+              <h2 className="landing-section-title text-sm font-bold text-foreground mb-3">New Arrivals</h2>
               <div className="grid grid-cols-3 gap-2">
                 <Link to={`/product/${products[0]?.slug}`} className="col-span-3 block aspect-[4/3] sm:aspect-[3/2]">
                   <img
@@ -110,14 +110,14 @@ export default function Landing() {
                   </Link>
                 ))}
               </div>
-              <Link to="/marketplace" className="text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
+              <Link to="/marketplace" className="landing-view-more text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
                 View more →
               </Link>
             </div>
 
             {/* Today's Deal */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col">
-              <h2 className="text-sm font-bold text-foreground mb-3">Today's Deal</h2>
+              <h2 className="landing-section-title text-sm font-bold text-foreground mb-3">Today's Deal</h2>
               <div className="grid grid-cols-2 gap-2">
                 {products.filter((p) => p.discountPrice).slice(0, 4).map((p) => (
                   <Link key={p.id} to={`/product/${p.slug}`} className="block aspect-square relative">
@@ -135,7 +135,7 @@ export default function Landing() {
                   </Link>
                 ))}
               </div>
-              <Link to="/marketplace" className="text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
+              <Link to="/marketplace" className="landing-view-more text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
                 View more →
               </Link>
             </div>
@@ -145,7 +145,7 @@ export default function Landing() {
         {/* ─── Stores ─── */}
         <section className="landing-stores-section px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
           <div className="bg-card rounded-lg p-6">
-            <h2 className="text-sm font-bold text-foreground mb-6">Popular Stores</h2>
+            <h2 className="landing-section-title text-sm font-bold text-foreground mb-6">Popular Stores</h2>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6">
               {sellers.slice(0, 12).map((seller) => (
                 <Link
@@ -169,7 +169,7 @@ export default function Landing() {
                 </Link>
               ))}
             </div>
-            <Link to="/stores" className="text-sm text-primary hover:underline mt-4 block text-right font-medium">
+            <Link to="/stores" className="landing-view-more text-sm text-primary hover:underline mt-4 block text-right font-medium">
               View more →
             </Link>
           </div>
@@ -178,7 +178,7 @@ export default function Landing() {
         {/* ─── All Products ─── */}
         <section className="landing-products-section px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-bold text-foreground">All Products</h2>
+            <h2 className="landing-section-title text-sm font-bold text-foreground">All Products</h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
             {products.map((product, index) => (
@@ -205,10 +205,10 @@ export default function Landing() {
                 <Smartphone className="h-3.5 w-3.5" />
                 Mobile App
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+              <h2 className="landing-feature-text text-2xl sm:text-3xl font-bold text-foreground leading-tight">
                 Get the SokoDigital App
               </h2>
-              <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto lg:mx-0 leading-relaxed">
+              <p className="landing-feature-text text-sm text-muted-foreground mt-2 max-w-md mx-auto lg:mx-0 leading-relaxed">
                 Shop on the go. Download the app for exclusive deals, real-time tracking, and the best shopping experience.
               </p>
 
@@ -217,7 +217,7 @@ export default function Landing() {
                 {/* Google Play */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
+                  className="landing-store-badge inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="currentColor">
                     <path d="M17.8 4.8L7.2 1.2C6.2.9 5.1 1.1 4.3 1.8L12.5 10l5.3-5.2zM3.9 2.5C3.4 3 3.1 3.7 3.1 4.5v15c0 .8.3 1.5.8 2l8.6-8.6L3.9 2.5zM13.2 12l4.6 4.6 1.9-.9c.9-.4 1.5-1.3 1.5-2.3s-.6-1.8-1.5-2.3l-1.9-.9L13.2 12zM3.1 21.5c.5.5 1.2.8 2 .8.3 0 .6 0 .9-.1l10.5-3.5-4.6-4.6-8.8 7.4z"/>
@@ -231,7 +231,7 @@ export default function Landing() {
                 {/* App Store */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
+                  className="landing-store-badge inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="currentColor">
                     <path d="M17.1 12.6c-.1-2.4 1.9-3.6 2-3.7-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9-.7 0-1.8-.8-2.9-.8-1.5 0-2.9.9-3.7 2.2-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.4 2.9 2.4 1.2 0 1.6-.8 3-.8s1.7.8 2.9.8c1.2 0 2-1.2 2.7-2.3.9-1.2 1.2-2.4 1.3-2.5-.1 0-2.4-.9-2.4-3.6zM14.5 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.1.6-2.8 1.4-.6.7-1.2 1.9-1 3 .9 0 2-.6 2.8-1.3z"/>
@@ -251,7 +251,7 @@ export default function Landing() {
 
             {/* Right: Phone Mockup */}
             <div className="shrink-0 relative z-10">
-              <div className="relative">
+              <div className="landing-phone-mockup relative">
                 {/* Phone body */}
                 <div className="w-28 h-44 sm:w-36 sm:h-56 rounded-2xl border-2 border-foreground/20 bg-gradient-to-b from-primary/20 via-accent/10 to-background flex items-center justify-center shadow-lg">
                   {/* Screen content */}
