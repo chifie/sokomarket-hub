@@ -1,8 +1,8 @@
 import { useEffect, useState, FormEvent } from 'react';
 import { useNavigate, useParams, Link } from 'react-router';
 import { Loader2, Upload, X, Plus, ArrowLeft } from 'lucide-react';
-import { Navbar } from '@/components/site/Navbar';
-import { Footer } from '@/components/site/Footer';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/lib/auth';
 import { supabase } from '@/integrations/supabase/client';
 import { CATEGORY_NAMES } from '@/lib/marketplace-data';
@@ -170,7 +170,7 @@ export default function SellerProductFormPage() {
   if (!isSeller) {
     return (
       <div className="min-h-screen bg-background text-foreground">
-        <Navbar />
+        <Header />
         <main className="mx-auto max-w-3xl px-4 py-28 text-center sm:px-6 lg:px-8">
           <h1 className="text-xl font-semibold">Seller account required</h1>
           <p className="mt-2 text-sm text-muted-foreground">
@@ -187,7 +187,7 @@ export default function SellerProductFormPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      <Header />
       <main className="mx-auto max-w-3xl px-4 py-28 sm:px-6 lg:px-8">
         <Link
           to="/dashboard/listings"

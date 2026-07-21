@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Plus, Pencil, Trash2, Package, Loader2, ImageOff } from 'lucide-react';
-import { Navbar } from '@/components/site/Navbar';
-import { Footer } from '@/components/site/Footer';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/lib/auth';
 import { supabase } from '@/integrations/supabase/client';
 import type { Tables } from '@/integrations/supabase/types';
@@ -70,7 +70,7 @@ export default function SellerListingsPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      <Header />
       <main className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>

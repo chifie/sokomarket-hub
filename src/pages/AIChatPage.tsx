@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Bot, Send, ShoppingBag, Truck, Shield, CreditCard } from 'lucide-react';
-import { Navbar } from '@/components/site/Navbar';
+import { Header } from '@/components/layout/Header';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -84,9 +84,9 @@ export default function AIChatPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <Navbar />
+      <Header />
 
-      <div className="fixed top-16 left-0 right-0 z-40 border-b border-border bg-background/95 backdrop-blur px-4 py-3">
+      <div className="fixed top-[68px] left-0 right-0 z-40 border-b border-border bg-background/95 backdrop-blur px-4 py-3">
         <div className="max-w-3xl mx-auto flex items-center gap-3">
           <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-br from-indigo-700 to-indigo-800">
             <Bot className="w-6 h-6 text-white" />
