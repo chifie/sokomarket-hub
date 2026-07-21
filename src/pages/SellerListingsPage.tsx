@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useRef,  useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { Plus, Pencil, Trash2, Package, Loader2, ImageOff } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
@@ -6,10 +6,14 @@ import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/lib/auth';
 import { supabase } from '@/integrations/supabase/client';
 import type { Tables } from '@/integrations/supabase/types';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 type Product = Tables<'products'>;
 
 export default function SellerListingsPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const { user, roles, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
@@ -61,6 +65,27 @@ export default function SellerListingsPage() {
   };
 
   if (authLoading || (loading && isSeller)) {
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".sl-header"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".sl-header"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".sl-grid"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".sl-grid"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
     return (
       <div className="grid min-h-screen place-items-center bg-background text-muted-foreground">
         <Loader2 className="h-6 w-6 animate-spin" />
@@ -71,7 +96,7 @@ export default function SellerListingsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
+      <main ref={mainRef} className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold">Your listings</h1>

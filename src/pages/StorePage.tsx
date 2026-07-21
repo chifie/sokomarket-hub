@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useParams, Link } from "react-router";
 import { motion } from "framer-motion";
 import { Store, Package, MapPin, BadgeCheck, Star, Clock, Users, ShoppingBag, Share2 } from "lucide-react";
@@ -9,13 +9,31 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { sellers, products } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 
 export default function StorePage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const seller = sellers.find((s) => s.id === id) || sellers[0];
   const storeProducts = products.filter((p) => p.seller.id === seller.id);
   const [followers, setFollowers] = useState(seller.followers);
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".store-product-section"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".store-product-section"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <motion.div
@@ -25,7 +43,7 @@ export default function StorePage() {
       className="min-h-screen bg-background flex flex-col"
     >
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         {/* Store Banner */}
         <div className="relative h-40 sm:h-48 md:h-56 bg-gradient-to-r from-primary/80 via-primary to-secondary overflow-hidden">
           <div className="absolute inset-0 opacity-10">
@@ -151,7 +169,7 @@ export default function StorePage() {
           </div>
 
           {/* Store Products */}
-          <div className="mt-8">
+          <div className="store-product-section mt-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-sm font-semibold">Products ({storeProducts.length})</h2>
               <Link to="/products" className="text-xs text-primary hover:underline font-medium">

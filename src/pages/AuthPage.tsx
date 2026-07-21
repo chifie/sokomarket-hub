@@ -1,4 +1,4 @@
-import { useState, FormEvent, useEffect } from 'react';
+import { useRef,  useState, FormEvent, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router';
 import { ShoppingBag, Store, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -6,11 +6,15 @@ import { useAuth, AppRole } from '@/lib/auth';
 import { Logo } from '@/components/Logo';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 type Mode = 'login' | 'register';
 type SignupRole = Exclude<AppRole, 'admin'>;
 
 export default function AuthPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [mode, setMode] = useState<Mode>('login');
   const [role, setRole] = useState<SignupRole>('buyer');
   const [email, setEmail] = useState('');
@@ -64,10 +68,25 @@ export default function AuthPage() {
     }
   };
 
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".auth-card"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".auth-card"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
-      <main className="mx-auto flex max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <main ref={mainRef} className="mx-auto flex max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-md">
           <div className="rounded-2xl border border-border bg-card p-8 shadow-elegant">
             <div className="mb-6 text-center">

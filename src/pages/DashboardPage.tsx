@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import {
@@ -15,6 +15,9 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { AIAssistant } from "@/components/ai/AIAssistant";
 import { cn, formatTZS } from "@/lib/utils";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const orders = [
   { id: "ORD-2024-001", date: "Jul 12, 2024", status: "delivered", items: 3, total: 4289000, payment: "M-Pesa" },
@@ -41,16 +44,43 @@ const statusConfig: Record<string, { label: string; color: string; bg: string }>
 };
 
 export default function DashboardPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState("orders");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".dash-profile"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".dash-profile"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".dash-stats"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".dash-stats"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".dash-tabs"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".dash-tabs"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         <div className="mx-auto max-w-7xl px-4 py-8">
           {/* Profile Header */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8 p-6 rounded-2xl border border-border/50 bg-card">
+          <div className="dash-profile flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 mb-8 p-6 rounded-2xl border border-border/50 bg-card">
             <Avatar className="h-16 w-16 rounded-2xl ring-4 ring-border/50">
               <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=John" />
               <AvatarFallback className="rounded-2xl text-2xl">J</AvatarFallback>
@@ -73,7 +103,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          <div className="dash-stats grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {[
               { icon: Package, label: "Orders", value: "12", color: "text-blue-500", bg: "bg-blue-500/10" },
               { icon: Heart, label: "Wishlist", value: "5", color: "text-rose-500", bg: "bg-rose-500/10" },
@@ -91,6 +121,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Main Content Tabs */}
+          <div className="dash-tabs">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="mb-6 bg-muted p-1 rounded-xl w-full sm:w-auto overflow-x-auto">
               {[
@@ -116,6 +147,7 @@ export default function DashboardPage() {
               <div className="space-y-3">
                 {orders.map((order, i) => {
                   const status = statusConfig[order.status] || statusConfig.processing;
+
                   return (
                     <motion.div
                       key={order.id}
@@ -247,8 +279,8 @@ export default function DashboardPage() {
                   <LogOut className="h-4 w-4" /> Sign Out
                 </Button>
               </div>
-            </TabsContent>
-          </Tabs>
+            </TabsContent>            </Tabs>
+          </div>
 
           {/* Recently Viewed */}
           <div className="mt-8">

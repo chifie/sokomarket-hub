@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Bot, Send, ShoppingBag, Truck, Shield, CreditCard } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 interface Message {
   role: 'user' | 'assistant';
@@ -49,6 +52,7 @@ function generateAIResponse(userMessage: string): string {
 }
 
 export default function AIChatPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
@@ -81,6 +85,33 @@ export default function AIChatPage() {
       setIsTyping(false);
     }, 800);
   };
+
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".ai-messages"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".ai-messages"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".ai-actions"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".ai-actions"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".ai-input"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".ai-input"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">

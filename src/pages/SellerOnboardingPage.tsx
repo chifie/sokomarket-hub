@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router";
 import {
@@ -16,6 +16,9 @@ import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { AIAssistant } from "@/components/ai/AIAssistant";
 import { paymentMethods } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 interface StepProps {
   formData: Record<string, any>;
@@ -414,6 +417,7 @@ function StepReview({ formData, updateForm: _updateForm }: StepProps) {
 const stepComponents = [StepAccount, StepBusiness, StepLocation, StepVerification, StepPayment, StepShipping, StepBranding, StepReview];
 
 export default function SellerOnboardingPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState<Record<string, any>>({});
   const [isComplete, setIsComplete] = useState(false);
@@ -435,11 +439,25 @@ export default function SellerOnboardingPage() {
     }
   };
 
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelector(".sell-form"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out",
+          scrollTrigger: { trigger: main.querySelector(".sell-form"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
   if (isComplete) {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
         <Header />
-        <main className="flex-1 flex items-center justify-center pb-16 lg:pb-0">
+        <main ref={mainRef} className="flex-1 flex items-center justify-center pb-16 lg:pb-0">
           <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} className="text-center max-w-md mx-auto px-4">
             <div className="h-20 w-20 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-6">
               <div className="h-12 w-12 rounded-xl bg-emerald-500 flex items-center justify-center">
@@ -467,7 +485,7 @@ export default function SellerOnboardingPage() {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         <div className="mx-auto max-w-3xl px-4 py-8">
           {/* Header */}
           <div className="flex items-center gap-4 mb-6">
@@ -558,7 +576,9 @@ export default function SellerOnboardingPage() {
                 </div>
               </div>
 
-              <StepComponent formData={formData} updateForm={updateForm} />
+              <div className="sell-form">
+                <StepComponent formData={formData} updateForm={updateForm} />
+              </div>
             </motion.div>
           </AnimatePresence>
 

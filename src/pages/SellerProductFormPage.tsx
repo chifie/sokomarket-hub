@@ -1,4 +1,4 @@
-import { useEffect, useState, FormEvent } from 'react';
+import { useRef,  useEffect, useState, FormEvent } from 'react';
 import { useNavigate, useParams, Link } from 'react-router';
 import { Loader2, Upload, X, Plus, ArrowLeft } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
@@ -6,12 +6,16 @@ import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/lib/auth';
 import { supabase } from '@/integrations/supabase/client';
 import { CATEGORY_NAMES } from '@/lib/marketplace-data';
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 type SpecRow = { key: string; value: string };
 
 const CURRENCIES = ['TZS', 'USD', 'KES'];
 
 export default function SellerProductFormPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const { id } = useParams<{ id: string }>();
   const isEdit = Boolean(id);
   const { user, roles, loading: authLoading } = useAuth();
@@ -61,6 +65,21 @@ export default function SellerProductFormPage() {
       }
       setLoadingExisting(false);
     })();
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".spf-form"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".spf-form"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
     return () => {
       cancelled = true;
     };
@@ -171,7 +190,7 @@ export default function SellerProductFormPage() {
     return (
       <div className="min-h-screen bg-background text-foreground">
         <Header />
-        <main className="mx-auto max-w-3xl px-4 py-28 text-center sm:px-6 lg:px-8">
+        <main ref={mainRef} className="mx-auto max-w-3xl px-4 py-28 text-center sm:px-6 lg:px-8">
           <h1 className="text-xl font-semibold">Seller account required</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             Only seller accounts can create listings.
@@ -188,7 +207,7 @@ export default function SellerProductFormPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Header />
-      <main className="mx-auto max-w-3xl px-4 py-28 sm:px-6 lg:px-8">
+      <main ref={mainRef} className="mx-auto max-w-3xl px-4 py-28 sm:px-6 lg:px-8">
         <Link
           to="/dashboard/listings"
           className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"

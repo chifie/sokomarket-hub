@@ -1,6 +1,9 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useSearchParams, Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import {
   Search, Grid, List, X, Filter
 } from "lucide-react";
@@ -16,6 +19,7 @@ import { cn } from "@/lib/utils";
 const ITEMS_PER_PAGE = 20;
 
 export default function MarketplacePage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialCategory = searchParams.get("category") || "All";
   const initialSearch = searchParams.get("search") || "";
@@ -110,10 +114,36 @@ export default function MarketplacePage() {
   const hasActiveFilters = priceMin > 0 || priceMax < 10000000 || inStockOnly || onSaleOnly || minRating > 0;
   const activeFilterCount = [priceMin > 0, priceMax < 10000000, inStockOnly, onSaleOnly, minRating > 0].filter(Boolean).length;
 
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".marketplace-categories button"),
+        { opacity: 0, y: 10, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "power2.out", stagger: 0.03,
+          scrollTrigger: { trigger: main.querySelector(".marketplace-categories"), start: "top 92%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".marketplace-product"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.04,
+          scrollTrigger: { trigger: main.querySelector(".marketplace-grid"), start: "top 88%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelector(".marketplace-pagination"),
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out",
+          scrollTrigger: { trigger: main.querySelector(".marketplace-pagination"), start: "top 95%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-background flex flex-col">
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         <div className="px-4 sm:px-8 lg:px-12 xl:px-16 py-6">
           {/* Page Header */}
           <div className="flex items-center justify-between mb-6">
@@ -321,7 +351,7 @@ export default function MarketplacePage() {
               </div>
 
               {/* Category Pills */}
-              <div className="flex gap-2 overflow-x-auto pb-2 mb-6" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+              <div className="marketplace-categories flex gap-2 overflow-x-auto pb-2 mb-6" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
                 {allCategories.slice(0, 20).map((cat) => (
                   <button
                     key={cat}
@@ -349,20 +379,22 @@ export default function MarketplacePage() {
                   </Button>
                 </div>
               ) : viewMode === "grid" ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4">
+                <div className="marketplace-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 sm:gap-4">
                   {paginatedProducts.map((product, index) => (
-                    <ProductCard key={product.id} product={product} index={index} />
+                    <div key={product.id} className="marketplace-product">
+                      <ProductCard product={product} index={index} />
+                    </div>
                   ))}
                 </div>
               ) : (
                 <div className="space-y-3">
                   {paginatedProducts.map((product, index) => (
-                    <motion.div
-                      key={product.id}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.03 }}
-                    >
+                    <div key={product.id} className="marketplace-product">
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: index * 0.03 }}
+                      >
                       <Link to={`/product/${product.slug}`} className="flex gap-4 p-3 rounded-lg border border-border/50 bg-card hover:shadow-sm transition group">
                         <div className="w-20 h-20 rounded-lg overflow-hidden bg-muted shrink-0">
                           <img src={product.images[0]} alt={product.name} className="w-full h-full object-cover" loading="lazy" />
@@ -390,13 +422,14 @@ export default function MarketplacePage() {
                         </div>
                       </Link>
                     </motion.div>
+                    </div>
                   ))}
                 </div>
               )}
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="flex items-center justify-center gap-2 mt-8">
+                <div className="marketplace-pagination flex items-center justify-center gap-2 mt-8">
                   <button
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                     disabled={currentPage === 1}

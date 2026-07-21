@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import {
@@ -16,6 +16,9 @@ import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { AIAssistant } from "@/components/ai/AIAssistant";
 import { paymentMethods } from "@/lib/constants";
 import { cn, formatTZS } from "@/lib/utils";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 const deliveryOptions = [
   { id: "standard", name: "Standard Delivery", desc: "5-7 business days", price: 0, eta: "Jul 22 - Jul 26" },
@@ -24,6 +27,7 @@ const deliveryOptions = [
 ];
 
 export default function CheckoutPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [step] = useState<"delivery" | "payment" | "confirm">("delivery");
   const [selectedDelivery, setSelectedDelivery] = useState("standard");
   const [selectedPayment, setSelectedPayment] = useState("mpesa");
@@ -47,7 +51,7 @@ export default function CheckoutPage() {
     return (
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
         <Header />
-        <main className="flex-1 flex items-center justify-center pb-16 lg:pb-0">
+        <main ref={mainRef} className="flex-1 flex items-center justify-center pb-16 lg:pb-0">
           <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center max-w-md mx-auto px-4">
             <div className="h-20 w-20 rounded-2xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-6">
               <div className="h-12 w-12 rounded-xl bg-emerald-500 flex items-center justify-center">
@@ -71,10 +75,37 @@ export default function CheckoutPage() {
     );
   }
 
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".checkout-delivery"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".checkout-delivery"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".checkout-payment"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".checkout-payment"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".checkout-summary"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".checkout-summary"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         <div className="mx-auto max-w-5xl px-4 py-8">
           <div className="flex items-center gap-4 mb-8">
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-xl" onClick={() => navigate("/cart")}>

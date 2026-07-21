@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -17,6 +17,9 @@ import { products } from "@/lib/constants";
 import { useCart } from "@/lib/cart-context";
 import { cn, getRatingColor } from "@/lib/utils";
 import { toast } from "sonner";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 // ===== StarRating Component =====
 function StarRating({ value, onChange, size = "md", interactive = false }: {
@@ -66,6 +69,7 @@ const existingReviews = [
 
 // ===== Main Page =====
 export default function ProductDetailPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState(0);
@@ -130,10 +134,43 @@ export default function ProductDetailPage() {
     });
   };
 
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".pd-gallery"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".pd-gallery"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".pd-info"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".pd-info"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".pd-reviews"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".pd-reviews"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".pd-related"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".pd-related"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         <div className="px-4 sm:px-8 lg:px-12 xl:px-16 py-6">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs text-muted-foreground mb-6">

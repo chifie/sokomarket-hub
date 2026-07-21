@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Users, Store, Package, ShoppingCart, BarChart3, Shield,
@@ -17,6 +17,9 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { AIAssistant } from "@/components/ai/AIAssistant";
 import { cn, formatTZS } from "@/lib/utils";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 // Demo data
 const recentUsers = [
@@ -67,12 +70,34 @@ const weeklySales = [
 const maxAmount = Math.max(...weeklySales.map((s) => s.amount));
 
 export default function AdminDashboardPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState("overview");
+
+
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".admin-stats"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".admin-stats"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".admin-content"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".admin-content"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         <div className="mx-auto max-w-7xl px-4 py-8">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">

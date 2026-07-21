@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
 import {
@@ -15,8 +15,12 @@ import { AIAssistant } from "@/components/ai/AIAssistant";
 import { useCart } from "@/lib/cart-context";
 import { paymentMethods } from "@/lib/constants";
 import { cn, formatTZS } from "@/lib/utils";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function CartPage() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const { items: cartItems, removeItem, updateQuantity, subtotal, clearCart } = useCart();
   const [couponCode, setCouponCode] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
@@ -25,6 +29,26 @@ export default function CartPage() {
   const discount = couponApplied ? subtotal * 0.1 : 0;
   const total = subtotal + shipping - discount;
 
+  useEffect(() => {
+    const main = mainRef.current;
+    if (!main) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        main.querySelectorAll(".cart-items"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".cart-items"), start: "top 85%", once: true } }
+      );
+      gsap.fromTo(
+        main.querySelectorAll(".cart-summary"),
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
+          scrollTrigger: { trigger: main.querySelector(".cart-summary"), start: "top 85%", once: true } }
+      );
+    }, main);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -32,7 +56,7 @@ export default function CartPage() {
       className="min-h-screen flex flex-col bg-background"
     >
       <Header />
-      <main className="flex-1 pb-16 lg:pb-0">
+      <main ref={mainRef} className="flex-1 pb-16 lg:pb-0">
         <div className="mx-auto max-w-7xl px-4 py-8">
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">
@@ -63,7 +87,7 @@ export default function CartPage() {
           ) : (
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Cart Items */}
-              <div className="lg:col-span-2 space-y-4">
+              <div className="cart-items lg:col-span-2 space-y-4">
                 {cartItems.map((item, index) => (
                   <motion.div
                     key={item.productId}
@@ -127,7 +151,7 @@ export default function CartPage() {
               </div>
 
               {/* Order Summary */}
-              <div className="lg:col-span-1">
+              <div className="cart-summary lg:col-span-1">
                 <div className="sticky top-24 space-y-4">
                   <div className="rounded-2xl border border-border/50 bg-card p-6">
                     <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
