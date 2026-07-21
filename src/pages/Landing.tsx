@@ -12,7 +12,7 @@ import { Hero } from "@/components/landing/Hero";
 import { ProductCard } from "@/components/product/ProductCard";
 import { categories, products, sellers } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
-import { BadgeCheck, ShoppingCart, Smartphone, Package } from "lucide-react";
+import { BadgeCheck, Smartphone, ArrowDown } from "lucide-react";
 
 export default function Landing() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -232,33 +232,75 @@ export default function Landing() {
 
         {/* ─── Download App ─── */}
         <section className="landing-download-app px-4 sm:px-8 lg:px-12 xl:px-16 mt-8 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-background rounded-2xl border border-border/50 p-6 sm:p-10 flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
-            <div className="flex-1 text-center sm:text-left">
-              <Smartphone className="h-8 w-8 text-primary mb-3 mx-auto sm:mx-0" />
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground">Get the SokoDigital App</h2>
-              <p className="text-sm text-muted-foreground mt-1 max-w-md mx-auto sm:mx-0">
-                Shop on the go. Download the app for the best shopping experience with exclusive app-only deals.
+          <div className="relative overflow-hidden rounded-2xl bg-card border border-border/50 p-8 sm:p-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 shadow-sm">
+            {/* Decorative background elements */}
+            <div className="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-primary/5 blur-3xl" />
+            <div className="absolute -bottom-16 -left-16 w-48 h-48 rounded-full bg-accent/5 blur-2xl" />
+
+            {/* Left: Text + Store Buttons */}
+            <div className="flex-1 relative z-10 text-center lg:text-left">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium mb-4">
+                <Smartphone className="h-3.5 w-3.5" />
+                Mobile App
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                Get the SokoDigital App
+              </h2>
+              <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto lg:mx-0 leading-relaxed">
+                Shop on the go. Download the app for exclusive deals, real-time tracking, and the best shopping experience.
               </p>
-              <div className="flex flex-wrap gap-3 mt-5 justify-center sm:justify-start">
+
+              {/* Store Badges */}
+              <div className="flex flex-wrap gap-3 mt-6 justify-center lg:justify-start">
+                {/* Google Play */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-2 bg-foreground text-background px-5 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
+                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm group/download"
                 >
-                  <Package className="h-4 w-4" />
-                  Google Play
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="currentColor">
+                    <path d="M17.8 4.8L7.2 1.2C6.2.9 5.1 1.1 4.3 1.8L12.5 10l5.3-5.2zM3.9 2.5C3.4 3 3.1 3.7 3.1 4.5v15c0 .8.3 1.5.8 2l8.6-8.6L3.9 2.5zM13.2 12l4.6 4.6 1.9-.9c.9-.4 1.5-1.3 1.5-2.3s-.6-1.8-1.5-2.3l-1.9-.9L13.2 12zM3.1 21.5c.5.5 1.2.8 2 .8.3 0 .6 0 .9-.1l10.5-3.5-4.6-4.6-8.8 7.4z"/>
+                  </svg>
+                  <div className="text-left">
+                    <div className="text-[9px] leading-tight opacity-70">GET IT ON</div>
+                    <div className="text-sm font-bold leading-tight">Google Play</div>
+                  </div>
                 </a>
+
+                {/* App Store */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-2 bg-foreground text-background px-5 py-2.5 rounded-xl text-sm font-semibold hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
+                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm group/download"
                 >
-                  <ShoppingCart className="h-4 w-4" />
-                  App Store
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="currentColor">
+                    <path d="M17.1 12.6c-.1-2.4 1.9-3.6 2-3.7-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9-.7 0-1.8-.8-2.9-.8-1.5 0-2.9.9-3.7 2.2-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.4 2.9 2.4 1.2 0 1.6-.8 3-.8s1.7.8 2.9.8c1.2 0 2-1.2 2.7-2.3.9-1.2 1.2-2.4 1.3-2.5-.1 0-2.4-.9-2.4-3.6zM14.5 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.1.6-2.8 1.4-.6.7-1.2 1.9-1 3 .9 0 2-.6 2.8-1.3z"/>
+                  </svg>
+                  <div className="text-left">
+                    <div className="text-[9px] leading-tight opacity-70">Download on the</div>
+                    <div className="text-sm font-bold leading-tight">App Store</div>
+                  </div>
                 </a>
               </div>
+
+              <p className="text-[11px] text-muted-foreground mt-3 flex items-center gap-1 justify-center lg:justify-start">
+                <ArrowDown className="h-3 w-3" />
+                Free download. Available on iOS and Android.
+              </p>
             </div>
-            <div className="shrink-0">
-              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border border-border/30">
-                <Smartphone className="h-12 w-12 sm:h-16 sm:w-16 text-primary/60" />
+
+            {/* Right: Phone Mockup */}
+            <div className="shrink-0 relative z-10">
+              <div className="relative">
+                {/* Phone body */}
+                <div className="w-28 h-44 sm:w-36 sm:h-56 rounded-2xl border-2 border-foreground/20 bg-gradient-to-b from-primary/20 via-accent/10 to-background flex items-center justify-center shadow-lg">
+                  {/* Screen content */}
+                  <div className="text-center">
+                    <Smartphone className="h-8 w-8 sm:h-10 sm:w-10 text-primary/40 mx-auto" />
+                    <div className="text-[8px] sm:text-[10px] font-bold text-primary mt-1">SokoDigital</div>
+                    <div className="w-8 h-0.5 bg-primary/20 rounded-full mx-auto mt-1" />
+                  </div>
+                </div>
+                {/* Glow effect */}
+                <div className="absolute -inset-4 bg-primary/5 rounded-3xl blur-xl -z-10" />
               </div>
             </div>
           </div>
