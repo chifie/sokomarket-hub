@@ -346,7 +346,7 @@ export default function SellerProductFormPage() {
                     value={s.key}
                     onChange={(e) => updateSpec(i, 'key', e.target.value)}
                     placeholder="e.g. Material"
-                    className="w-1/3 rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                    className="w-1/3 rounded-lg border border-input bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                   />
                   <input
                     value={s.value}
