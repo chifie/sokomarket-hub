@@ -287,7 +287,10 @@ export function Hero() {
     }, slide);
   }, []);
 
-  /* ─── Progress bar ─── */
+  /* ─── Progress bar (uses handleNextRef to avoid stale closure) ─── */
+  const handleNextRef = useRef(handleNext);
+  handleNextRef.current = handleNext;
+
   const startProgress = useCallback(() => {
     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     setProgress(0);
@@ -304,7 +307,7 @@ export function Hero() {
         setProgress(100);
         clearInterval(progressIntervalRef.current);
         progressIntervalRef.current = undefined;
-        handleNext();
+        handleNextRef.current();
       } else {
         setProgress(current);
       }
@@ -403,13 +406,8 @@ export function Hero() {
 
   const banner = activeBanners[currentSlide];
 
-  /* ─── Theme → product variant map ─── */
-  const productTheme = (() => {
-    if (currentSlide === 0) return "tech" as const;
-    if (currentSlide === 1) return "sale" as const;
-    if (currentSlide === 2) return "beauty" as const;
-    return "delivery" as const;
-  })();
+  /* ─── Theme from banner title (not index) ─── */
+  const productTheme = THEME_MAP[banner.title] ?? "tech";
 
   return (
     <section ref={sectionRef} className="px-4 sm:px-8 lg:px-12 xl:px-16 mt-4">
