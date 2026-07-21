@@ -59,59 +59,7 @@ export function Hero() {
     return () => ctx.revert();
   }, []);
 
-  // GSAP-powered slide transition
-  const animateSlide = useCallback(
-    (fromIndex: number, toIndex: number) => {
-      const slider = sliderRef.current;
-      if (!slider || isAnimatingRef.current) return;
-
-      isAnimatingRef.current = true;
-
-      const ctx = gsap.context(() => {
-        // Determine direction: -1 = next (left), 1 = prev (right)
-        const direction = toIndex > fromIndex ? -1 : 1;
-
-        gsap.to(slider, {
-          x: `${-toIndex * 100}%`,
-          duration: 0.6,
-          ease: "power3.inOut",
-          onComplete: () => {
-            isAnimatingRef.current = false;
-          },
-        });
-
-        // Add a subtle opacity transition for a cinematic feel
-        const slides = slider.children;
-        if (slides[fromIndex]) {
-          gsap.to(slides[fromIndex], {
-            opacity: 0.7,
-            duration: 0.3,
-            ease: "power2.out",
-          });
-        }
-        if (slides[toIndex]) {
-          gsap.fromTo(
-            slides[toIndex],
-            { opacity: 0.7, scale: 0.98 },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.5,
-              ease: "power3.out",
-              delay: 0.1,
-            }
-          );
-        }
-      }, slider);
-
-      // Cleanup context after animation completes
-      setTimeout(() => {
-        ctx.revert();
-        isAnimatingRef.current = false;
-      }, 800);
-    },
-    []
-  );
+  const animTimeoutRef = useRef<ReturnType<typeof setTimeout>>();\n\n  useEffect(() => {\n    return () => {\n      if (animTimeoutRef.current) {\n        clearTimeout(animTimeoutRef.current);\n      }\n    };\n  }, []);\n\n  // GSAP-powered slide transition\n  const animateSlide = useCallback(\n    (fromIndex: number, toIndex: number) => {\n      const slider = sliderRef.current;\n      if (!slider || isAnimatingRef.current) return;\n\n      isAnimatingRef.current = true;\n\n      const ctx = gsap.context(() =\u003e {\n        gsap.to(slider, {\n          x: `${-toIndex * 100}%`,\n          duration: 0.6,\n          ease: "power3.inOut",\n          onComplete: () =\u003e {\n            isAnimatingRef.current = false;\n            ctx.revert();\n          },\n        });\n\n        // Add a subtle opacity transition for a cinematic feel\n        const slides = slider.children;\n        if (slides[fromIndex]) {\n          gsap.to(slides[fromIndex], {\n            opacity: 0.7,\n            duration: 0.3,\n            ease: "power2.out",\n          });\n        }\n        if (slides[toIndex]) {\n          gsap.fromTo(\n            slides[toIndex],\n            { opacity: 0.7, scale: 0.98 },\n            {\n              opacity: 1,\n              scale: 1,\n              duration: 0.5,\n              ease: "power3.out",\n              delay: 0.1,\n            }\n          );\n        }\n      }, slider);\n\n      // Fallback cleanup in case onComplete doesn't fire\n      animTimeoutRef.current = setTimeout(() => {\n        ctx.revert();\n        isAnimatingRef.current = false;\n      }, 800);\n    },\n    []\n  );
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => {
