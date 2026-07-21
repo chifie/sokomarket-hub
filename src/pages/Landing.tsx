@@ -255,7 +255,7 @@ export default function Landing() {
                 {/* Google Play */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm group/download"
+                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="currentColor">
                     <path d="M17.8 4.8L7.2 1.2C6.2.9 5.1 1.1 4.3 1.8L12.5 10l5.3-5.2zM3.9 2.5C3.4 3 3.1 3.7 3.1 4.5v15c0 .8.3 1.5.8 2l8.6-8.6L3.9 2.5zM13.2 12l4.6 4.6 1.9-.9c.9-.4 1.5-1.3 1.5-2.3s-.6-1.8-1.5-2.3l-1.9-.9L13.2 12zM3.1 21.5c.5.5 1.2.8 2 .8.3 0 .6 0 .9-.1l10.5-3.5-4.6-4.6-8.8 7.4z"/>
@@ -269,7 +269,7 @@ export default function Landing() {
                 {/* App Store */}
                 <a
                   href="#"
-                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm group/download"
+                  className="inline-flex items-center gap-3 bg-foreground text-background px-4 py-2.5 rounded-xl hover:opacity-90 transition-all active:scale-[0.97] shadow-sm"
                 >
                   <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0" fill="currentColor">
                     <path d="M17.1 12.6c-.1-2.4 1.9-3.6 2-3.7-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9-.7 0-1.8-.8-2.9-.8-1.5 0-2.9.9-3.7 2.2-1.6 2.8-.4 6.9 1.1 9.2.8 1.1 1.7 2.4 2.9 2.4 1.2 0 1.6-.8 3-.8s1.7.8 2.9.8c1.2 0 2-1.2 2.7-2.3.9-1.2 1.2-2.4 1.3-2.5-.1 0-2.4-.9-2.4-3.6zM14.5 5.3c.7-.8 1.2-2 1-3.1-1 .1-2.1.6-2.8 1.4-.6.7-1.2 1.9-1 3 .9 0 2-.6 2.8-1.3z"/>
