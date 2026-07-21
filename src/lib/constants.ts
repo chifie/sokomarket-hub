@@ -295,26 +295,51 @@ export const testimonials: Testimonial[] = [
 
 // ===== Banners =====
 export const banners: Banner[] = [
-  { id: "b1", title: "Premium Tech Deals", subtitle: "Up to 40% Off", description: "Latest smartphones, laptops, and gadgets at unbeatable prices", cta: "Shop Tech Deals", link: "/marketplace?category=electronics",
+  {
+    id: "b1", title: "Premium Tech Deals", subtitle: "Up to 40% Off",
+    description: "Latest smartphones, laptops, and gadgets at unbeatable prices — only on SokoDigital",
+    cta: "Shop Tech Deals", link: "/marketplace?category=electronics",
     desktopImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=85",
     mobileImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=85",
-    badge: "Limited Time", discount: 40, type: "hero", priority: 1, isActive: true, startDate: new Date().toISOString(), endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString() },
-  { id: "b2", title: "Tanzanian Fashion Collection", subtitle: "Discover Local Designers", description: "Authentic Tanzanian fashion from top local designers", cta: "Explore Fashion", link: "/marketplace?category=fashion",
+    badge: "Limited Time", discount: 40, type: "hero", priority: 1, isActive: true,
+    startDate: new Date().toISOString(), endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+    bgColor: "#1e1b4b", textColor: "#ffffff" },
+  {
+    id: "b2", title: "Tanzanian Fashion Collection", subtitle: "Discover Local Designers",
+    description: "Authentic Tanzanian fashion from top local designers — be unique, be bold",
+    cta: "Explore Fashion", link: "/marketplace?category=fashion",
     desktopImage: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1920&q=85",
     mobileImage: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=85",
-    badge: "New Collection", discount: 25, type: "hero", priority: 2, isActive: true, startDate: new Date().toISOString(), endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() },
-  { id: "b3", title: "Free Delivery Week", subtitle: "Nationwide — TZ Mainland & Zanzibar", description: "Enjoy free delivery on all orders across Tanzania", cta: "Start Shopping", link: "/marketplace",
+    badge: "New Collection", discount: 25, type: "hero", priority: 2, isActive: true,
+    startDate: new Date().toISOString(), endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+    bgColor: "#831843", textColor: "#ffffff" },
+  {
+    id: "b3", title: "Free Delivery Week", subtitle: "Nationwide — TZ Mainland & Zanzibar",
+    description: "Enjoy free delivery on all orders across Tanzania this week only",
+    cta: "Start Shopping", link: "/marketplace",
     desktopImage: "https://images.unsplash.com/photo-1557456170-0e2b4a7fc3eb?w=1920&q=85",
     mobileImage: "https://images.unsplash.com/photo-1557456170-0e2b4a7fc3eb?w=600&q=85",
-    badge: "Free Delivery", type: "hero", priority: 3, isActive: true, startDate: new Date().toISOString(), endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() },
-  { id: "b4", title: "SokoDigital Ramadan Sale", subtitle: "Blessings & Savings", description: "Special Ramadan offers on groceries, fashion, and home essentials", cta: "Shop Ramadan Deals", link: "/marketplace?category=groceries",
-    desktopImage: "https://images.unsplash.com/photo-1582452932074-0d4510e3eb84?w=1920&q=85",
-    mobileImage: "https://images.unsplash.com/photo-1582452932074-0d4510e3eb84?w=600&q=85",
-    badge: "Ramadan Special", discount: 30, type: "hero", priority: 4, isActive: true, startDate: new Date().toISOString(), endDate: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString() },
-  { id: "b5", title: "Student Discount Week", subtitle: "Save Big on Essentials", description: "Verified students get up to 50% off on laptops, books, and stationery", cta: "Student Deals", link: "/marketplace?category=computers",
+    badge: "Free Delivery", type: "hero", priority: 3, isActive: true,
+    startDate: new Date().toISOString(), endDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+    bgColor: "#064e3b", textColor: "#ffffff" },
+  {
+    id: "b4", title: "Beauty & Cosmetics Sale", subtitle: "Glow Up with Amazing Deals",
+    description: "Premium skincare, makeup, and beauty essentials from trusted brands — up to 30% off",
+    cta: "Shop Beauty", link: "/marketplace?category=beauty",
+    desktopImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1920&q=85",
+    mobileImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=85",
+    badge: "Beauty Sale", discount: 30, type: "hero", priority: 4, isActive: true,
+    startDate: new Date().toISOString(), endDate: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),
+    bgColor: "#831843", textColor: "#ffffff" },
+  {
+    id: "b5", title: "Student Discount Week", subtitle: "Save Big on Essentials",
+    description: "Verified students get up to 50% off on laptops, books, and stationery",
+    cta: "Student Deals", link: "/marketplace?category=computers",
     desktopImage: "https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=1920&q=85",
     mobileImage: "https://images.unsplash.com/photo-1523050854058-8df90110c7f1?w=600&q=85",
-    badge: "Students Only", discount: 50, type: "hero", priority: 5, isActive: true, startDate: new Date().toISOString(), endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString() },
+    badge: "Students Only", discount: 50, type: "hero", priority: 5, isActive: true,
+    startDate: new Date().toISOString(), endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+    bgColor: "#1e3a5f", textColor: "#ffffff" },
 ];
 
 // ===== Notifications =====
