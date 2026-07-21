@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { Clock, Zap, ArrowRight, ShoppingBag, TrendingUp, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
