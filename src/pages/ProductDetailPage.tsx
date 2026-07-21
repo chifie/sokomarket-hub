@@ -186,7 +186,7 @@ export default function ProductDetailPage() {
           {/* Product Main Section */}
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Left - Image Gallery */}
-            <div className="space-y-3">
+            <div className="pd-gallery space-y-3">
               <div className="relative aspect-square rounded-xl overflow-hidden bg-muted border border-border/50 group">
                 <img
                   src={product.images[selectedImage]}
@@ -217,7 +217,7 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Right - Product Info */}
-            <div className="space-y-5">
+            <div className="pd-info space-y-5">
               {/* Seller */}
               <div className="flex items-center gap-2">
                 <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
@@ -360,7 +360,7 @@ export default function ProductDetailPage() {
             </div>
 
             {/* Reviews Section */}
-            <div>
+            <div className="pd-reviews">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-base font-bold">Reviews ({reviews.length})</h2>
                 <Button
@@ -513,7 +513,7 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Related Products */}
-          <div className="mt-10">
+          <div className="pd-related mt-10">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-base font-bold">Related Products</h2>
               <Link to="/marketplace" className="text-xs text-primary font-medium hover:underline">View All</Link>
