@@ -22,13 +22,13 @@ interface LogoProps {
  *   <Logo showTagline className="h-12 w-auto" />
  */
 export function Logo({ className, showTagline = false }: LogoProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        containerRef.current,
-        { opacity: 0, y: 10 },
+        svgRef.current,
+        { opacity: 0, y: 8 },
         { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
       );
     });
@@ -36,8 +36,7 @@ export function Logo({ className, showTagline = false }: LogoProps) {
   }, []);
 
   return (
-    <div ref={containerRef} className="inline-flex">
-      <svg
+      <svg ref={svgRef}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1280 1024"
         className={cn("h-9 w-auto shrink-0", className)}
@@ -71,6 +70,5 @@ export function Logo({ className, showTagline = false }: LogoProps) {
           </g>
         )}
       </svg>
-    </div>
   );
 }
