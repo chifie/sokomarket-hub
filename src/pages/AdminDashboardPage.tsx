@@ -553,7 +553,7 @@ export default function AdminDashboardPage() {
               </div>
             </TabsContent>
           </Tabs>
-          </div>
+            </div>
         </div>
       </main>
       <Footer />
