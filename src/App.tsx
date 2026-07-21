@@ -37,34 +37,8 @@ const pageTransition = {
 };
 
 function AnimatedPage({ children }: { children: React.ReactNode }) {
-  const pageRef = useRef<HTMLDivElement>(null);
-
-  // GSAP-powered entrance animation for each page
-  useEffect(() => {
-    const el = pageRef.current;
-    if (!el) return;
-
-    // Initial visibility is set via CSS opacity-0 in the className
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        el,
-        { opacity: 0, y: 20, scale: 0.98 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.5,
-          ease: 'power3.out',
-        }
-      );
-    }, el);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <motion.div
-      ref={pageRef}
       variants={pageVariants}
       initial="initial"
       animate="animate"
