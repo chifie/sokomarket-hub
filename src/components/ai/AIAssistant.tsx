@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X, Send, MessageCircle, Bot
@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { aiSuggestions } from "@/lib/constants";
+import { gsap } from "gsap";
 
 type Message = {
   id: string;
@@ -26,6 +27,36 @@ export function AIAssistant() {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // GSAP continuous floating + pulse animation for the chat button
+  useEffect(() => {
+    const btn = buttonRef.current;
+    if (!btn || isOpen) return;
+
+    const ctx = gsap.context(() => {
+      // Floating animation
+      gsap.to(btn, {
+        y: -6,
+        duration: 2.5,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+
+      // Subtle glow pulse
+      gsap.to(btn, {
+        boxShadow: "0 0 24px rgba(var(--primary-rgb, 99,102,241), 0.5)",
+        duration: 2,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1,
+        delay: 0.5,
+      });
+    }, btn);
+
+    return () => ctx.revert();
+  }, [isOpen]);
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -54,6 +85,7 @@ export function AIAssistant() {
     <>
       {/* Kichi-style floating chat button */}
       <button
+        ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-4 right-4 z-50 bg-primary text-primary-foreground h-14 w-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform"
         aria-label="Toggle chat"
