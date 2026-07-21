@@ -117,7 +117,7 @@ export default function AIChatPage() {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Header />
 
-      <div className="flex-1 overflow-y-auto pt-6 pb-32">
+      <div className="ai-messages flex-1 overflow-y-auto pt-6 pb-32">
         <div className="max-w-3xl mx-auto px-4 py-4 space-y-4">
           {messages.map((message, idx) => (
             <div
@@ -154,7 +154,7 @@ export default function AIChatPage() {
 
       <div className="fixed bottom-0 left-0 right-0 border-t border-border bg-background/95 backdrop-blur">
         <div className="max-w-3xl mx-auto px-4 py-3">
-          <div className="flex gap-2 mb-3 overflow-x-auto pb-2">
+          <div className="ai-actions flex gap-2 mb-3 overflow-x-auto pb-2">
             {quickActions.map((action) => (
               <button
                 key={action.label}
@@ -170,7 +170,7 @@ export default function AIChatPage() {
             ))}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="ai-input flex items-center gap-3">
             <input
               type="text"
               placeholder="Ask me anything about SokoDigital..."
