@@ -176,7 +176,7 @@ export default function SellerProductFormPage() {
           <p className="mt-2 text-sm text-muted-foreground">
             Only seller accounts can create listings.
           </p>
-          <Link to="/dashboard" className="mt-6 inline-block text-indigo-700 hover:underline dark:text-indigo-500">
+          <Link to="/dashboard" className="mt-6 inline-block text-primary hover:underline dark:text-primary">
             Back to dashboard
           </Link>
         </main>
