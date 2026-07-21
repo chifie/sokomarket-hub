@@ -96,7 +96,7 @@ export default function SellerListingsPage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header />
       <main ref={mainRef} className="mx-auto max-w-7xl px-4 py-28 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div className="sl-header mb-8 flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold">Your listings</h1>
             <p className="mt-1 text-sm text-muted-foreground">
@@ -149,7 +149,7 @@ export default function SellerListingsPage() {
         )}
 
         {isSeller && products.length > 0 && (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="sl-grid grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((p) => (
               <div
                 key={p.id}
