@@ -145,7 +145,7 @@ export default function CheckoutPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-2xl border border-border/50 bg-card p-6"
+                className="checkout-delivery rounded-2xl border border-border/50 bg-card p-6"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -216,7 +216,7 @@ export default function CheckoutPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="rounded-2xl border border-border/50 bg-card p-6"
+                className="checkout-payment rounded-2xl border border-border/50 bg-card p-6"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -259,7 +259,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Sidebar - Order Summary */}
-            <div className="lg:col-span-1">
+            <div className="checkout-summary lg:col-span-1">
               <div className="sticky top-24 space-y-4">
                 <div className="rounded-2xl border border-border/50 bg-card p-6">
                   <h2 className="font-semibold mb-4">Order Summary</h2>
