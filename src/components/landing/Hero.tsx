@@ -1,36 +1,23 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight, Zap, Clock, ArrowRight } from "lucide-react";
+import { Link } from "react-router";
 import { cn } from "@/lib/utils";
 import { banners } from "@/lib/constants";
 import { gsap } from "gsap";
 
-/* ─── Theme gradient & accent map ─── */
-const THEME_GRADIENTS: Record<string, string> = {
-  "Premium Tech Deals":
-    "bg-gradient-to-r from-indigo-950/90 via-purple-900/70 to-transparent",
-  "Tanzanian Fashion Collection":
-    "bg-gradient-to-r from-rose-950/90 via-pink-900/70 to-transparent",
-  "Free Delivery Week":
-    "bg-gradient-to-r from-emerald-950/90 via-teal-900/70 to-transparent",
-  "Beauty & Cosmetics Sale":
-    "bg-gradient-to-r from-pink-950/90 via-rose-900/70 to-transparent",
-  "Student Discount Week":
-    "bg-gradient-to-r from-sky-950/90 via-blue-900/70 to-transparent",
-};
-const DEFAULT_GRADIENT =
-  "bg-gradient-to-r from-gray-950/90 via-gray-900/70 to-transparent";
+/* ─── Theme gradient helpers ─── */
+function gradientFromBg(bgColor?: string) {
+  if (!bgColor) return "bg-gradient-to-r from-gray-950/90 via-gray-900/70 to-transparent";
+  // Convert hex to rgb tailwind-style gradient
+  return `bg-gradient-to-r from-[${bgColor}]/95 via-[${bgColor}]/70 to-transparent`;
+}
 
-const ACCENT_BADGE: Record<string, string> = {
-  "Premium Tech Deals": "bg-indigo-500/20 text-indigo-200 border-indigo-400/30",
-  "Tanzanian Fashion Collection":
-    "bg-rose-500/20 text-rose-200 border-rose-400/30",
-  "Free Delivery Week":
-    "bg-emerald-500/20 text-emerald-200 border-emerald-400/30",
-  "Beauty & Cosmetics Sale":
-    "bg-pink-500/20 text-pink-200 border-pink-400/30",
-  "Student Discount Week": "bg-sky-500/20 text-sky-200 border-sky-400/30",
-};
+function accentFromBg(bgColor?: string) {
+  if (!bgColor) return "bg-indigo-500/20 text-indigo-200 border-indigo-400/30";
+  return `bg-white/15 text-white/90 border-white/20`;
+}
 
+/* ─── Hero Component ─── */
 export function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -41,19 +28,20 @@ export function Hero() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimatingRef = useRef(false);
-  const animTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined
-  );
-  const progressRef = useRef(0);
-  const progressAnimRef = useRef<gsap.core.Tween | null>(null);
+  const animTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const isPausedRef = useRef(false);
+  const progressIntervalRef = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+
+  // Keep ref in sync
+  isPausedRef.current = isPaused;
 
   const activeBanners = banners.filter((b) => b.isActive && b.type === "hero");
 
-  // Cleanup
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
       if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
-      if (progressAnimRef.current) progressAnimRef.current.kill();
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     };
   }, []);
 
@@ -71,85 +59,73 @@ export function Hero() {
     return () => ctx.revert();
   }, []);
 
-  /* ─── Per-slide text entrance ─── */
+  /* ─── Per-slide text entrance (called once after each slide change) ─── */
   const animateSlideContent = useCallback((index: number) => {
     const section = sectionRef.current;
     if (!section) return;
     const slide = section.querySelector(`[data-slide="${index}"]`);
     if (!slide) return;
 
-    const ctx = gsap.context(() => {
-      // Badge
+    gsap.context(() => {
       gsap.fromTo(
         slide.querySelector(".hero-badge"),
         { opacity: 0, y: -15 },
         { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
       );
-      // Title
       gsap.fromTo(
         slide.querySelector(".hero-title"),
         { opacity: 0, y: 30, scale: 0.97 },
-        {
-          opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out",
-          delay: 0.1,
-        }
+        { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out", delay: 0.1 }
       );
-      // Subtitle
       gsap.fromTo(
         slide.querySelector(".hero-subtitle"),
         { opacity: 0, y: 20 },
-        {
-          opacity: 1, y: 0, duration: 0.5, ease: "power2.out",
-          delay: 0.25,
-        }
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", delay: 0.25 }
       );
-      // Description
       gsap.fromTo(
         slide.querySelector(".hero-description"),
         { opacity: 0, y: 20 },
-        {
-          opacity: 1, y: 0, duration: 0.5, ease: "power2.out",
-          delay: 0.35,
-        }
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", delay: 0.35 }
       );
-      // CTA
       gsap.fromTo(
         slide.querySelector(".hero-cta"),
         { opacity: 0, y: 20, scale: 0.9 },
-        {
-          opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)",
-          delay: 0.5,
-        }
+        { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)", delay: 0.5 }
       );
-      // Background image gentle zoom
       gsap.fromTo(
         slide.querySelector(".hero-bg-img"),
         { scale: 1.12 },
         { scale: 1, duration: 1.5, ease: "power2.out", delay: 0.2 }
       );
+      // NOTE: ctx is NOT reverted — let animations play naturally
     }, slide);
-    ctx.revert();
-    // We don't need to persist since this runs once per slide change
   }, []);
 
-  /* ─── Progress bar animation ─── */
+  /* ─── Progress bar (CSS interval-based, no GSAP) ─── */
   const startProgress = useCallback(() => {
+    if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     setProgress(0);
-    progressRef.current = 0;
-    if (progressAnimRef.current) progressAnimRef.current.kill();
 
-    progressAnimRef.current = gsap.to(progressRef, {
-      current: 100,
-      duration: 5,
-      ease: "none",
-      onUpdate: () => {
-        setProgress(progressRef.current);
-      },
-      onComplete: () => {
-        if (!isPaused) handleNext();
-      },
-    });
-  }, [isPaused]);
+    const TOTAL_MS = 5000; // 5 seconds
+    const INTERVAL_MS = 30;
+    const STEP = (INTERVAL_MS / TOTAL_MS) * 100;
+    let current = 0;
+
+    progressIntervalRef.current = setInterval(() => {
+      if (isPausedRef.current) return; // paused — don't advance
+      current += STEP;
+      if (current >= 100) {
+        current = 100;
+        setProgress(100);
+        clearInterval(progressIntervalRef.current);
+        progressIntervalRef.current = undefined;
+        // Auto-advance
+        handleNext();
+      } else {
+        setProgress(current);
+      }
+    }, INTERVAL_MS);
+  }, []);
 
   /* ─── Slide transition ─── */
   const animateSlide = useCallback(
@@ -158,33 +134,31 @@ export function Hero() {
       if (!slider || isAnimatingRef.current) return;
       isAnimatingRef.current = true;
 
-      // Kill progress
-      if (progressAnimRef.current) progressAnimRef.current.kill();
+      // Clear progress
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
 
-      const ctx = gsap.context(() => {
+      gsap.context(() => {
         gsap.to(slider, {
           x: `${-toIndex * 100}%`,
           duration: 0.6,
           ease: "power3.inOut",
           onComplete: () => {
             isAnimatingRef.current = false;
-            startProgress();
             animateSlideContent(toIndex);
-            ctx.revert();
+            startProgress();
           },
         });
       }, slider);
 
       animTimeoutRef.current = setTimeout(() => {
         if (isAnimatingRef.current) {
-          ctx.revert();
           isAnimatingRef.current = false;
-          startProgress();
           animateSlideContent(toIndex);
+          startProgress();
         }
-      }, 800);
+      }, 900);
     },
-    [startProgress, animateSlideContent]
+    [animateSlideContent, startProgress]
   );
 
   const handleNext = useCallback(() => {
@@ -197,8 +171,7 @@ export function Hero() {
 
   const handlePrev = useCallback(() => {
     setCurrentSlide((prev) => {
-      const prevIdx =
-        (prev - 1 + activeBanners.length) % activeBanners.length;
+      const prevIdx = (prev - 1 + activeBanners.length) % activeBanners.length;
       animateSlide(prev, prevIdx);
       return prevIdx;
     });
@@ -216,14 +189,18 @@ export function Hero() {
     [animateSlide]
   );
 
-  /* ─── Auto-play ─── */
+  /* ─── Auto-play effect ─── */
   useEffect(() => {
     if (!activeBanners.length) return;
+    // Animate the new slide's content
+    animateSlideContent(currentSlide);
+    // Start progress timer
     startProgress();
     return () => {
-      if (progressAnimRef.current) progressAnimRef.current.kill();
+      if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     };
-  }, [currentSlide, activeBanners.length, startProgress]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSlide, activeBanners.length]);
 
   /* ─── Touch handlers ─── */
   const onTouchStart = (e: React.TouchEvent) => {
@@ -242,22 +219,16 @@ export function Hero() {
     }
   };
 
-  /* ─── Mouse pause ─── */
+  /* ─── Hover pause ─── */
   const handleMouseEnter = () => setIsPaused(true);
   const handleMouseLeave = () => setIsPaused(false);
 
   if (activeBanners.length === 0) return null;
 
   const banner = activeBanners[currentSlide];
-  const gradient =
-    THEME_GRADIENTS[banner.title] || DEFAULT_GRADIENT;
-  const accentStyle = ACCENT_BADGE[banner.title] || "";
 
   return (
-    <section
-      ref={sectionRef}
-      className="px-4 sm:px-8 lg:px-12 xl:px-16 mt-4"
-    >
+    <section ref={sectionRef} className="px-4 sm:px-8 lg:px-12 xl:px-16 mt-4">
       <div
         ref={containerRef}
         className="hero-slider-container rounded-2xl overflow-hidden relative group opacity-0 shadow-2xl"
@@ -268,7 +239,7 @@ export function Hero() {
         onMouseLeave={handleMouseLeave}
       >
         {/* Progress bar */}
-        <div className="absolute top-0 left-0 right-0 h-1 z-20 bg-white/10">
+        <div className="absolute top-0 left-0 right-0 h-1 z-30 bg-white/10">
           <div
             className="h-full bg-white/70 rounded-r-full transition-none"
             style={{ width: `${progress}%` }}
@@ -281,103 +252,130 @@ export function Hero() {
           className="flex"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
         >
-          {activeBanners.map((b, idx) => {
-            const itemGradient = THEME_GRADIENTS[b.title] || DEFAULT_GRADIENT;
-            return (
-              <a
-                key={b.id}
-                href={b.link || "#"}
-                data-slide={idx}
-                className="relative w-full flex-shrink-0 overflow-hidden"
-              >
-                {/* Background image with Ken Burns effect */}
-                <img
-                  src={b.desktopImage}
-                  alt={b.title}
-                  width={1920}
-                  height={512}
-                  loading={idx === 0 ? "eager" : "lazy"}
-                  className="hero-bg-img w-full aspect-[21/9] sm:aspect-[21/9] lg:aspect-[64/18] object-cover object-center bg-muted will-change-transform"
-                />
+          {activeBanners.map((b, idx) => (
+            <div
+              key={b.id}
+              data-slide={idx}
+              className="relative w-full flex-shrink-0 overflow-hidden"
+            >
+              {/* Background image with Ken Burns effect */}
+              <img
+                src={b.desktopImage}
+                alt={b.title}
+                width={1920}
+                height={512}
+                loading={idx === 0 ? "eager" : "lazy"}
+                className="hero-bg-img w-full aspect-[21/9] sm:aspect-[21/9] lg:aspect-[64/18] object-cover object-center bg-muted will-change-transform"
+              />
 
-                {/* Gradient overlay */}
-                <div
-                  className={cn(
-                    "absolute inset-0 z-10",
-                    itemGradient
-                  )}
-                />
-
-                {/* Additional radial gradient for depth */}
-                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
-
-                {/* Text content */}
-                <div className="absolute inset-0 z-20 flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 max-w-3xl">
-                  {/* Badge */}
-                  {b.badge && (
-                    <span
-                      className={cn(
-                        "hero-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border mb-3 sm:mb-4 w-fit backdrop-blur-sm",
-                        accentStyle
-                      )}
-                    >
-                      {b.discount && (
-                        <Zap className="h-3.5 w-3.5" />
-                      )}
-                      {b.badge}
-                    </span>
-                  )}
-
-                  {/* Title */}
-                  <h1 className="hero-title text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-tight drop-shadow-lg">
-                    {b.title}
-                  </h1>
-
-                  {/* Subtitle */}
-                  {b.subtitle && (
-                    <p className="hero-subtitle text-xs sm:text-sm md:text-base lg:text-lg text-white/90 mt-1.5 sm:mt-2 font-medium drop-shadow">
-                      {b.subtitle}
-                    </p>
-                  )}
-
-                  {/* Description */}
-                  {b.description && (
-                    <p className="hero-description text-[10px] sm:text-xs md:text-sm text-white/70 mt-1 sm:mt-2 max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-none drop-shadow">
-                      {b.description}
-                    </p>
-                  )}
-
-                  {/* CTA Button */}
-                  <span className="hero-cta mt-3 sm:mt-5 inline-flex items-center gap-1.5 sm:gap-2 bg-white text-gray-900 font-bold text-xs sm:text-sm md:text-base px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 w-fit cursor-pointer active:scale-95">
-                    {b.cta || "Shop Now"}
-                    <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
-                  </span>
-                </div>
-
-                {/* Floating discount badge */}
-                {b.discount && (
-                  <div className="absolute top-3 sm:top-5 right-3 sm:right-5 z-20 flex items-center gap-1.5 bg-rose-500/90 text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-lg backdrop-blur-sm">
-                    <Zap className="h-3 w-3 sm:h-4 sm:w-4" />
-                    -{b.discount}%
-                  </div>
+              {/* Gradient overlay from banner bgColor */}
+              <div
+                className={cn(
+                  "absolute inset-0 z-10",
+                  b.bgColor
+                    ? "from-black/50 via-black/20 to-transparent"
+                    : "bg-gradient-to-r from-gray-950/90 via-gray-900/70 to-transparent"
                 )}
-              </a>
-            );
-          })}
+                style={
+                  b.bgColor
+                    ? {
+                        background: `linear-gradient(to right, ${b.bgColor}ee 0%, ${b.bgColor}88 50%, transparent 100%)`,
+                      }
+                    : undefined
+                }
+              />
+
+              {/* Additional dark bottom gradient for readability */}
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+              {/* Text content */}
+              <div className="absolute inset-0 z-20 flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 max-w-3xl">
+                {/* Badge */}
+                {b.badge && (
+                  <span
+                    className={cn(
+                      "hero-badge inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border mb-3 sm:mb-4 w-fit backdrop-blur-sm",
+                      b.bgColor
+                        ? "bg-white/15 text-white/90 border-white/20"
+                        : "bg-indigo-500/20 text-indigo-200 border-indigo-400/30"
+                    )}
+                  >
+                    {b.discount && <Zap className="h-3.5 w-3.5" />}
+                    {b.badge}
+                  </span>
+                )}
+
+                {/* Title */}
+                <h1
+                  className="hero-title text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight drop-shadow-lg"
+                  style={{ color: b.textColor || "#ffffff" }}
+                >
+                  {b.title}
+                </h1>
+
+                {/* Subtitle */}
+                {b.subtitle && (
+                  <p
+                    className="hero-subtitle text-xs sm:text-sm md:text-base lg:text-lg mt-1.5 sm:mt-2 font-medium drop-shadow"
+                    style={{ color: b.textColor ? `${b.textColor}ee` : "rgba(255,255,255,0.9)" }}
+                  >
+                    {b.subtitle}
+                  </p>
+                )}
+
+                {/* Description */}
+                {b.description && (
+                  <p
+                    className="hero-description text-[10px] sm:text-xs md:text-sm mt-1 sm:mt-2 max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-none drop-shadow"
+                    style={{ color: b.textColor ? `${b.textColor}aa` : "rgba(255,255,255,0.7)" }}
+                  >
+                    {b.description}
+                  </p>
+                )}
+
+                {/* CTA Button (only clickable area) */}
+                <Link
+                  to={b.link || "/marketplace"}
+                  className="hero-cta mt-3 sm:mt-5 inline-flex items-center gap-1.5 sm:gap-2 font-bold text-xs sm:text-sm md:text-base px-4 sm:px-7 py-2 sm:py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 w-fit active:scale-95 hover:scale-105"
+                  style={{
+                    backgroundColor: b.textColor || "#ffffff",
+                    color: b.bgColor || "#111827",
+                  }}
+                >
+                  {b.cta || "Shop Now"}
+                  <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                </Link>
+              </div>
+
+              {/* Floating discount badge */}
+              {b.discount && (
+                <div className="absolute top-3 sm:top-5 right-3 sm:right-5 z-20 flex items-center gap-1.5 bg-rose-500/90 text-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-bold shadow-lg backdrop-blur-sm">
+                  <Zap className="h-3 w-3 sm:h-4 sm:w-4" />
+                  -{b.discount}%
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
         {/* Navigation arrows */}
         {activeBanners.length > 1 && (
           <>
             <button
-              onClick={(e) => { e.preventDefault(); handlePrev(); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrev();
+              }}
               className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 sm:p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 z-30 backdrop-blur-sm hover:scale-110 active:scale-95"
               aria-label="Previous slide"
             >
               <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
             </button>
             <button
-              onClick={(e) => { e.preventDefault(); handleNext(); }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
               className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 sm:p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 z-30 backdrop-blur-sm hover:scale-110 active:scale-95"
               aria-label="Next slide"
             >
@@ -392,13 +390,22 @@ export function Hero() {
             {activeBanners.map((_, index) => (
               <button
                 key={index}
-                onClick={() => goToSlide(index)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToSlide(index);
+                }}
                 className={cn(
                   "rounded-full transition-all duration-300",
                   index === currentSlide
-                    ? "w-6 sm:w-8 h-2.5 sm:h-3 bg-white shadow-md"
-                    : "w-2.5 h-2.5 bg-white/40 hover:bg-white/70"
+                    ? "w-6 sm:w-8 h-2.5 sm:h-3 shadow-md"
+                    : "w-2.5 h-2.5 hover:opacity-80"
                 )}
+                style={{
+                  backgroundColor:
+                    index === currentSlide
+                      ? banner.textColor || "#ffffff"
+                      : "rgba(255,255,255,0.4)",
+                }}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}
