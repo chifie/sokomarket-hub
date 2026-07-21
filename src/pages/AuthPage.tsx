@@ -103,8 +103,8 @@ export default function AuthPage() {
                   onClick={() => setRole('seller')}
                   className={`flex flex-col items-center gap-2 rounded-xl border p-4 text-sm transition ${
                     role === 'seller'
-                      ? 'border-primary bg-primary/10 text-primary'
-                      : 'border-border hover:border-primary/50'
+                      ? 'border-secondary bg-secondary/10 text-secondary'
+                      : 'border-border hover:border-secondary/50'
                   }`}
                 >
                   <Store className="h-5 w-5" />
