@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router";
 import {
@@ -15,9 +15,7 @@ import { AIAssistant } from "@/components/ai/AIAssistant";
 import { useCart } from "@/lib/cart-context";
 import { paymentMethods } from "@/lib/constants";
 import { cn, formatTZS } from "@/lib/utils";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { useGsapScroll } from "@/hooks/use-gsap-scroll";
 
 export default function CartPage() {
   const mainRef = useRef<HTMLDivElement>(null);
@@ -29,25 +27,10 @@ export default function CartPage() {
   const discount = couponApplied ? subtotal * 0.1 : 0;
   const total = subtotal + shipping - discount;
 
-  useEffect(() => {
-    const main = mainRef.current;
-    if (!main) return;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        main.querySelectorAll(".cart-items"),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
-          scrollTrigger: { trigger: main.querySelector(".cart-items"), start: "top 85%", once: true } }
-      );
-      gsap.fromTo(
-        main.querySelectorAll(".cart-summary"),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.06,
-          scrollTrigger: { trigger: main.querySelector(".cart-summary"), start: "top 85%", once: true } }
-      );
-    }, main);
-    return () => ctx.revert();
-  }, []);
+  useGsapScroll(mainRef, [
+    { selector: '.cart-items', stagger: 0.06 },
+    { selector: '.cart-summary', stagger: 0.06 },
+  ]);
 
   return (
     <motion.div
