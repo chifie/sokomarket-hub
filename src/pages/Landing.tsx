@@ -1,16 +1,22 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { Link } from "react-router";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 import { Hero } from "@/components/landing/Hero";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
-import { categories, products, sellers } from "@/lib/constants";
+import { categories, products, sellers, stats } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
-import { BadgeCheck, Smartphone, ArrowDown, Loader2, Eye } from "lucide-react";
+import { BadgeCheck, Smartphone, ArrowDown, Eye, Users, Store, Package, ShoppingCart } from "lucide-react";
 import { useGsapScroll } from "@/hooks/use-gsap-scroll";
+import { useTheme } from "@/hooks/use-theme";
+
+const ICON_MAP: Record<string, React.ElementType> = { Users, Store, Package, ShoppingCart };
 
 const INITIAL_PRODUCTS = 12;
 const LOAD_MORE_COUNT = 8;
@@ -52,11 +58,67 @@ export default function Landing() {
     return () => observer.disconnect();
   }, [hasMore, isLoadingMore, loadMore]);
 
+  const { isDark } = useTheme();
+
+  /* ─── Stats counting animation ─── */
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    const numbers = el.querySelectorAll(".stat-number");
+    if (!numbers.length) return;
+
+    const ctx = gsap.context(() => {
+      numbers.forEach((num) => {
+        const targetText = num.textContent || "";
+        // Parse numeric value (e.g., "50K+" → 50, "1M+" → 1000)
+        const raw = targetText.replace(/[^\dKM.]/g, "");
+        let target = 0;
+        let suffix = "";
+        if (raw.endsWith("K")) {
+          target = parseFloat(raw) * 1000;
+          suffix = "K+";
+        } else if (raw.endsWith("M")) {
+          target = parseFloat(raw) * 1000000;
+          suffix = "M+";
+        } else {
+          target = parseFloat(raw) || 0;
+          suffix = targetText.replace(/[\d]/g, "");
+        }
+
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target,
+          duration: 2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: num,
+            start: "top 90%",
+            once: true,
+          },
+          onUpdate: () => {
+            if (target >= 1000000) {
+              num.textContent = (obj.val / 1000000).toFixed(1) + suffix;
+            } else if (target >= 1000) {
+              num.textContent = Math.round(obj.val / 1000) + suffix;
+            } else {
+              num.textContent = Math.round(obj.val) + suffix;
+            }
+          },
+        });
+      });
+    }, el);
+    return () => ctx.revert();
+  }, []);
+
   useGsapScroll(mainRef, [
     // Category pills with scale-in
     { selector: '.landing-cat-pill', stagger: 0.03, from: { y: 15, scale: 0.9 }, to: { scale: 1 }, duration: 0.4, ease: 'power3.out', start: 'top 90%', trigger: '.landing-cat-pills' },
     // Grid cards (Top Selling, New Arrivals, Today's Deal)
     { selector: '.landing-grid-card', stagger: 0.08, from: { y: 30 }, duration: 0.5, ease: 'power3.out' },
+    // Stats section
+    { selector: '.landing-stats', stagger: 0.08, duration: 0.5, ease: 'power3.out' },
     // Section titles fade-in
     { selector: '.landing-section-title', single: true, stagger: 0, duration: 0.5, ease: 'power3.out', from: { y: 10 } },
     // View more links
@@ -176,6 +238,50 @@ export default function Landing() {
               <Link to="/marketplace" className="landing-view-more text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
                 View more →
               </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── Stats Section ─── */}
+        <section ref={statsRef} className="landing-stats px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
+          <div className={cn(
+            "rounded-2xl p-8 sm:p-10",
+            isDark
+              ? "bg-gray-900/50 border border-gray-800"
+              : "bg-gradient-to-br from-orange-50 to-amber-50 border border-orange-100"
+          )}>
+            <h2 className="landing-section-title text-center text-sm font-bold text-foreground mb-8">
+              SokoDigital by the Numbers
+            </h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+              {stats.map((stat) => {
+                const Icon = ICON_MAP[stat.icon] || Package;
+                return (
+                  <div key={stat.label} className="text-center landing-stats">
+                    <div className={cn(
+                      "h-12 w-12 rounded-xl flex items-center justify-center mx-auto mb-3",
+                      isDark ? "bg-orange-500/10" : "bg-orange-100"
+                    )}>
+                      <Icon className={cn(
+                        "h-6 w-6",
+                        isDark ? "text-orange-400" : "text-orange-600"
+                      )} />
+                    </div>
+                    <p className={cn(
+                      "stat-number text-2xl sm:text-3xl font-extrabold",
+                      isDark ? "text-white" : "text-gray-900"
+                    )}>
+                      {stat.value}
+                    </p>
+                    <p className={cn(
+                      "text-xs sm:text-sm mt-1",
+                      isDark ? "text-gray-400" : "text-gray-500"
+                    )}>
+                      {stat.label}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
