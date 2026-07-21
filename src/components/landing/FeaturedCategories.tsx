@@ -174,7 +174,7 @@ export function FeaturedCategories() {
                   <div className={cn("absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500", gradients[index % gradients.length])} />
                   <div className="relative">
                     <div className={cn(
-                      "h-12 w-12 rounded-xl flex items-center justify-center mb-3.5 group-hover:scale-110 transition-all duration-300",
+                      "category-icon h-12 w-12 rounded-xl flex items-center justify-center mb-3.5 group-hover:scale-110 transition-all duration-300",
                       bgColors[index % bgColors.length],
                       iconColors[index % iconColors.length]
                     )}>
