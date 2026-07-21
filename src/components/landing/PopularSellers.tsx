@@ -1,16 +1,97 @@
-import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
 import { ArrowRight, Star, Package, Users, MapPin, Clock, BadgeCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { sellers } from "@/lib/constants";
-
 import { Link } from "react-router";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export function PopularSellers() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const grid = gridRef.current;
+    if (!section || !grid) return;
+
+    const ctx = gsap.context(() => {
+      // Header entrance
+      gsap.fromTo(
+        section.querySelector(".sellers-header"),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+
+      // Seller cards staggered reveal
+      const cards = grid.querySelectorAll(".seller-card");
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 30, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: grid,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+
+      // Hover effect for each seller card
+      cards.forEach((card) => {
+        const link = card.querySelector("a");
+        if (!link) return;
+
+        card.addEventListener("mouseenter", () => {
+          gsap.to(link, {
+            y: -4,
+            scale: 1.01,
+            duration: 0.3,
+            ease: "power2.out",
+            boxShadow: "0 16px 48px rgba(0,0,0,0.12)",
+          });
+        });
+
+        card.addEventListener("mouseleave", () => {
+          gsap.to(link, {
+            y: 0,
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+          });
+        });
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-16 md:py-20">
+    <section ref={sectionRef} className="py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="flex items-center justify-between mb-10">
+        <div className="sellers-header flex items-center justify-between mb-10 opacity-0">
           <div>
             <span className="text-xs font-semibold text-primary uppercase tracking-wider">Sellers</span>
             <h2 className="text-2xl md:text-3xl font-bold mt-1">Popular Sellers</h2>
@@ -25,15 +106,9 @@ export function PopularSellers() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {sellers.slice(0, 8).map((seller, index) => (
-            <motion.div
-              key={seller.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-            >
+            <div key={seller.id} className="seller-card">
               <Link
                 to={`/shop/${seller.id}`}
                 className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 transition-all duration-300 block h-full"
@@ -126,7 +201,7 @@ export function PopularSellers() {
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
