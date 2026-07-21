@@ -13,7 +13,7 @@ export function Hero() {
   const sliderRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isAnimatingRef = useRef(false);
-  const animTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const animTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const activeBanners = banners.filter((b) => b.isActive && b.type === "hero");
 
