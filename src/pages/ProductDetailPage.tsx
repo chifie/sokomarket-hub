@@ -270,7 +270,7 @@ export default function ProductDetailPage() {
               <div className="space-y-2 p-3 rounded-lg bg-muted/30 border border-border/30">
                 <div className="flex items-center gap-2 text-xs"><Truck className="h-3.5 w-3.5 text-emerald-500" /><span className="font-medium">Free Delivery</span><span className="text-muted-foreground">· Estimated 3-5 business days</span></div>
                 <div className="flex items-center gap-2 text-xs"><RotateCcw className="h-3.5 w-3.5 text-blue-500" /><span className="font-medium">Easy Returns</span><span className="text-muted-foreground">· 14-day return policy</span></div>
-                <div className="flex items-center gap-2 text-xs"><Shield className="h-3.5 w-3.5 text-amber-500" /><span className="font-medium">Secure Payment</span><span className="text-muted-foreground">· M-Pesa, Airtel, Visa</span></div>
+                <div className="flex items-center gap-2 text-xs"><Shield className="h-3.5 w-3.5 text-primary" /><span className="font-medium">Secure Payment</span><span className="text-muted-foreground">· M-Pesa, Airtel, Visa</span></div>
               </div>
 
               {/* Seller Info Card */}

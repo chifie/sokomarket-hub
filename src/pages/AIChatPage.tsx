@@ -96,7 +96,7 @@ export default function AIChatPage() {
               <div
                 className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                   message.role === 'user'
-                    ? 'bg-indigo-600 text-white'
+                    ? 'bg-primary text-primary-foreground'
                     : 'border border-border bg-card text-foreground'
                 }`}
               >
@@ -109,9 +109,9 @@ export default function AIChatPage() {
             <div className="flex justify-start">
               <div className="flex items-center gap-1 rounded-2xl px-4 py-3 border border-border bg-card">
                 <div className="flex gap-1">
-                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 rounded-full bg-indigo-600 animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-2 h-2 rounded-full bg-primary animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             </div>
@@ -131,7 +131,7 @@ export default function AIChatPage() {
                   setInput(action.query);
                   setTimeout(() => handleSend(), 100);
                 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap bg-muted text-muted-foreground hover:bg-indigo-100 hover:text-indigo-700 dark:hover:bg-indigo-900/50 transition"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium whitespace-nowrap bg-muted text-muted-foreground hover:bg-primary/10 hover:text-primary transition"
               >
                 <action.icon className="w-4 h-4" />
                 {action.label}
@@ -146,14 +146,14 @@ export default function AIChatPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              className="flex-1 px-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-indigo-600"
+              className="flex-1 px-4 py-3 rounded-xl border border-input bg-background text-foreground outline-none focus:ring-2 focus:ring-primary/50"
             />
             <button
               onClick={handleSend}
               disabled={!input.trim()}
               className={`p-3 rounded-xl transition ${
                 input.trim()
-                  ? 'bg-indigo-600 text-white hover:bg-indigo-700'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90'
                   : 'bg-muted text-muted-foreground'
               }`}
             >

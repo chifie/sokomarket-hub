@@ -168,7 +168,7 @@ export default function MarketplacePage() {
                 </Badge>
               )}
               {minRating > 0 && (
-                <Badge className="rounded-full text-[10px] bg-amber-500/10 text-amber-600 border-0 gap-1">
+                <Badge className="rounded-full text-[10px] bg-primary/10 text-primary border-0 gap-1">
                   ★ {minRating}+
                   <button onClick={() => setMinRating(0)}><X className="h-3 w-3" /></button>
                 </Badge>

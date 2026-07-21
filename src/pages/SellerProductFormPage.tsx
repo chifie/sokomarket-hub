@@ -226,7 +226,7 @@ export default function SellerProductFormPage() {
                   </button>
                 </div>
               ))}
-              <label className="grid h-24 w-24 cursor-pointer place-items-center rounded-lg border border-dashed border-border text-muted-foreground transition hover:border-indigo-600 hover:text-indigo-700">
+              <label className="grid h-24 w-24 cursor-pointer place-items-center rounded-lg border border-dashed border-border text-muted-foreground transition hover:border-primary hover:text-primary">
                 {uploading ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
@@ -254,7 +254,7 @@ export default function SellerProductFormPage() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
               placeholder="e.g. Handwoven Kitenge Tote Bag"
             />
           </div>
@@ -265,7 +265,7 @@ export default function SellerProductFormPage() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={4}
-              className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
               placeholder="Describe your product, materials, condition, and what makes it stand out."
             />
           </div>
@@ -276,7 +276,7 @@ export default function SellerProductFormPage() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
                 {CATEGORY_NAMES.map((c) => (
                   <option key={c} value={c}>
@@ -290,7 +290,7 @@ export default function SellerProductFormPage() {
               <input
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="e.g. Dar es Salaam"
               />
             </div>
@@ -306,7 +306,7 @@ export default function SellerProductFormPage() {
                 step="0.01"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
-                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="0.00"
               />
             </div>
@@ -315,7 +315,7 @@ export default function SellerProductFormPage() {
               <select
                 value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
-                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
                 {CURRENCIES.map((c) => (
                   <option key={c} value={c}>
@@ -331,7 +331,7 @@ export default function SellerProductFormPage() {
                 min="0"
                 value={stock}
                 onChange={(e) => setStock(e.target.value)}
-                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+                className="w-full rounded-lg border border-input bg-background px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary/50"
               />
             </div>
           </div>
@@ -368,8 +368,7 @@ export default function SellerProductFormPage() {
             <button
               type="button"
               onClick={addSpecRow}
-              className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-indigo-700 hover:underline dark:text-indigo-500"
-            >
+              className="mt-2 inline-flex items-center gap-1.5 text-sm font-mediumtext-primary hover:underline dark:text-primary">
               <Plus className="h-3.5 w-3.5" />
               Add specification
             </button>
@@ -378,7 +377,7 @@ export default function SellerProductFormPage() {
           <button
             type="submit"
             disabled={saving || uploading}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-700 to-amber-500 py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-60"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-3 font-semibold text-primary-foreground transition hover:opacity-90 disabled:opacity-60"
           >
             {saving && <Loader2 className="h-4 w-4 animate-spin" />}
             {isEdit ? 'Save changes' : 'Publish listing'}
