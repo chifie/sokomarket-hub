@@ -3,6 +3,7 @@ import { useLocation } from 'react-router';
 import { Bot, Send, X, MessageCircle, Loader2 } from 'lucide-react';
 import { useLang } from '@/lib/i18n';
 import { supabase } from '@/integrations/supabase/client';
+import { gsap } from 'gsap';
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
@@ -21,6 +22,34 @@ export function AIWidget() {
   const location = useLocation();
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // GSAP floating animation for the AI widget button
+  useEffect(() => {
+    const btn = buttonRef.current;
+    if (!btn || open) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(btn, {
+        y: -5,
+        duration: 2.5,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+      });
+
+      gsap.to(btn, {
+        boxShadow: '0 0 20px rgba(var(--primary-rgb, 99,102,241), 0.4)',
+        duration: 2,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+        delay: 0.3,
+      });
+    }, btn);
+
+    return () => ctx.revert();
+  }, [open]);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -66,6 +95,7 @@ export function AIWidget() {
     <>
       {!open && (
         <button
+          ref={buttonRef}
           onClick={() => setOpen(true)}
           aria-label="Open AI assistant"
           className="fixed bottom-5 right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-elegant transition hover:scale-105"
