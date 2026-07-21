@@ -5,16 +5,66 @@ import { cn } from "@/lib/utils";
 import { banners } from "@/lib/constants";
 import { gsap } from "gsap";
 
-/* ─── Theme gradient helpers ─── */
-function gradientFromBg(bgColor?: string) {
-  if (!bgColor) return "bg-gradient-to-r from-gray-950/90 via-gray-900/70 to-transparent";
-  // Convert hex to rgb tailwind-style gradient
-  return `bg-gradient-to-r from-[${bgColor}]/95 via-[${bgColor}]/70 to-transparent`;
-}
+/* ─── Floating particles component ─── */
+function FloatingParticles({ bgColor }: { bgColor?: string }) {
+  const particleRef = useRef<HTMLDivElement>(null);
 
-function accentFromBg(bgColor?: string) {
-  if (!bgColor) return "bg-indigo-500/20 text-indigo-200 border-indigo-400/30";
-  return `bg-white/15 text-white/90 border-white/20`;
+  useEffect(() => {
+    const el = particleRef.current;
+    if (!el) return;
+
+    const shapes = el.querySelectorAll('.hero-particle');
+    if (!shapes.length) return;
+
+    const ctx = gsap.context(() => {
+      shapes.forEach((shape, i) => {
+        gsap.to(shape, {
+          y: `random(${-20}, ${-60})`,
+          x: `random(${-15}, ${15})`,
+          opacity: 0.15,
+          duration: 3 + i * 0.5,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: i * 0.3,
+        });
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
+  const accent = bgColor || '#6366f1';
+
+  return (
+    <div ref={particleRef} className="absolute inset-0 z-10 pointer-events-none overflow-hidden" aria-hidden="true">
+      {/* Large floating circle */}
+      <div
+        className="hero-particle absolute -top-6 -left-6 w-32 h-32 sm:w-48 sm:h-48 rounded-full opacity-10 blur-xl"
+        style={{ backgroundColor: accent }}
+      />
+      {/* Medium floating circle */}
+      <div
+        className="hero-particle absolute top-1/4 -right-8 w-24 h-24 sm:w-36 sm:h-36 rounded-full opacity-10 blur-xl"
+        style={{ backgroundColor: accent }}
+      />
+      {/* Small floating circle */}
+      <div
+        className="hero-particle absolute bottom-1/3 left-1/4 w-16 h-16 sm:w-24 sm:h-24 rounded-full opacity-8 blur-lg"
+        style={{ backgroundColor: accent }}
+      />
+      {/* Tiny floating dot */}
+      <div
+        className="hero-particle absolute top-2/3 right-1/4 w-8 h-8 sm:w-12 sm:h-12 rounded-full opacity-8 blur-md"
+        style={{ backgroundColor: accent }}
+      />
+      {/* Extra small floating element */}
+      <div
+        className="hero-particle absolute top-1/3 left-2/3 w-10 h-10 sm:w-16 sm:h-16 rounded-full opacity-6 blur-lg"
+        style={{ backgroundColor: accent }}
+      />
+    </div>
+  );
 }
 
 /* ─── Hero Component ─── */
@@ -287,6 +337,9 @@ export function Hero() {
 
               {/* Additional dark bottom gradient for readability */}
               <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+
+              {/* Floating particles */}
+              <FloatingParticles bgColor={b.bgColor} />
 
               {/* Text content */}
               <div className="absolute inset-0 z-20 flex flex-col justify-center px-6 sm:px-10 md:px-16 lg:px-20 max-w-3xl">
