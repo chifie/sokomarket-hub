@@ -1,9 +1,13 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router";
+import { useRef, useEffect } from "react";
 import { ArrowRight, Smartphone, Shirt, Sparkles, Trophy, BookOpen, Car, HeartPulse, Package, Armchair, ChefHat, Gamepad2, Baby, ShoppingBag, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const iconMap: Record<string, React.ElementType> = {
   smartphone: Smartphone, laptop: Smartphone, headphones: Headphones,
@@ -46,10 +50,104 @@ const bgColors = [
 ];
 
 export function FeaturedCategories() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const grid = gridRef.current;
+    if (!section || !grid) return;
+
+    const ctx = gsap.context(() => {
+      // Section header entrance
+      gsap.fromTo(
+        section.querySelector(".categories-header"),
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+
+      // Category cards staggered reveal
+      const cards = grid.querySelectorAll(".category-card-wrapper");
+      gsap.fromTo(
+        cards,
+        { opacity: 0, y: 30, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.5,
+          ease: "power3.out",
+          stagger: 0.04,
+          scrollTrigger: {
+            trigger: grid,
+            start: "top 85%",
+            toggleActions: "play none none none",
+            once: true,
+          },
+        }
+      );
+
+      // Hover effect for each card
+      cards.forEach((card) => {
+        const link = card.querySelector("a");
+        if (!link) return;
+
+        card.addEventListener("mouseenter", () => {
+          gsap.to(link, {
+            y: -4,
+            scale: 1.02,
+            duration: 0.3,
+            ease: "power2.out",
+            boxShadow: "0 12px 32px rgba(0,0,0,0.1)",
+          });
+          const icon = link.querySelector(".category-icon");
+          if (icon) {
+            gsap.to(icon, {
+              scale: 1.15,
+              duration: 0.3,
+              ease: "back.out(2)",
+            });
+          }
+        });
+
+        card.addEventListener("mouseleave", () => {
+          gsap.to(link, {
+            y: 0,
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out",
+            boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+          });
+          const icon = link.querySelector(".category-icon");
+          if (icon) {
+            gsap.to(icon, {
+              scale: 1,
+              duration: 0.3,
+              ease: "power2.out",
+            });
+          }
+        });
+      });
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-16 md:py-20">
+    <section ref={sectionRef} className="py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="flex items-center justify-between mb-10">
+        <div className="categories-header flex items-center justify-between mb-10 opacity-0">
           <div>
             <span className="text-xs font-semibold text-primary uppercase tracking-wider">Categories</span>
             <h2 className="text-2xl md:text-3xl font-bold mt-1">Shop by Category</h2>
@@ -64,17 +162,11 @@ export function FeaturedCategories() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
           {categories.map((cat, index) => {
             const IconComponent = iconMap[cat.icon] || Package;
             return (
-              <motion.div
-                key={cat.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.03 }}
-              >
+              <div key={cat.id} className="category-card-wrapper">
                 <Link
                   to={"/marketplace?category=" + cat.slug}
                   className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card p-5 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 block h-full"
@@ -97,7 +189,7 @@ export function FeaturedCategories() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </div>
             );
           })}
         </div>
