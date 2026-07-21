@@ -3,8 +3,9 @@ import { useNavigate, Link } from 'react-router';
 import { ShoppingBag, Store, Loader2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth, AppRole } from '@/lib/auth';
-import { Navbar } from '@/components/site/Navbar';
-import { Footer } from '@/components/site/Footer';
+import { Logo } from '@/components/Logo';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
 
 type Mode = 'login' | 'register';
 type SignupRole = Exclude<AppRole, 'admin'>;
@@ -65,11 +66,14 @@ export default function AuthPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navbar />
+      <Header />
       <main className="mx-auto flex max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto w-full max-w-md">
           <div className="rounded-2xl border border-border bg-card p-8 shadow-elegant">
             <div className="mb-6 text-center">
+              <div className="flex justify-center mb-4">
+                <Logo className="h-10 w-auto text-primary" />
+              </div>
               <h1 className="text-2xl font-bold">
                 {mode === 'login' ? 'Welcome back' : 'Create your account'}
               </h1>
