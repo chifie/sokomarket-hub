@@ -120,7 +120,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Overview Stats */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          <div className="admin-stats grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {[
               { icon: DollarSign, label: "Total Revenue", value: formatTZS(4850000000), change: "+18%", color: "text-emerald-500", bg: "bg-emerald-500/10" },
               { icon: ShoppingCart, label: "Total Orders", value: "23,450", change: "+12%", color: "text-blue-500", bg: "bg-blue-500/10" },
@@ -161,6 +161,7 @@ export default function AdminDashboardPage() {
           )}
 
           {/* Tabs */}
+          <div className="admin-content">
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="mb-6 bg-muted p-1 rounded-xl w-full sm:w-auto overflow-x-auto flex-nowrap">
               {[
@@ -552,6 +553,7 @@ export default function AdminDashboardPage() {
               </div>
             </TabsContent>
           </Tabs>
+          </div>
         </div>
       </main>
       <Footer />
