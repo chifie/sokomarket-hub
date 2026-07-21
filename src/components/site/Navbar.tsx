@@ -49,9 +49,6 @@ export function Navbar() {
           {/* Brand */}
           <Link to="/" className="flex shrink-0 items-center gap-1 rounded border border-transparent px-2 py-1.5 hover:border-white/40">
             <Logo className="h-8 w-auto text-white" />
-            <span className="text-xl font-black tracking-tight">
-              Soko<span className="text-primary">Digital</span>
-            </span>
           </Link>
 
           {/* Deliver to */}

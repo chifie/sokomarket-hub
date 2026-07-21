@@ -41,9 +41,6 @@ export function Footer() {
           <div className="col-span-2 md:col-span-2">
             <div className="flex items-center gap-2">
               <Logo className="h-9 w-auto text-foreground" />
-              <span className="text-lg font-extrabold text-foreground">
-                Soko<span className="text-indigo-700 dark:text-indigo-500">Digital</span>
-              </span>
             </div>
             <p className="mt-4 max-w-xs text-sm text-muted-foreground">
               The world's modern digital marketplace. Buy and sell with confidence.

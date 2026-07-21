@@ -81,9 +81,6 @@ export function Header() {
             <div className="h-9 w-auto text-white group-hover:scale-105 transition-transform duration-300">
               <Logo className="h-9 w-auto" />
             </div>
-            <span className="hidden sm:block text-xl font-bold text-white tracking-tight">
-              Soko<span className="font-light text-white/80">Digital</span>
-            </span>
           </div>
         </Link>
 
