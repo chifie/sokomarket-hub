@@ -297,7 +297,11 @@ export function Hero() {
 
   /* ─── Progress bar (uses handleNextRef to avoid stale closure) ─── */
   const handleNextRef = useRef<() => void>(() => {});
-  handleNextRef.current = handleNext;
+
+  // Sync ref after render (avoids temporal dead zone)
+  useEffect(() => {
+    handleNextRef.current = handleNext;
+  }, [handleNext]);
 
   const startProgress = useCallback(() => {
     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
