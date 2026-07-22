@@ -275,7 +275,7 @@ export default function Landing() {
                   </svg>
                 </button>
 
-                <div ref={dealsScrollRef} className="flex gap-2 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-hide"
+                <div ref={dealsScrollRef} className="flex gap-2 sm:gap-4 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-hide"
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {(() => {
@@ -288,7 +288,7 @@ export default function Landing() {
                         key={p.id}
                         className="todays-deal-card min-w-[125px] sm:min-w-[145px] md:min-w-[155px] lg:min-w-[165px] xl:min-w-[175px] flex-shrink-0 snap-start"
                       >
-                        <ProductCard product={p} index={i + 8} compact />
+                        <ProductCard product={p} index={i + 8} />
                       </div>
                     )) : (
                       <p className="text-xs text-muted-foreground py-4 text-center w-full">
