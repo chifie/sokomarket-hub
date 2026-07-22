@@ -204,7 +204,7 @@ export default function Landing() {
               </div>
             </div>
 
-            {/* Today's Deal — eBay-inspired carousel with different products */}
+            {/* Today's Deal — carousel with ProductCard-matching sizing */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col md:col-span-2">
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
@@ -255,45 +255,38 @@ export default function Landing() {
                     const dealProducts = products
                       .filter(p => p.discountPrice && !usedIds.has(p.id))
                       .slice(0, 12);
-                    const fmt = (n: number) =>
-                      new Intl.NumberFormat("sw-TZ", {
-                        style: "currency",
-                        currency: "TZS",
-                        minimumFractionDigits: 0,
-                        maximumFractionDigits: 0,
-                      }).format(n);
-                    return dealProducts.length > 0 ? dealProducts.map((p) => (
+                    const fmtTzs = (n: number) =>
+                      'Tshs ' + n.toLocaleString() + '/=';
+                    return dealProducts.length > 0 ? dealProducts.map((p, i) => (
                       <Link
                         key={p.id}
                         to={`/product/${p.slug}`}
-                        className="todays-deal-card group min-w-[140px] sm:min-w-[160px] md:min-w-[170px] lg:min-w-[180px] flex-shrink-0 snap-start"
+                        className="todays-deal-card group min-w-[160px] sm:min-w-[180px] md:min-w-[200px] lg:min-w-[220px] flex-shrink-0 snap-start"
                       >
-                        <article className="flex flex-col gap-2 h-full">
-                          <div className="relative aspect-square rounded-lg overflow-hidden bg-muted/30 border border-border/50 group-hover:shadow-md transition-shadow">
+                        <article className="flex flex-col h-full bg-card rounded-xl shadow-sm overflow-hidden border border-border/40 hover:shadow-md transition-all duration-300">
+                          <div className="relative aspect-square overflow-hidden bg-muted/40">
                             <img
                               src={p.images[0]}
                               alt={p.name}
                               loading="lazy"
-                              className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                              className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
                             />
                             {p.discountPrice && p.price && (
-                              <span className="absolute top-1.5 right-1.5 bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">
+                              <span className="absolute left-2 top-2 z-10 rounded-full bg-rose-500 px-2 py-0.5 text-[10px] font-semibold text-white shadow-md">
                                 -{Math.round((1 - p.discountPrice / p.price) * 100)}%
                               </span>
                             )}
                           </div>
-                          <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                            <span className="text-xs sm:text-sm text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                          <div className="p-2 flex flex-col gap-1 flex-1">
+                            <span className="text-[11px] lg:text-xs text-foreground line-clamp-2 leading-tight group-hover:text-primary transition-colors">
                               {p.name}
                             </span>
-                            <div className="flex items-baseline gap-1.5 flex-wrap mt-auto">
-                              <span className="font-bold text-sm sm:text-base text-primary">
-                                {fmt(p.discountPrice!)}
-                              </span>
-                              <span className="text-[10px] sm:text-xs text-muted-foreground line-through">
-                                {fmt(p.price)}
-                              </span>
-                            </div>
+                            <p className="font-bold text-sm text-primary mt-auto">
+                              {fmtTzs(p.discountPrice!)}
+                            </p>
+                            <p className="text-[10px] text-muted-foreground line-through">
+                              {fmtTzs(p.price)}
+                            </p>
                           </div>
                         </article>
                       </Link>
