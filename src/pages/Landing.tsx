@@ -186,7 +186,7 @@ export default function Landing() {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {products.slice(0, 4).map((p, i) => (
-                  <ProductCard key={p.id} product={p} index={i} />
+                  <ProductCard key={p.id} product={p} index={i} compact />
                 ))}
               </div>
             </div>
@@ -199,7 +199,7 @@ export default function Landing() {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 {products.slice(4, 8).map((p, i) => (
-                  <ProductCard key={p.id} product={p} index={i} />
+                  <ProductCard key={p.id} product={p} index={i} compact />
                 ))}
               </div>
             </div>

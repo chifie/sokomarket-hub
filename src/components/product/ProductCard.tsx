@@ -14,6 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 interface ProductCardProps {
   product: Product;
   index?: number;
+  compact?: boolean;
 }
 
 interface FlyElement {
@@ -22,7 +23,7 @@ interface FlyElement {
   startY: number;
 }
 
-export function ProductCard({ product, index = 0 }: ProductCardProps) {
+export function ProductCard({ product, index = 0, compact = false }: ProductCardProps) {
   const navigate = useNavigate();
   const { addItem } = useCart();
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -187,22 +188,24 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             <div className="absolute inset-0 shimmer" />
           )}
 
-          {/* Wishlist button */}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsWishlisted(!isWishlisted);
-            }}
-            className="absolute right-2 top-2 z-10 w-7 h-7 rounded-full backdrop-blur-sm shadow-md flex items-center justify-center transition-colors bg-white/90 text-foreground hover:bg-white"
-            title="Add to wishlist"
-          >
-            <Heart
-              className={cn(
-                "h-3.5 w-3.5 transition-colors",
-                isWishlisted ? "fill-rose-500 text-rose-500" : ""
-              )}
-            />
-          </button>
+          {/* Wishlist button (hidden in compact mode) */}
+          {!compact && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setIsWishlisted(!isWishlisted);
+              }}
+              className="absolute right-2 top-2 z-10 w-7 h-7 rounded-full backdrop-blur-sm shadow-md flex items-center justify-center transition-colors bg-white/90 text-foreground hover:bg-white"
+              title="Add to wishlist"
+            >
+              <Heart
+                className={cn(
+                  "h-3.5 w-3.5 transition-colors",
+                  isWishlisted ? "fill-rose-500 text-rose-500" : ""
+                )}
+              />
+            </button>
+          )}
 
           {/* Low stock badge */}
           {isLowStock && (
@@ -239,14 +242,17 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
           )}
         </div>
 
-        <div className="p-2">
+        <div className={cn(compact ? "p-1.5" : "p-2")}>
           {/* Product name */}
-          <p className="text-[11px] lg:text-xs text-foreground line-clamp-2 leading-tight mb-1">
+          <p className={cn(
+            "text-foreground line-clamp-2 leading-tight",
+            compact ? "text-[10px] mb-0.5" : "text-[11px] lg:text-xs mb-1"
+          )}>
             {product.name}
           </p>
 
           {/* Price */}
-          <p className="font-bold text-sm text-primary">
+          <p className={cn("font-bold text-primary", compact ? "text-xs" : "text-sm")}>
             Tshs {displayPrice.toLocaleString()}/=
           </p>
           {oldPrice && (
@@ -255,48 +261,53 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
             </p>
           )}
 
-          {/* Min order */}
-          <p className="text-[10px] text-primary mt-0.5">Min. order: 1 pieces</p>
+          {/* Compact mode: only price + discount, no extras */}
+          {!compact && (
+            <>
+              {/* Min order */}
+              <p className="text-[10px] text-primary mt-0.5">Min. order: 1 pieces</p>
 
-          {/* Stock */}
-          {isOutOfStock ? (
-            <p className="text-[10px] text-muted-foreground mt-0.5">Out of stock</p>
-          ) : (
-            <p className="text-[10px] text-emerald-600 dark:text-emerald-400 mt-0.5">
-              {product.quantity} in stock
-            </p>
-          )}
-
-          {/* Action buttons */}
-          <div className="flex gap-1 mt-1.5">
-            <button
-              ref={buttonRef}
-              onClick={handleAddToCart}
-              disabled={isAdding || isOutOfStock}
-              className={cn(
-                "flex-1 text-[10px] py-1.5 px-1 rounded-md border border-secondary text-secondary hover:bg-secondary/5 hover:shadow-sm active:scale-[0.95] transition-all duration-200 inline-flex items-center justify-center gap-0.5",
-                isAdding && "bg-secondary/10 border-secondary/50",
-                isOutOfStock && "opacity-50 cursor-not-allowed"
-              )}
-            >
-              {isAdding ? (
-                <Check className="h-3 w-3" />
+              {/* Stock */}
+              {isOutOfStock ? (
+                <p className="text-[10px] text-muted-foreground mt-0.5">Out of stock</p>
               ) : (
-                <ShoppingCart className="h-3 w-3" />
+                <p className="text-[10px] text-emerald-600 dark:text-emerald-400 mt-0.5">
+                  {product.quantity} in stock
+                </p>
               )}
-              {isAdding ? "Added" : "Add"}
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                navigate(`/checkout?product=${product.slug}`);
-              }}
-              className="flex-1 text-[10px] py-1.5 px-1 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:shadow-md active:scale-[0.95] transition-all duration-200 font-medium shadow-sm"
-            >
-              Shop Now
-            </button>
-          </div>
+
+              {/* Action buttons */}
+              <div className="flex gap-1 mt-1.5">
+                <button
+                  ref={buttonRef}
+                  onClick={handleAddToCart}
+                  disabled={isAdding || isOutOfStock}
+                  className={cn(
+                    "flex-1 text-[10px] py-1.5 px-1 rounded-md border border-secondary text-secondary hover:bg-secondary/5 hover:shadow-sm active:scale-[0.95] transition-all duration-200 inline-flex items-center justify-center gap-0.5",
+                    isAdding && "bg-secondary/10 border-secondary/50",
+                    isOutOfStock && "opacity-50 cursor-not-allowed"
+                  )}
+                >
+                  {isAdding ? (
+                    <Check className="h-3 w-3" />
+                  ) : (
+                    <ShoppingCart className="h-3 w-3" />
+                  )}
+                  {isAdding ? "Added" : "Add"}
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate(`/checkout?product=${product.slug}`);
+                  }}
+                  className="flex-1 text-[10px] py-1.5 px-1 rounded-md bg-secondary text-secondary-foreground hover:bg-secondary/90 hover:shadow-md active:scale-[0.95] transition-all duration-200 font-medium shadow-sm"
+                >
+                  Shop Now
+                </button>
+              </div>
+            </>
+          )}
         </div>
         </div>
       </Link>
