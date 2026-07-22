@@ -62,6 +62,30 @@ export default function Landing() {
   const { isDark } = useTheme();
   const dealsScrollRef = useRef<HTMLDivElement>(null);
 
+  /* ─── Countdown Timer for Today's Deals ─── */
+  const dealEndTime = useRef(Date.now() + 24 * 60 * 60 * 1000);
+  const [timeLeft, setTimeLeft] = useState({ hours: 23, minutes: 59, seconds: 59 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = Date.now();
+      const diff = dealEndTime.current - now;
+      if (diff <= 0) {
+        clearInterval(timer);
+        setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+      setTimeLeft({
+        hours: Math.floor(diff / (1000 * 60 * 60)),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const pad = (n: number) => n.toString().padStart(2, '0');
+
   const scrollDeals = (direction: 'left' | 'right') => {
     if (!dealsScrollRef.current) return;
     const scrollAmount = 300;
@@ -216,9 +240,19 @@ export default function Landing() {
                   <h2 className="landing-section-title text-base sm:text-lg font-bold text-foreground">
                     Today's Deals
                   </h2>
-                  <p className="text-xs sm:text-sm text-muted-foreground mt-0.5">
-                    All with free shipping
-                  </p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
+                      All with free shipping
+                    </p>
+                    <span className="hidden sm:inline text-muted-foreground/40">|</span>
+                    <div className="hidden sm:flex items-center gap-1 text-xs font-mono font-bold text-rose-500">
+                      <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 6v6l4 2" />
+                      </svg>
+                      <span>{pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}</span>
+                    </div>
+                  </div>
                 </div>
                 <Link
                   to="/marketplace?sort=discount"
