@@ -261,15 +261,15 @@ export default function Landing() {
                       <Link
                         key={p.id}
                         to={`/product/${p.slug}`}
-                        className="todays-deal-card group min-w-[160px] sm:min-w-[180px] md:min-w-[200px] lg:min-w-[220px] flex-shrink-0 snap-start"
+                        className="todays-deal-card group min-w-[130px] sm:min-w-[145px] md:min-w-[155px] lg:min-w-[165px] flex-shrink-0 snap-start"
                       >
-                        <article className="flex flex-col h-full bg-card rounded-xl shadow-sm overflow-hidden border border-border/40 hover:shadow-md transition-all duration-300">
+                        <article className="flex flex-col h-full bg-card rounded-xl shadow-sm overflow-hidden dark:border dark:border-border/50 hover:shadow-md transition-all duration-300">
                           <div className="relative aspect-square overflow-hidden bg-muted/40">
                             <img
                               src={p.images[0]}
                               alt={p.name}
                               loading="lazy"
-                              className="w-full h-full object-contain p-3 group-hover:scale-105 transition-transform duration-500"
+                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                             />
                             {p.discountPrice && p.price && (
                               <span className="absolute left-2 top-2 z-10 rounded-full bg-rose-500 px-2 py-0.5 text-[10px] font-semibold text-white shadow-md">
@@ -284,9 +284,11 @@ export default function Landing() {
                             <p className="font-bold text-sm text-primary mt-auto">
                               {fmtTzs(p.discountPrice!)}
                             </p>
-                            <p className="text-[10px] text-muted-foreground line-through">
-                              {fmtTzs(p.price)}
-                            </p>
+                            {p.discountPrice && (
+                              <p className="text-[10px] text-muted-foreground line-through">
+                                {fmtTzs(p.price)}
+                              </p>
+                            )}
                           </div>
                         </article>
                       </Link>
