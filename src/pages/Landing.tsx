@@ -228,67 +228,57 @@ export default function Landing() {
               </div>
             </div>
 
-            {/* Today's Deal — premium carousel matching All Products sizing */}
-            <div className="landing-grid-card bg-card rounded-lg p-4 sm:p-5 flex flex-col md:col-span-2 relative overflow-hidden">
-              {/* Subtle decorative background */}
-              <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-primary/[0.03] blur-3xl pointer-events-none" />
-              <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-accent/[0.03] blur-2xl pointer-events-none" />
-
+            {/* Today's Deal — visually consistent with Top Selling & New Arrivals */}
+            <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col md:col-span-2">
               {/* Header */}
-              <div className="flex items-center justify-between mb-5 relative z-10">
-                <div>
-                  <h2 className="landing-section-title text-base sm:text-lg font-bold text-foreground">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <h2 className="landing-section-title text-sm font-bold text-foreground shrink-0">
                     Today's Deals
                   </h2>
-                  <div className="flex items-center gap-2 mt-1">
-                    <p className="text-xs sm:text-sm text-muted-foreground">
-                      All with free shipping
-                    </p>
-                    <span className="hidden sm:inline text-muted-foreground/40">|</span>
-                    <div className="hidden sm:flex items-center gap-1 text-xs font-mono font-bold text-rose-500">
-                      <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                        <circle cx="12" cy="12" r="10" />
-                        <path d="M12 6v6l4 2" />
-                      </svg>
-                      <span>{pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}</span>
-                    </div>
+                  <div className="hidden sm:flex items-center gap-1.5 text-[11px] font-mono font-bold text-rose-500 bg-rose-50 dark:bg-rose-950/30 px-2 py-0.5 rounded-full border border-rose-200 dark:border-rose-800/50">
+                    <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 6v6l4 2" />
+                    </svg>
+                    <span>{pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:{pad(timeLeft.seconds)}</span>
                   </div>
+                  <span className="text-[11px] text-muted-foreground truncate">Free shipping</span>
                 </div>
                 <Link
                   to="/marketplace?sort=discount"
-                  className="landing-view-more text-xs sm:text-sm text-primary hover:underline font-medium shrink-0"
+                  className="landing-view-more text-[11px] text-primary hover:underline font-medium shrink-0"
                 >
                   See all →
                 </Link>
               </div>
 
               {/* Carousel */}
-              <div className="todays-deal-carousel relative group/carousel -mx-1 z-10">
+              <div className="todays-deal-carousel relative group/carousel">
                 {/* Scroll Arrows */}
                 <button
                   onClick={() => scrollDeals('left')}
-                  className="absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 z-20 bg-background/90 hover:bg-background backdrop-blur-md rounded-full p-2 shadow-lg border border-border/60 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110 hover:shadow-xl"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-20 bg-background/90 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow border border-border/50 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
                   aria-label="Previous deals"
                 >
-                  <svg className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="h-3.5 w-3.5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M15 18l-6-6 6-6" />
                   </svg>
                 </button>
                 <button
                   onClick={() => scrollDeals('right')}
-                  className="absolute -right-2 sm:-right-3 top-1/2 -translate-y-1/2 z-20 bg-background/90 hover:bg-background backdrop-blur-md rounded-full p-2 shadow-lg border border-border/60 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110 hover:shadow-xl"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-20 bg-background/90 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow border border-border/50 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
                   aria-label="Next deals"
                 >
-                  <svg className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="h-3.5 w-3.5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </button>
 
-                <div ref={dealsScrollRef} className="flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide"
+                <div ref={dealsScrollRef} className="flex gap-2 overflow-x-auto pb-1 snap-x snap-mandatory scrollbar-hide"
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {(() => {
-                    // Products not shown in Top Selling or New Arrivals
                     const usedIds = new Set(products.slice(0, 8).map(p => p.id));
                     const dealProducts = products
                       .filter(p => !usedIds.has(p.id))
@@ -298,7 +288,7 @@ export default function Landing() {
                         key={p.id}
                         className="todays-deal-card min-w-[125px] sm:min-w-[145px] md:min-w-[155px] lg:min-w-[165px] xl:min-w-[175px] flex-shrink-0 snap-start"
                       >
-                        <ProductCard product={p} index={i + 8} />
+                        <ProductCard product={p} index={i + 8} compact />
                       </div>
                     )) : (
                       <p className="text-xs text-muted-foreground py-4 text-center w-full">
