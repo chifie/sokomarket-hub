@@ -185,7 +185,7 @@ export default function Landing() {
                 <Link to="/marketplace" className="landing-view-more text-[11px] text-primary hover:underline font-medium">View all</Link>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                {products.slice(0, 6).map((p, i) => (
+                {products.slice(0, 4).map((p, i) => (
                   <ProductCard key={p.id} product={p} index={i} />
                 ))}
               </div>
@@ -198,7 +198,7 @@ export default function Landing() {
                 <Link to="/marketplace" className="landing-view-more text-[11px] text-primary hover:underline font-medium">View all</Link>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                {products.slice(6, 12).map((p, i) => (
+                {products.slice(4, 8).map((p, i) => (
                   <ProductCard key={p.id} product={p} index={i} />
                 ))}
               </div>
@@ -251,17 +251,16 @@ export default function Landing() {
                 >
                   {(() => {
                     // Products not shown in Top Selling or New Arrivals
-                    const usedIds = new Set(products.slice(0, 12).map(p => p.id));
+                    const usedIds = new Set(products.slice(0, 8).map(p => p.id));
                     const dealProducts = products
-                      .filter(p => p.discountPrice && !usedIds.has(p.id))
+                      .filter(p => !usedIds.has(p.id))
                       .slice(0, 12);
                     return dealProducts.length > 0 ? dealProducts.map((p, i) => (
                       <div
                         key={p.id}
                         className="todays-deal-card min-w-[130px] sm:min-w-[140px] md:min-w-[150px] lg:min-w-[160px] flex-shrink-0 snap-start"
                       >
-                        <ProductCard product={p} index={i + 12} />
-                      </div>
+                        <ProductCard product={p} index={i + 8} />
                     )) : (
                       <p className="text-xs text-muted-foreground py-4 text-center w-full">
                         More deals coming soon!

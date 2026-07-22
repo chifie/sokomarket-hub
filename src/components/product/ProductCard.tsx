@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, ShoppingCart, Check } from "lucide-react";
+import { Heart, ShoppingCart, Check, ImageIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 import { Link, useNavigate } from "react-router";
@@ -220,8 +220,9 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
 
           {/* Image with blur-up transition */}
           {imgError ? (
-            <div className="w-full h-full flex items-center justify-center bg-muted/50">
-              <span className="text-[10px] text-muted-foreground">No image</span>
+            <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-muted/60 to-muted/30 dark:from-muted/40 dark:to-muted/10 gap-1">
+              <ImageIcon className="h-6 w-6 text-muted-foreground/40" />
+              <span className="text-[9px] text-muted-foreground/50 font-medium">{product.name.slice(0, 2).toUpperCase()}</span>
             </div>
           ) : (
             <img
