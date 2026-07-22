@@ -178,55 +178,95 @@ export default function Landing() {
         {/* ─── Top Selling / New Arrivals / Today's Deal ─── */}
         <section className="landing-grid-section px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
-            {/* Top Selling */}
+            {/* Top Selling — compact premium cards */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col">
-              <h2 className="landing-section-title text-sm font-bold text-foreground mb-3">Top Selling</h2>
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="landing-section-title text-sm font-bold text-foreground">Top Selling</h2>
+                <Link to="/marketplace" className="landing-view-more text-[11px] text-primary hover:underline font-medium">View all</Link>
+              </div>
               <div className="grid grid-cols-2 gap-2">
-                {products.slice(0, 4).map((p) => (
-                  <Link key={p.id} to={`/product/${p.slug}`} className="block aspect-square">
-                    <img
-                      src={p.images[0]}
-                      alt={p.name}
-                      loading="lazy"
-                      className="w-full h-full object-contain bg-muted/50 rounded"
-                    />
+                {products.slice(0, 6).map((p) => (
+                  <Link
+                    key={p.id}
+                    to={`/product/${p.slug}`}
+                    className="group block"
+                  >
+                    <div className="aspect-square rounded-lg overflow-hidden bg-muted/30 border border-border/40 relative mb-1.5">
+                      <img
+                        src={p.images[0]}
+                        alt={p.name}
+                        loading="lazy"
+                        className="w-full h-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-110"
+                      />
+                      {p.discountPrice && p.price && (
+                        <span className="absolute top-0.5 right-0.5 bg-rose-500 text-white text-[7px] font-bold px-1 py-0.5 rounded-full">
+                          -{Math.round((1 - p.discountPrice / p.price) * 100)}%
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-foreground/80 line-clamp-1 leading-tight group-hover:text-primary transition-colors">
+                      {p.name}
+                    </span>
+                    <div className="flex items-baseline gap-1 mt-0.5">
+                      <span className="text-[11px] font-bold text-primary">
+                        {new Intl.NumberFormat("sw-TZ", { style: "currency", currency: "TZS", minimumFractionDigits: 0 }).format(p.discountPrice || p.price)}
+                      </span>
+                      {p.discountPrice && (
+                        <span className="text-[9px] text-muted-foreground line-through">
+                          {new Intl.NumberFormat("sw-TZ", { style: "currency", currency: "TZS", minimumFractionDigits: 0 }).format(p.price)}
+                        </span>
+                      )}
+                    </div>
                   </Link>
                 ))}
               </div>
-              <Link to="/marketplace" className="landing-view-more text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
-                View more →
-              </Link>
             </div>
 
-            {/* New Arrivals */}
+            {/* New Arrivals — compact premium cards */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col">
-              <h2 className="landing-section-title text-sm font-bold text-foreground mb-3">New Arrivals</h2>
-              <div className="grid grid-cols-3 gap-2">
-                <Link to={`/product/${products[0]?.slug}`} className="col-span-3 block aspect-[4/3] sm:aspect-[3/2]">
-                  <img
-                    src={products[0]?.images[0]}
-                    alt={products[0]?.name || "Product"}
-                    loading="lazy"
-                    className="w-full h-full object-contain bg-muted/50 rounded"
-                  />
-                </Link>
-                {products.slice(1, 4).map((p) => (
-                  <Link key={p.id} to={`/product/${p.slug}`} className="block aspect-square">
-                    <img
-                      src={p.images[0]}
-                      alt={p.name}
-                      loading="lazy"
-                      className="w-full h-full object-contain bg-muted/50 rounded"
-                    />
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="landing-section-title text-sm font-bold text-foreground">New Arrivals</h2>
+                <Link to="/marketplace" className="landing-view-more text-[11px] text-primary hover:underline font-medium">View all</Link>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {products.slice(6, 12).map((p) => (
+                  <Link
+                    key={p.id}
+                    to={`/product/${p.slug}`}
+                    className="group block"
+                  >
+                    <div className="aspect-square rounded-lg overflow-hidden bg-muted/30 border border-border/40 relative mb-1.5">
+                      <img
+                        src={p.images[0]}
+                        alt={p.name}
+                        loading="lazy"
+                        className="w-full h-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-110"
+                      />
+                      {p.discountPrice && p.price && (
+                        <span className="absolute top-0.5 right-0.5 bg-rose-500 text-white text-[7px] font-bold px-1 py-0.5 rounded-full">
+                          -{Math.round((1 - p.discountPrice / p.price) * 100)}%
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-[10px] text-foreground/80 line-clamp-1 leading-tight group-hover:text-primary transition-colors">
+                      {p.name}
+                    </span>
+                    <div className="flex items-baseline gap-1 mt-0.5">
+                      <span className="text-[11px] font-bold text-primary">
+                        {new Intl.NumberFormat("sw-TZ", { style: "currency", currency: "TZS", minimumFractionDigits: 0 }).format(p.discountPrice || p.price)}
+                      </span>
+                      {p.discountPrice && (
+                        <span className="text-[9px] text-muted-foreground line-through">
+                          {new Intl.NumberFormat("sw-TZ", { style: "currency", currency: "TZS", minimumFractionDigits: 0 }).format(p.price)}
+                        </span>
+                      )}
+                    </div>
                   </Link>
                 ))}
               </div>
-              <Link to="/marketplace" className="landing-view-more text-sm text-primary hover:underline mt-auto pt-2 block text-right font-medium">
-                View more →
-              </Link>
             </div>
 
-            {/* Today's Deal — eBay-inspired carousel */}
+            {/* Today's Deal — eBay-inspired carousel with different products */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col md:col-span-3">
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
@@ -272,62 +312,58 @@ export default function Landing() {
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {(() => {
-                    const dealProducts = products.filter((p) => p.discountPrice).slice(0, 15);
-                    return dealProducts.map((p) => {
-                      const fmt = (n: number) =>
-                        new Intl.NumberFormat("sw-TZ", {
-                          style: "currency",
-                          currency: "TZS",
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        }).format(n);
-                      return (
-                        <Link
-                          key={p.id}
-                          to={`/product/${p.slug}`}
-                          className="todays-deal-card group min-w-[140px] sm:min-w-[160px] md:min-w-[170px] lg:min-w-[180px] flex-shrink-0 snap-start"
-                        >
-                          <article className="flex flex-col gap-2 h-full">
-                            {/* Image */}
-                            <div className="relative aspect-square rounded-lg overflow-hidden bg-muted/30 border border-border/50 group-hover:shadow-md transition-shadow">
-                              <img
-                                src={p.images[0]}
-                                alt={p.name}
-                                loading="lazy"
-                                className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                              />
-                              {/* Discount badge */}
-                              {p.discountPrice && p.price && (
-                                <span className="absolute top-1.5 right-1.5 bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">
-                                  -{Math.round((1 - p.discountPrice / p.price) * 100)}%
-                                </span>
-                              )}
-                              {/* Hover overlay */}
-                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.02] transition-colors rounded-lg" />
-                            </div>
-
-                            {/* Details */}
-                            <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                              <span className="text-xs sm:text-sm text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                                {p.name}
+                    // Products not shown in Top Selling or New Arrivals, plus discounted ones from other positions
+                    const usedIds = new Set(products.slice(0, 12).map(p => p.id));
+                    const dealProducts = products
+                      .filter(p => p.discountPrice && !usedIds.has(p.id))
+                      .slice(0, 12);
+                    const fmt = (n: number) =>
+                      new Intl.NumberFormat("sw-TZ", {
+                        style: "currency",
+                        currency: "TZS",
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0,
+                      }).format(n);
+                    return dealProducts.length > 0 ? dealProducts.map((p) => (
+                      <Link
+                        key={p.id}
+                        to={`/product/${p.slug}`}
+                        className="todays-deal-card group min-w-[140px] sm:min-w-[160px] md:min-w-[170px] lg:min-w-[180px] flex-shrink-0 snap-start"
+                      >
+                        <article className="flex flex-col gap-2 h-full">
+                          <div className="relative aspect-square rounded-lg overflow-hidden bg-muted/30 border border-border/50 group-hover:shadow-md transition-shadow">
+                            <img
+                              src={p.images[0]}
+                              alt={p.name}
+                              loading="lazy"
+                              className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                            />
+                            {p.discountPrice && p.price && (
+                              <span className="absolute top-1.5 right-1.5 bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">
+                                -{Math.round((1 - p.discountPrice / p.price) * 100)}%
                               </span>
-                              <div className="flex items-baseline gap-1.5 flex-wrap mt-auto">
-                                {p.discountPrice && (
-                                  <span className="font-bold text-sm sm:text-base text-primary">
-                                    {fmt(p.discountPrice)}
-                                  </span>
-                                )}
-                                {p.price && (
-                                  <span className="text-[10px] sm:text-xs text-muted-foreground line-through">
-                                    {fmt(p.price)}
-                                  </span>
-                                )}
-                              </div>
+                            )}
+                          </div>
+                          <div className="flex flex-col gap-1.5 flex-1 min-w-0">
+                            <span className="text-xs sm:text-sm text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                              {p.name}
+                            </span>
+                            <div className="flex items-baseline gap-1.5 flex-wrap mt-auto">
+                              <span className="font-bold text-sm sm:text-base text-primary">
+                                {fmt(p.discountPrice!)}
+                              </span>
+                              <span className="text-[10px] sm:text-xs text-muted-foreground line-through">
+                                {fmt(p.price)}
+                              </span>
                             </div>
-                          </article>
-                        </Link>
-                      );
-                    });
+                          </div>
+                        </article>
+                      </Link>
+                    )) : (
+                      <p className="text-xs text-muted-foreground py-4 text-center w-full">
+                        More deals coming soon!
+                      </p>
+                    );
                   })()}
                 </div>
               </div>
