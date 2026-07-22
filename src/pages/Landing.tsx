@@ -379,6 +379,22 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* ─── Featured Products ─── */}
+        <section className="landing-featured-section px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2">
+              <h2 className="landing-section-title text-sm font-bold text-foreground">Featured Products</h2>
+              <Sparkles className="h-4 w-4 text-amber-500" />
+            </div>
+            <Link to="/marketplace?sort=featured" className="landing-view-more text-[11px] text-primary hover:underline font-medium">View all</Link>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4">
+            {products.filter(p => p.featured).slice(0, 6).map((product, index) => (
+              <ProductCard key={product.id} product={product} index={index} />
+            ))}
+          </div>
+        </section>
+
         {/* ─── All Products (Infinite Scroll) ─── */}
         <section className="landing-products-section px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
           <div className="flex items-center justify-between mb-4">
