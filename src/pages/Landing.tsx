@@ -250,48 +250,18 @@ export default function Landing() {
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {(() => {
-                    // Products not shown in Top Selling or New Arrivals, plus discounted ones from other positions
+                    // Products not shown in Top Selling or New Arrivals
                     const usedIds = new Set(products.slice(0, 12).map(p => p.id));
                     const dealProducts = products
                       .filter(p => p.discountPrice && !usedIds.has(p.id))
                       .slice(0, 12);
-                    const fmtTzs = (n: number) =>
-                      'Tshs ' + n.toLocaleString() + '/=';
                     return dealProducts.length > 0 ? dealProducts.map((p, i) => (
-                      <Link
+                      <div
                         key={p.id}
-                        to={`/product/${p.slug}`}
-                        className="todays-deal-card group min-w-[130px] sm:min-w-[145px] md:min-w-[155px] lg:min-w-[165px] flex-shrink-0 snap-start"
+                        className="todays-deal-card min-w-[130px] sm:min-w-[140px] md:min-w-[150px] lg:min-w-[160px] flex-shrink-0 snap-start"
                       >
-                        <article className="flex flex-col h-full bg-card rounded-xl shadow-sm overflow-hidden dark:border dark:border-border/50 hover:shadow-md transition-all duration-300">
-                          <div className="relative aspect-square overflow-hidden bg-muted/40">
-                            <img
-                              src={p.images[0]}
-                              alt={p.name}
-                              loading="lazy"
-                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                            />
-                            {p.discountPrice && p.price && (
-                              <span className="absolute left-2 top-2 z-10 rounded-full bg-rose-500 px-2 py-0.5 text-[10px] font-semibold text-white shadow-md">
-                                -{Math.round((1 - p.discountPrice / p.price) * 100)}%
-                              </span>
-                            )}
-                          </div>
-                          <div className="p-2 flex flex-col gap-1 flex-1">
-                            <span className="text-[11px] lg:text-xs text-foreground line-clamp-2 leading-tight group-hover:text-primary transition-colors">
-                              {p.name}
-                            </span>
-                            <p className="font-bold text-sm text-primary mt-auto">
-                              {fmtTzs(p.discountPrice!)}
-                            </p>
-                            {p.discountPrice && (
-                              <p className="text-[10px] text-muted-foreground line-through">
-                                {fmtTzs(p.price)}
-                              </p>
-                            )}
-                          </div>
-                        </article>
-                      </Link>
+                        <ProductCard product={p} index={i + 12} />
+                      </div>
                     )) : (
                       <p className="text-xs text-muted-foreground py-4 text-center w-full">
                         More deals coming soon!
