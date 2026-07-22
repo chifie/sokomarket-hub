@@ -205,8 +205,8 @@ export default function Landing() {
         <section className="landing-category-banners px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             {/* ── Electronics ── */}
-            <a
-              href="/marketplace?category=electronics"
+            <Link
+              to="/marketplace?category=electronics"
               className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
             >
               <img
@@ -234,11 +234,11 @@ export default function Landing() {
                   </svg>
                 </span>
               </div>
-            </a>
+            </Link>
 
             {/* ── Cosmetics ── */}
-            <a
-              href="/marketplace?category=beauty"
+            <Link
+              to="/marketplace?category=beauty"
               className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
             >
               <img
@@ -266,11 +266,11 @@ export default function Landing() {
                   </svg>
                 </span>
               </div>
-            </a>
+            </Link>
 
             {/* ── Fashion ── */}
-            <a
-              href="/marketplace?category=fashion"
+            <Link
+              to="/marketplace?category=fashion"
               className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
             >
               <img
@@ -298,11 +298,11 @@ export default function Landing() {
                   </svg>
                 </span>
               </div>
-            </a>
+            </Link>
 
             {/* ── Food ── */}
-            <a
-              href="/marketplace?category=groceries"
+            <Link
+              to="/marketplace?category=groceries"
               className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
             >
               <img
@@ -330,7 +330,7 @@ export default function Landing() {
                   </svg>
                 </span>
               </div>
-            </a>
+            </Link>
           </div>
         </section>
 
