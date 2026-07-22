@@ -262,7 +262,7 @@ export default function Landing() {
                     return dealProducts.length > 0 ? dealProducts.map((p, i) => (
                       <div
                         key={p.id}
-                        className="todays-deal-card min-w-[140px] sm:min-w-[175px] md:min-w-[190px] lg:min-w-[205px] xl:min-w-[220px] flex-shrink-0 snap-start"
+                        className="todays-deal-card min-w-[125px] sm:min-w-[145px] md:min-w-[155px] lg:min-w-[165px] xl:min-w-[175px] flex-shrink-0 snap-start"
                       >
                         <ProductCard product={p} index={i + 8} />
                       </div>
