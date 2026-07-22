@@ -298,11 +298,6 @@ export function Hero() {
   /* ─── Progress bar (uses handleNextRef to avoid stale closure) ─── */
   const handleNextRef = useRef<() => void>(() => {});
 
-  // Sync ref after render (avoids temporal dead zone)
-  useEffect(() => {
-    handleNextRef.current = handleNext;
-  }, [handleNext]);
-
   const startProgress = useCallback(() => {
     if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
     setProgress(0);
@@ -384,6 +379,11 @@ export function Hero() {
     },
     [animateSlide]
   );
+
+  // Sync ref after render (placed AFTER handleNext declaration to avoid TDZ)
+  useEffect(() => {
+    handleNextRef.current = handleNext;
+  }, [handleNext]);
 
   useEffect(() => {
     if (!activeBanners.length) return;
