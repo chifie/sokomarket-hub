@@ -177,7 +177,7 @@ export default function Landing() {
 
         {/* ─── Top Selling / New Arrivals / Today's Deal ─── */}
         <section className="landing-grid-section px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6">
             {/* Top Selling — compact premium cards */}
             <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col">
               <div className="flex items-center justify-between mb-3">
@@ -267,7 +267,7 @@ export default function Landing() {
             </div>
 
             {/* Today's Deal — eBay-inspired carousel with different products */}
-            <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col md:col-span-3">
+            <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col md:col-span-2">
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <div>
