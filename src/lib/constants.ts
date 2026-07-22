@@ -2,6 +2,11 @@ import type {
   Product, Seller, Category, FlashSale, Review, Notification,
   Testimonial, Stat, Banner, AISuggestion
 } from "@/types";
+import banner1Img from "@/assets/banner1.png";
+import banner2Img from "@/assets/banner2.png";
+import banner3Img from "@/assets/banner3.png";
+import banner4Img from "@/assets/banner4.png";
+import banner5Img from "@/assets/banner5.png";
 
 // ===== Marketplace Stats =====
 export const stats: Stat[] = [
@@ -467,7 +472,7 @@ export const testimonials: Testimonial[] = [
 
 // ===== Banners =====
 export const banners: Banner[] = [
-  // ── Banner 1: Everything You Need ──
+  // ── Banner 1 ──
   {
     id: "b1",
     title: "Everything You Need, All in One Place",
@@ -475,8 +480,8 @@ export const banners: Banner[] = [
     description: "From electronics and fashion to groceries and beauty — SokoDigital has it all, delivered to your door.",
     cta: "Shop Now",
     link: "/marketplace",
-    desktopImage: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1920&q=85",
-    mobileImage: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=85",
+    desktopImage: banner1Img,
+    mobileImage: banner1Img,
     badge: "Premium Marketplace",
     type: "hero",
     priority: 1,
@@ -486,7 +491,7 @@ export const banners: Banner[] = [
     bgColor: "#F97316",
     textColor: "#111827",
   },
-  // ── Banner 2: Flash Sale ──
+  // ── Banner 2 ──
   {
     id: "b2",
     title: "Flash Sale Up to 70% OFF",
@@ -494,8 +499,8 @@ export const banners: Banner[] = [
     description: "Grab amazing deals on smartphones, laptops, fashion, accessories, and more before they're gone.",
     cta: "Grab Deals",
     link: "/marketplace?sort=discount",
-    desktopImage: "https://images.unsplash.com/photo-1607082350899-7e74aa90c30c?w=1920&q=85",
-    mobileImage: "https://images.unsplash.com/photo-1607082350899-7e74aa90c30c?w=600&q=85",
+    desktopImage: banner2Img,
+    mobileImage: banner2Img,
     badge: "Flash Sale",
     discount: 70,
     type: "hero",
@@ -506,7 +511,7 @@ export const banners: Banner[] = [
     bgColor: "#F97316",
     textColor: "#111827",
   },
-  // ── Banner 3: Beauty & Cosmetics ──
+  // ── Banner 3 ──
   {
     id: "b3",
     title: "Glow with Premium Beauty",
@@ -514,8 +519,8 @@ export const banners: Banner[] = [
     description: "From luxury skincare to everyday essentials — elevate your beauty routine with SokoDigital.",
     cta: "Shop Cosmetics",
     link: "/marketplace?category=beauty",
-    desktopImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1920&q=85",
-    mobileImage: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=85",
+    desktopImage: banner3Img,
+    mobileImage: banner3Img,
     badge: "Cosmetics",
     type: "hero",
     priority: 3,
@@ -525,7 +530,7 @@ export const banners: Banner[] = [
     bgColor: "#FB923C",
     textColor: "#111827",
   },
-  // ── Banner 4: Fast Delivery ──
+  // ── Banner 4 ──
   {
     id: "b4",
     title: "Fast Delivery. Secure Payments. Trusted Sellers.",
@@ -533,14 +538,33 @@ export const banners: Banner[] = [
     description: "Free delivery on orders over 50,000 TZS. Real-time tracking. 14-day returns. Shop with peace of mind.",
     cta: "Start Shopping",
     link: "/marketplace",
-    desktopImage: "https://images.unsplash.com/photo-1557456170-0e2b4a7fc3eb?w=1920&q=85",
-    mobileImage: "https://images.unsplash.com/photo-1557456170-0e2b4a7fc3eb?w=600&q=85",
+    desktopImage: banner4Img,
+    mobileImage: banner4Img,
     badge: "Free Delivery",
     type: "hero",
     priority: 4,
     isActive: true,
     startDate: new Date().toISOString(),
     endDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+    bgColor: "#F97316",
+    textColor: "#111827",
+  },
+  // ── Banner 5 ──
+  {
+    id: "b5",
+    title: "Shop the Latest Deals",
+    subtitle: "Discover amazing offers on top brands with exclusive discounts and fast delivery.",
+    description: "From gadgets to groceries — find everything you need at prices you'll love.",
+    cta: "Explore Now",
+    link: "/marketplace",
+    desktopImage: banner5Img,
+    mobileImage: banner5Img,
+    badge: "New Arrivals",
+    type: "hero",
+    priority: 5,
+    isActive: true,
+    startDate: new Date().toISOString(),
+    endDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
     bgColor: "#F97316",
     textColor: "#111827",
   },
