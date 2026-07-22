@@ -258,19 +258,19 @@ export default function Landing() {
                 {/* Scroll Arrows */}
                 <button
                   onClick={() => scrollDeals('left')}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-20 bg-background/90 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow border border-border/50 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-20 bg-background/90 hover:bg-background backdrop-blur-sm rounded-full p-1 shadow border border-border/50 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
                   aria-label="Previous deals"
                 >
-                  <svg className="h-3.5 w-3.5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="h-3 w-3 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M15 18l-6-6 6-6" />
                   </svg>
                 </button>
                 <button
                   onClick={() => scrollDeals('right')}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-20 bg-background/90 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow border border-border/50 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-20 bg-background/90 hover:bg-background backdrop-blur-sm rounded-full p-1 shadow border border-border/50 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
                   aria-label="Next deals"
                 >
-                  <svg className="h-3.5 w-3.5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <svg className="h-3 w-3 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </button>
