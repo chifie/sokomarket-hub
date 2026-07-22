@@ -148,6 +148,8 @@ export default function Landing() {
   }, []);
 
   useGsapScroll(mainRef, [
+    // Category banners
+    { selector: '.landing-banner', stagger: 0.1, from: { y: 25, scale: 0.98 }, duration: 0.5, ease: 'power3.out' },
     // Category pills with scale-in
     { selector: '.landing-cat-pill', stagger: 0.03, from: { y: 15, scale: 0.9 }, to: { scale: 1 }, duration: 0.4, ease: 'power3.out', start: 'top 90%', trigger: '.landing-cat-pills' },
     // Grid cards (Top Selling, New Arrivals, Today's Deal)
@@ -196,6 +198,139 @@ export default function Landing() {
                 {cat.name}
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* ─── Category Banner Strips (Electronics, Cosmetics, Fashion, Food) ─── */}
+        <section className="landing-category-banners px-4 sm:px-8 lg:px-12 xl:px-16 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            {/* ── Electronics ── */}
+            <a
+              href="/marketplace?category=electronics"
+              className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=800&q=85"
+                alt="Electronics"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover/banner:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent sm:bg-gradient-to-r sm:from-black/60 sm:via-black/20 sm:to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover/banner:opacity-100 transition-opacity duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
+                <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-primary-foreground/80 mb-1.5">
+                  Category
+                </span>
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-extrabold text-white leading-tight">
+                  Electronics
+                </h3>
+                <p className="text-xs sm:text-sm text-white/70 mt-1 max-w-xs">
+                  Phones, laptops, gadgets & accessories at unbeatable prices
+                </p>
+                <span className="inline-flex items-center gap-1.5 mt-3 sm:mt-4 px-4 py-2 bg-primary text-primary-foreground text-xs sm:text-sm font-bold rounded-full shadow-lg shadow-primary/30 ring-2 ring-white/30 transition-transform duration-300 group-hover/banner:scale-105 group-hover/banner:shadow-xl group-hover/banner:shadow-primary/40">
+                  Shop Now
+                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover/banner:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            {/* ── Cosmetics ── */}
+            <a
+              href="/marketplace?category=beauty"
+              className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=85"
+                alt="Beauty & Cosmetics"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover/banner:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent sm:bg-gradient-to-l sm:from-black/60 sm:via-black/20 sm:to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-rose-500/10 to-transparent opacity-0 group-hover/banner:opacity-100 transition-opacity duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
+                <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-primary-foreground/80 mb-1.5">
+                  Category
+                </span>
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-extrabold text-white leading-tight">
+                  Cosmetics & Beauty
+                </h3>
+                <p className="text-xs sm:text-sm text-white/70 mt-1 max-w-xs">
+                  Premium skincare, makeup & beauty essentials for every routine
+                </p>
+                <span className="inline-flex items-center gap-1.5 mt-3 sm:mt-4 px-4 py-2 bg-primary text-primary-foreground text-xs sm:text-sm font-bold rounded-full shadow-lg shadow-primary/30 ring-2 ring-white/30 transition-transform duration-300 group-hover/banner:scale-105 group-hover/banner:shadow-xl group-hover/banner:shadow-primary/40">
+                  Shop Now
+                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover/banner:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            {/* ── Fashion ── */}
+            <a
+              href="/marketplace?category=fashion"
+              className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=85"
+                alt="Fashion"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover/banner:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent sm:bg-gradient-to-r sm:from-black/60 sm:via-black/20 sm:to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent opacity-0 group-hover/banner:opacity-100 transition-opacity duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
+                <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-primary-foreground/80 mb-1.5">
+                  Category
+                </span>
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-extrabold text-white leading-tight">
+                  Fashion
+                </h3>
+                <p className="text-xs sm:text-sm text-white/70 mt-1 max-w-xs">
+                  Trendy clothing, shoes & accessories for men and women
+                </p>
+                <span className="inline-flex items-center gap-1.5 mt-3 sm:mt-4 px-4 py-2 bg-primary text-primary-foreground text-xs sm:text-sm font-bold rounded-full shadow-lg shadow-primary/30 ring-2 ring-white/30 transition-transform duration-300 group-hover/banner:scale-105 group-hover/banner:shadow-xl group-hover/banner:shadow-primary/40">
+                  Shop Now
+                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover/banner:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            {/* ── Food ── */}
+            <a
+              href="/marketplace?category=groceries"
+              className="landing-banner group/banner relative overflow-hidden rounded-2xl aspect-[16/9] sm:aspect-[3/2] lg:aspect-[5/3] block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=85"
+                alt="Food & Groceries"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover/banner:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent sm:bg-gradient-to-l sm:from-black/60 sm:via-black/20 sm:to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover/banner:opacity-100 transition-opacity duration-500" />
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8">
+                <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-primary-foreground/80 mb-1.5">
+                  Category
+                </span>
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-extrabold text-white leading-tight">
+                  Food & Groceries
+                </h3>
+                <p className="text-xs sm:text-sm text-white/70 mt-1 max-w-xs">
+                  Fresh produce, organic goods & delicious meals delivered to you
+                </p>
+                <span className="inline-flex items-center gap-1.5 mt-3 sm:mt-4 px-4 py-2 bg-primary text-primary-foreground text-xs sm:text-sm font-bold rounded-full shadow-lg shadow-primary/30 ring-2 ring-white/30 transition-transform duration-300 group-hover/banner:scale-105 group-hover/banner:shadow-xl group-hover/banner:shadow-primary/40">
+                  Shop Now
+                  <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover/banner:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </span>
+              </div>
+            </a>
           </div>
         </section>
 
