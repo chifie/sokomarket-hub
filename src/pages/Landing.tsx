@@ -288,7 +288,7 @@ export default function Landing() {
                         key={p.id}
                         className="todays-deal-card min-w-[125px] sm:min-w-[145px] md:min-w-[155px] lg:min-w-[165px] xl:min-w-[175px] flex-shrink-0 snap-start"
                       >
-                        <ProductCard product={p} index={i + 8} />
+                        <ProductCard product={p} index={i + 8} compact />
                       </div>
                     )) : (
                       <p className="text-xs text-muted-foreground py-4 text-center w-full">
