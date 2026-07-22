@@ -13,7 +13,7 @@ import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
 import { categories, products, sellers, stats } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { BadgeCheck, Smartphone, ArrowDown, Eye, Users, Store, Package, ShoppingCart } from "lucide-react";
+import { BadgeCheck, Eye, Users, Store, Package, ShoppingCart } from "lucide-react";
 import { useGsapScroll } from "@/hooks/use-gsap-scroll";
 import { useTheme } from "@/hooks/use-theme";
 
@@ -130,8 +130,6 @@ export default function Landing() {
     { selector: '.landing-products-section', single: true, duration: 0.6, ease: 'power3.out', from: { y: 20 } },
     // Download app section
     { selector: '.landing-download-app', single: true, duration: 0.6, ease: 'power3.out', from: { y: 25 } },
-    // Phone mockup in download section
-    { selector: '.landing-phone-mockup', single: true, duration: 0.7, ease: 'back.out(1.7)', from: { scale: 0.8 } },
     // Store badges in download section
     { selector: '.landing-store-badge', stagger: 0.12, duration: 0.5, ease: 'power3.out', from: { x: -15 } },
     // Download section text
