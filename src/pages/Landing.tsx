@@ -239,52 +239,64 @@ export default function Landing() {
                 <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide"
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
-                  {products.filter((p) => p.discountPrice).slice(0, 15).map((p) => (
-                    <Link
-                      key={p.id}
-                      to={`/product/${p.slug}`}
-                      className="todays-deal-card group min-w-[140px] sm:min-w-[160px] md:min-w-[170px] lg:min-w-[180px] flex-shrink-0 snap-start"
-                    >
-                      <article className="flex flex-col gap-2 h-full">
-                        {/* Image */}
-                        <div className="relative aspect-square rounded-lg overflow-hidden bg-muted/30 border border-border/50 group-hover:shadow-md transition-shadow">
-                          <img
-                            src={p.images[0]}
-                            alt={p.name}
-                            loading="lazy"
-                            className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
-                          />
-                          {/* Discount badge */}
-                          {p.discountPrice && p.price && (
-                            <span className="absolute top-1.5 right-1.5 bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">
-                              -{Math.round((1 - p.discountPrice / p.price) * 100)}%
-                            </span>
-                          )}
-                          {/* Hover overlay */}
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.02] transition-colors rounded-lg" />
-                        </div>
+                  {(() => {
+                    const dealProducts = products.filter((p) => p.discountPrice).slice(0, 15);
+                    return dealProducts.map((p) => {
+                      const fmt = (n: number) =>
+                        new Intl.NumberFormat("sw-TZ", {
+                          style: "currency",
+                          currency: "TZS",
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        }).format(n);
+                      return (
+                        <Link
+                          key={p.id}
+                          to={`/product/${p.slug}`}
+                          className="todays-deal-card group min-w-[140px] sm:min-w-[160px] md:min-w-[170px] lg:min-w-[180px] flex-shrink-0 snap-start"
+                        >
+                          <article className="flex flex-col gap-2 h-full">
+                            {/* Image */}
+                            <div className="relative aspect-square rounded-lg overflow-hidden bg-muted/30 border border-border/50 group-hover:shadow-md transition-shadow">
+                              <img
+                                src={p.images[0]}
+                                alt={p.name}
+                                loading="lazy"
+                                className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-500"
+                              />
+                              {/* Discount badge */}
+                              {p.discountPrice && p.price && (
+                                <span className="absolute top-1.5 right-1.5 bg-rose-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shadow-sm">
+                                  -{Math.round((1 - p.discountPrice / p.price) * 100)}%
+                                </span>
+                              )}
+                              {/* Hover overlay */}
+                              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.02] transition-colors rounded-lg" />
+                            </div>
 
-                        {/* Details */}
-                        <div className="flex flex-col gap-1.5 flex-1 min-w-0">
-                          <span className="text-xs sm:text-sm text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                            {p.name}
-                          </span>
-                          <div className="flex items-baseline gap-1.5 flex-wrap mt-auto">
-                            {p.discountPrice && (
-                              <span className="font-bold text-sm sm:text-base text-primary">
-                                {formatPrice(p.discountPrice)}
+                            {/* Details */}
+                            <div className="flex flex-col gap-1.5 flex-1 min-w-0">
+                              <span className="text-xs sm:text-sm text-foreground line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                                {p.name}
                               </span>
-                            )}
-                            {p.price && (
-                              <span className="text-[10px] sm:text-xs text-muted-foreground line-through">
-                                {formatPrice(p.price)}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </article>
-                    </Link>
-                  ))}
+                              <div className="flex items-baseline gap-1.5 flex-wrap mt-auto">
+                                {p.discountPrice && (
+                                  <span className="font-bold text-sm sm:text-base text-primary">
+                                    {fmt(p.discountPrice)}
+                                  </span>
+                                )}
+                                {p.price && (
+                                  <span className="text-[10px] sm:text-xs text-muted-foreground line-through">
+                                    {fmt(p.price)}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </article>
+                        </Link>
+                      );
+                    });
+                  })()}
                 </div>
               </div>
             </div>
