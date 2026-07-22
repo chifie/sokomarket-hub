@@ -261,6 +261,7 @@ export default function Landing() {
                         className="todays-deal-card min-w-[130px] sm:min-w-[140px] md:min-w-[150px] lg:min-w-[160px] flex-shrink-0 snap-start"
                       >
                         <ProductCard product={p} index={i + 8} />
+                      </div>
                     )) : (
                       <p className="text-xs text-muted-foreground py-4 text-center w-full">
                         More deals coming soon!
