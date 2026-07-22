@@ -305,7 +305,7 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Link to="/auth" className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:underline">
+            <Link to="/auth" className="inline-flex items-center gap-1.5 text-sm font-semibold text-white hover:underline px-2 py-1.5 touch-manipulation">
               <User className="h-4 w-4" />
               {authLoading ? "..." : "Log In"}
             </Link>
