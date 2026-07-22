@@ -34,6 +34,19 @@ export function ProductCard({ product, index = 0, compact = false }: ProductCard
   const buttonRef = useRef<HTMLButtonElement>(null);
   const flyTimeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const cardRef = useRef<HTMLDivElement>(null);
+  const loadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Image load timeout fallback: if image doesn't load in 5s, show fallback
+  useEffect(() => {
+    if (!imgLoaded && !imgError) {
+      loadTimeoutRef.current = setTimeout(() => {
+        setImgError(true);
+      }, 5000);
+    }
+    return () => {
+      if (loadTimeoutRef.current) clearTimeout(loadTimeoutRef.current);
+    };
+  }, [imgLoaded, imgError]);
 
   // Cleanup fly timeouts on unmount
   useEffect(() => {
@@ -232,11 +245,15 @@ export function ProductCard({ product, index = 0, compact = false }: ProductCard
               src={product.images[0]}
               alt={product.name}
               loading="lazy"
+              crossOrigin="anonymous"
               className={cn(
-                "product-card-image w-full h-full object-contain",
-                imgLoaded ? "opacity-100 blur-0" : "opacity-0 blur-sm scale-95"
+                "product-card-image w-full h-full object-cover transition-all duration-500",
+                imgLoaded ? "opacity-100 blur-0 scale-100" : "opacity-100 blur-md scale-105"
               )}
-              onLoad={() => setImgLoaded(true)}
+              onLoad={() => {
+                setImgLoaded(true);
+                if (loadTimeoutRef.current) clearTimeout(loadTimeoutRef.current);
+              }}
               onError={() => setImgError(true)}
             />
           )}
