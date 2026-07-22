@@ -204,10 +204,14 @@ export default function Landing() {
               </div>
             </div>
 
-            {/* Today's Deal — carousel with ProductCard-matching sizing */}
-            <div className="landing-grid-card bg-card rounded-lg p-4 flex flex-col md:col-span-2">
+            {/* Today's Deal — premium carousel matching All Products sizing */}
+            <div className="landing-grid-card bg-card rounded-lg p-4 sm:p-5 flex flex-col md:col-span-2 relative overflow-hidden">
+              {/* Subtle decorative background */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-primary/[0.03] blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full bg-accent/[0.03] blur-2xl pointer-events-none" />
+
               {/* Header */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-5 relative z-10">
                 <div>
                   <h2 className="landing-section-title text-base sm:text-lg font-bold text-foreground">
                     Today's Deals
@@ -225,28 +229,28 @@ export default function Landing() {
               </div>
 
               {/* Carousel */}
-              <div className="todays-deal-carousel relative group/carousel -mx-1">
+              <div className="todays-deal-carousel relative group/carousel -mx-1 z-10">
                 {/* Scroll Arrows */}
                 <button
                   onClick={() => scrollDeals('left')}
-                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 bg-background/80 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
+                  className="absolute -left-2 sm:-left-3 top-1/2 -translate-y-1/2 z-20 bg-background/90 hover:bg-background backdrop-blur-md rounded-full p-2 shadow-lg border border-border/60 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110 hover:shadow-xl"
                   aria-label="Previous deals"
                 >
-                  <svg className="h-4 w-4 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M15 18l-6-6 6-6" />
                   </svg>
                 </button>
                 <button
                   onClick={() => scrollDeals('right')}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 bg-background/80 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
+                  className="absolute -right-2 sm:-right-3 top-1/2 -translate-y-1/2 z-20 bg-background/90 hover:bg-background backdrop-blur-md rounded-full p-2 shadow-lg border border-border/60 opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110 hover:shadow-xl"
                   aria-label="Next deals"
                 >
-                  <svg className="h-4 w-4 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg className="h-4 w-4 sm:h-5 sm:w-5 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 18l6-6-6-6" />
                   </svg>
                 </button>
 
-                <div ref={dealsScrollRef} className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide"
+                <div ref={dealsScrollRef} className="flex gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide"
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {(() => {
@@ -254,11 +258,11 @@ export default function Landing() {
                     const usedIds = new Set(products.slice(0, 8).map(p => p.id));
                     const dealProducts = products
                       .filter(p => !usedIds.has(p.id))
-                      .slice(0, 12);
+                      .slice(0, 16);
                     return dealProducts.length > 0 ? dealProducts.map((p, i) => (
                       <div
                         key={p.id}
-                        className="todays-deal-card min-w-[130px] sm:min-w-[140px] md:min-w-[150px] lg:min-w-[160px] flex-shrink-0 snap-start"
+                        className="todays-deal-card min-w-[140px] sm:min-w-[175px] md:min-w-[190px] lg:min-w-[205px] xl:min-w-[220px] flex-shrink-0 snap-start"
                       >
                         <ProductCard product={p} index={i + 8} />
                       </div>
