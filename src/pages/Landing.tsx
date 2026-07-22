@@ -12,6 +12,7 @@ import { ProductCard } from "@/components/product/ProductCard";
 import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
 import { categories, products, sellers, stats } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { BadgeCheck, Smartphone, ArrowDown, Eye, Users, Store, Package, ShoppingCart } from "lucide-react";
 import { useGsapScroll } from "@/hooks/use-gsap-scroll";
 import { useTheme } from "@/hooks/use-theme";
