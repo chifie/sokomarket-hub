@@ -60,6 +60,16 @@ export default function Landing() {
   }, [hasMore, isLoadingMore, loadMore]);
 
   const { isDark } = useTheme();
+  const dealsScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollDeals = (direction: 'left' | 'right') => {
+    if (!dealsScrollRef.current) return;
+    const scrollAmount = 300;
+    dealsScrollRef.current.scrollBy({
+      left: direction === 'left' ? -scrollAmount : scrollAmount,
+      behavior: 'smooth',
+    });
+  };
 
   /* ─── Stats counting animation ─── */
   const statsRef = useRef<HTMLDivElement>(null);
@@ -118,6 +128,8 @@ export default function Landing() {
     { selector: '.landing-cat-pill', stagger: 0.03, from: { y: 15, scale: 0.9 }, to: { scale: 1 }, duration: 0.4, ease: 'power3.out', start: 'top 90%', trigger: '.landing-cat-pills' },
     // Grid cards (Top Selling, New Arrivals, Today's Deal)
     { selector: '.landing-grid-card', stagger: 0.08, from: { y: 30 }, duration: 0.5, ease: 'power3.out' },
+    // Today's Deal individual cards
+    { selector: '.todays-deal-card', stagger: 0.05, from: { y: 20 }, duration: 0.4, ease: 'power3.out' },
     // Stats section
     { selector: '.landing-stats', stagger: 0.08, duration: 0.5, ease: 'power3.out' },
     // Section titles fade-in
@@ -235,8 +247,28 @@ export default function Landing() {
               </div>
 
               {/* Carousel */}
-              <div className="todays-deal-carousel relative -mx-1">
-                <div className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide"
+              <div className="todays-deal-carousel relative group/carousel -mx-1">
+                {/* Scroll Arrows */}
+                <button
+                  onClick={() => scrollDeals('left')}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-10 bg-background/80 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
+                  aria-label="Previous deals"
+                >
+                  <svg className="h-4 w-4 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M15 18l-6-6 6-6" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => scrollDeals('right')}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-10 bg-background/80 hover:bg-background backdrop-blur-sm rounded-full p-1.5 shadow-md border border-border opacity-0 group-hover/carousel:opacity-100 transition-all duration-300 hover:scale-110"
+                  aria-label="Next deals"
+                >
+                  <svg className="h-4 w-4 text-foreground" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M9 18l6-6-6-6" />
+                  </svg>
+                </button>
+
+                <div ref={dealsScrollRef} className="flex gap-3 overflow-x-auto pb-2 snap-x snap-mandatory scrollbar-hide"
                   style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
                 >
                   {(() => {
