@@ -339,6 +339,7 @@ export interface Banner {
   desktopImage: string;
   mobileImage?: string;
   webpImage?: string;
+  avifImage?: string;
   backgroundImage?: string;
   badge?: string;
   discount?: number;
