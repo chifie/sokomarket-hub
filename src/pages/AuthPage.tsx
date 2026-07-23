@@ -91,7 +91,7 @@ export default function AuthPage() {
           <div className="rounded-2xl border border-border bg-card p-8 shadow-elegant">
             <div className="mb-6 text-center">
               <div className="flex justify-center mb-4">
-                <Logo className="h-10 w-auto text-primary" />
+                <Logo className="h-14 w-auto text-primary" />
               </div>
               <h1 className="text-2xl font-bold">
                 {mode === 'login' ? 'Welcome back' : 'Create your account'}
