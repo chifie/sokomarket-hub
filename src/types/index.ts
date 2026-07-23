@@ -338,6 +338,7 @@ export interface Banner {
   link?: string;
   desktopImage: string;
   mobileImage?: string;
+  webpImage?: string;
   backgroundImage?: string;
   badge?: string;
   discount?: number;
