@@ -5,48 +5,6 @@ import { cn } from "@/lib/utils";
 import { banners } from "@/lib/constants";
 import { gsap } from "gsap";
 
-/* ─── Orange Floating Particles ─── */
-function OrangeParticles() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const shapes = el.querySelectorAll(".hero-particle");
-    if (!shapes.length) return;
-
-    const ctx = gsap.context(() => {
-      shapes.forEach((shape, i) => {
-        gsap.to(shape, {
-          y: `random(${-30}, ${-70})`,
-          x: `random(${-20}, ${20})`,
-          opacity: 0.12 + i * 0.03,
-          duration: 4 + i * 0.6,
-          ease: "sine.inOut",
-          yoyo: true,
-          repeat: -1,
-          delay: i * 0.4,
-        });
-      });
-    }, el);
-    return () => ctx.revert();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className="absolute inset-0 z-0 pointer-events-none overflow-hidden"
-      aria-hidden="true"
-    >
-      <div className="hero-particle absolute -top-10 -left-10 w-48 h-48 sm:w-64 sm:h-64 rounded-full opacity-10 blur-3xl bg-orange-500" />
-      <div className="hero-particle absolute top-1/3 -right-12 w-36 h-36 sm:w-52 sm:h-52 rounded-full opacity-8 blur-3xl bg-orange-400" />
-      <div className="hero-particle absolute bottom-1/4 left-1/3 w-28 h-28 sm:w-40 sm:h-40 rounded-full opacity-6 blur-2xl bg-orange-300" />
-      <div className="hero-particle absolute top-2/3 right-1/3 w-16 h-16 sm:w-24 sm:h-24 rounded-full opacity-8 blur-xl bg-orange-500" />
-      <div className="hero-particle absolute top-1/4 left-2/3 w-12 h-12 sm:w-20 sm:h-20 rounded-full opacity-5 blur-xl bg-amber-400" />
-    </div>
-  );
-}
-
 /* ─── Floating Product Showcase ─── */
 function FloatingProducts({
   theme,
@@ -452,26 +410,13 @@ export function Hero() {
               data-slide={idx}
               className="relative w-full flex-shrink-0 overflow-hidden"
             >
-              {/* Background — white with subtle warm gradient */}
-              <div
-                className="w-full aspect-[21/9] sm:aspect-[21/9] lg:aspect-[64/18]"
-                style={{
-                  background: `linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 40%, #FEF3C7 70%, #FFFBEB 100%)`,
-                }}
+              {/* Background banner image */}
+              <img
+                src={b.desktopImage}
+                alt={b.title}
+                className="w-full aspect-[21/9] sm:aspect-[21/9] lg:aspect-[64/18] object-cover"
+                loading={idx === 0 ? "eager" : "lazy"}
               />
-
-              {/* Subtle pattern overlay */}
-              <div
-                className="absolute inset-0 opacity-[0.03] z-[1]"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle at 1px 1px, #F97316 1px, transparent 0)",
-                  backgroundSize: "24px 24px",
-                }}
-              />
-
-              {/* Orange particles */}
-              <OrangeParticles />
 
               {/* Content wrapper */}
               <div className="absolute inset-0 z-10 flex items-center">
