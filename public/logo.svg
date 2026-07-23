@@ -1,15 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" fill="none">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stopColor="#F97316" />
-      <stop offset="100%" stopColor="#DC2626" />
-    </linearGradient>
-  </defs>
-  <rect width="60" height="60" rx="14" fill="url(#g)" />
-  <!-- Lucide Shopping Cart icon -->
-  <g stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="21" cy="48" r="2.5" fill="white" />
-    <circle cx="45" cy="48" r="2.5" fill="white" />
-    <path d="M6,8 h5 l6.65,31.05 a5,5 0 0 0 5,3.95 h24.45 a5,5 0 0 0 4.88-3.93 l4.12-18.57 H12.8" />
+  <!-- Standalone Lucide Shopping Cart icon (no badge background) -->
+  <!-- Scaled up ~2.5x and centered to fill more of the viewBox for favicon visibility -->
+  <g transform="translate(30, 32) scale(2.5) translate(-12, -12)" stroke="#F97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="8" cy="21" r="1" />
+    <circle cx="19" cy="21" r="1" />
+    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
   </g>
 </svg>

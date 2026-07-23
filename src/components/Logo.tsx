@@ -69,7 +69,7 @@ export function Logo({ className }: LogoProps) {
 
       {/* ─── Standalone Lucide Shopping Cart icon (no background badge) ─── */}
       <g
-        transform="translate(100, 38) scale(3) translate(-12, -12)"
+        transform="translate(100, 36) scale(3) translate(-12, -12)"
         fill="none"
         stroke="currentColor"
         strokeWidth="2.5"
@@ -84,7 +84,7 @@ export function Logo({ className }: LogoProps) {
       {/* ─── "SokoDigital" Wordmark ─── */}
       <text
         x="100"
-        y="125"
+        y="129"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="48"
