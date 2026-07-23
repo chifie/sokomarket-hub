@@ -97,7 +97,7 @@ export function Logo({ className }: LogoProps) {
       <text
         x="70"
         y="34"
-        fontFamily="Inter, SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="22"
         fontWeight="800"
         fill="#111827"
@@ -108,7 +108,7 @@ export function Logo({ className }: LogoProps) {
       <text
         x="70"
         y="50"
-        fontFamily="Inter, SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
+        fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="11"
         fontWeight="600"
         fill="#6B7280"
