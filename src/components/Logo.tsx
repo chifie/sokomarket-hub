@@ -183,17 +183,17 @@ export function Logo({ className }: LogoProps) {
       </text>
 
       {/* ─── Polished underline accent ─── */}
+      {/* Polished underline accent */}
       <circle cx="100" cy="198" r="4.5" fill="url(#sd-badge)" />
       {/* Subtle outer glow ring around the dot */}
       <circle
         cx="100"
         cy="198"
-        r="4.5"
+        r="6"
         fill="none"
         stroke="url(#sd-badge)"
         strokeWidth="1"
-        opacity="0.35"
-        transform="scale(1.35) translate(-26.2, -52.2)"
+        opacity="0.3"
       />
     </svg>
   );
