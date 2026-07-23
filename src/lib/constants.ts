@@ -568,6 +568,7 @@ export const banners: Banner[] = [
     link: "/marketplace",
     desktopImage: banner5Img,
     mobileImage: banner5Img,
+    webpImage: banner5Webp,
     badge: "New Arrivals",
     type: "hero",
     priority: 5,
