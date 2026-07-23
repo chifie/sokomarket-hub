@@ -9,9 +9,10 @@ interface LogoProps {
 /**
  * SokoDigital Logo — Premium hand-crafted SVG.
  *
- * Features a rounded badge with a shopping-bag icon (orange gradient)
- * paired with the "Soko" + "Digital" wordmark.
- * A subtle entrance animation fades and scales the logo in on mount.
+ * Vertical layout: Shopping cart badge (top) → "SokoDigital" (middle)
+ * → "Modern Marketplace" (bottom).
+ *
+ * Responsive via viewBox scaling — works from header (h-9) to large displays.
  */
 export function Logo({ className }: LogoProps) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -31,8 +32,8 @@ export function Logo({ className }: LogoProps) {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 232 60"
-      className={cn("h-9 w-auto shrink-0", className)}
+      viewBox="0 0 160 160"
+      className={cn("h-20 w-auto shrink-0", className)}
       fill="none"
       aria-label="SokoDigital"
     >
@@ -43,82 +44,72 @@ export function Logo({ className }: LogoProps) {
         </linearGradient>
       </defs>
 
-      {/* ─── Icon badge ─── */}
-      <rect x="2" y="2" width="56" height="56" rx="14" fill="url(#sd-badge)" />
+      {/* ─── Shopping Cart Badge ─── */}
+      <rect x="52" y="2" width="56" height="56" rx="14" fill="url(#sd-badge)" />
 
-      {/* Shopping bag body — rounded bottom, slight opening at top */}
+      {/* Cart basket body — trapezoid, wider at top */}
       <path
-        d="M19,27 L19,43 C19,45.2 20.8,47 23,47 L37,47 C39.2,47 41,45.2 41,43 L41,27 Z"
+        d="M67,32 L65,56 C65,58.5 67,60.5 69.5,60.5 L90.5,60.5 C93,60.5 95,58.5 95,56 L93,32 Z"
         fill="white"
       />
-      {/* Bag opening crease */}
+
+      {/* Cart divider line (basket grid) */}
       <path
-        d="M19,27 C19,24 22,23 30,23 C38,23 41,24 41,27"
+        d="M66,44 L94,44"
         fill="none"
-        stroke="white"
+        stroke="url(#sd-badge)"
         strokeWidth="1.5"
         strokeLinecap="round"
       />
 
-      {/* Left handle */}
+      {/* Left wheel */}
+      <circle cx="72" cy="63" r="4" fill="white" />
+
+      {/* Right wheel */}
+      <circle cx="88" cy="63" r="4" fill="white" />
+
+      {/* Cart handle — arcs up from the basket top */}
       <path
-        d="M23,24 C23,16 25.5,13 28,13 C30.5,13 33,16 33,24"
+        d="M70,32 C70,24 74,20 80,20 C86,20 90,24 90,32"
         fill="none"
         stroke="white"
         strokeWidth="3"
         strokeLinecap="round"
       />
 
-      {/* Right handle — stays within bag body boundary (x <= 41) */}
-      <path
-        d="M37,24 C37,19 38.5,16 40,16 C41,16 41.5,17.5 41.5,20"
-        fill="none"
-        stroke="white"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
-
-      {/* S-curve connection between handles */}
-      <path
-        d="M28,21 C28,18 31,16 34,16 C37,16 39,18 39,21"
-        fill="none"
-        stroke="white"
-        strokeWidth="2"
-        strokeLinecap="round"
-        opacity="0.5"
-      />
-
-      {/* Accent dots — ascending diagonal line */}
-      <circle cx="23" cy="34" r="2" fill="white" opacity="0.9" />
-      <circle cx="28" cy="36" r="2" fill="white" opacity="0.7" />
-      <circle cx="33" cy="38" r="2" fill="white" opacity="0.9" />
+      {/* Small accent dot on handle (digital node) */}
+      <circle cx="80" cy="20" r="2.5" fill="white" opacity="0.8" />
 
       {/* ─── Wordmark ─── */}
       <text
-        x="70"
-        y="34"
+        x="80"
+        y="90"
+        textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="22"
+        fontSize="28"
         fontWeight="800"
         fill="#111827"
         letterSpacing="-0.5"
       >
-        Soko
-      </text>
-      <text
-        x="70"
-        y="50"
-        fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="11"
-        fontWeight="600"
-        fill="#6B7280"
-        letterSpacing="3"
-      >
-        DIGITAL
+        SokoDigital
       </text>
 
-      {/* Decorative orange underline accent */}
-      <circle cx="144" cy="54" r="3" fill="url(#sd-badge)" />
+      {/* ─── Tagline ─── */}
+      <text
+        x="80"
+        y="112"
+        textAnchor="middle"
+        fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        fontSize="13"
+        fontWeight="600"
+        fill="#6B7280"
+        letterSpacing="2.5"
+      >
+        Modern Marketplace
+      </text>
+
+      {/* Decorative orange underline dot */}
+      <circle cx="80" cy="126" r="3.5" fill="url(#sd-badge)" />
     </svg>
   );
 }
