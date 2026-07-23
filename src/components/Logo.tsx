@@ -7,12 +7,17 @@ interface LogoProps {
 }
 
 /**
- * SokoDigital Logo — Premium hand-crafted SVG.
+ * SokoDigital Logo — Elegantly crafted brand mark.
  *
- * Massive shopping trolley badge (top) → bold "SokoDigital" (middle)
- * → "Modern Marketplace" tagline (bottom).
+ * Architecture:
+ *   Top    → Orange gradient badge with a refined shopping trolley
+ *   Middle → Bold "SokoDigital" wordmark in dark gradient
+ *   Bottom → "Modern Marketplace" tagline with refined letter-spacing
+ *   Accent → A delicate orange dot anchoring the composition
  *
- * Designed to be LARGE and very visible — scales naturally via className.
+ * Designed for maximum visibility at every touch-point. Every detail —
+ * from the trolley handle curve to the letter-spacing on the tagline —
+ * has been hand-tuned for a premium, polished feel.
  */
 export function Logo({ className }: LogoProps) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -21,8 +26,14 @@ export function Logo({ className }: LogoProps) {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         svgRef.current,
-        { opacity: 0, y: -8, scale: 0.92 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out" }
+        { opacity: 0, y: -10, scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          ease: "power4.out",
+        }
       );
     });
     return () => ctx.revert();
@@ -32,93 +43,158 @@ export function Logo({ className }: LogoProps) {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 190"
+      viewBox="0 0 200 230"
       className={cn("h-20 w-auto shrink-0", className)}
       fill="none"
       aria-label="SokoDigital"
     >
       <defs>
+        {/* ─── Brand Gradient ─── */}
         <linearGradient id="sd-badge" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#F97316" />
-          <stop offset="100%" stopColor="#EA580C" />
+          <stop offset="100%" stopColor="#DC2626" />
+        </linearGradient>
+
+        {/* ─── Badge drop-shadow ─── */}
+        <filter
+          id="sd-shadow"
+          x="-10%"
+          y="-10%"
+          width="130%"
+          height="130%"
+        >
+          <feDropShadow
+            dx="0"
+            dy="3"
+            stdDeviation="6"
+            floodColor="#F97316"
+            floodOpacity="0.25"
+          />
+        </filter>
+
+        {/* ─── Wordmark gradient (dark → deeper dark) ─── */}
+        <linearGradient id="sd-wordmark" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#111827" />
+          <stop offset="100%" stopColor="#1F2937" />
+        </linearGradient>
+
+        {/* ─── Tagline gradient ─── */}
+        <linearGradient id="sd-tagline" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stopColor="#6B7280" />
+          <stop offset="100%" stopColor="#4B5563" />
         </linearGradient>
       </defs>
 
-      {/* ─── Massive Shopping Trolley Badge ─── */}
-      <rect x="25" y="2" width="150" height="100" rx="20" fill="url(#sd-badge)" />
+      {/* ─── Badge with elegant drop-shadow ─── */}
+      <rect
+        x="30"
+        y="2"
+        width="140"
+        height="85"
+        rx="18"
+        fill="url(#sd-badge)"
+        filter="url(#sd-shadow)"
+      />
 
-      {/* Trolley basket body — wider at top, narrower at bottom (like a real trolley) */}
+      {/* ─── Refined Shopping Trolley ─── */}
+
+      {/* Basket body — wider at top, narrower at the base (classic trolley silhouette) */}
       <path
-        d="M42,40 L48,82 C48,86 52,88 56,88 L144,88 C148,88 152,86 152,82 L158,40 Z"
+        d="M44,36 L50,72 C50,76 54,78 60,78 L140,78 C146,78 150,76 150,72 L156,36 Z"
         fill="white"
       />
 
-      {/* Trolley grid lines (horizontal) */}
-      <path d="M48,55 L152,55" fill="none" stroke="url(#sd-badge)" strokeWidth="3" strokeLinecap="round" />
-      <path d="M49,68 L151,68" fill="none" stroke="url(#sd-badge)" strokeWidth="2.5" strokeLinecap="round" />
+      {/* Horizontal grid line 1 */}
+      <path
+        d="M50,52 L150,52"
+        fill="none"
+        stroke="url(#sd-badge)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
 
-      {/* Left wheel — large */}
-      <circle cx="72" cy="92" r="8" fill="white" />
+      {/* Horizontal grid line 2 */}
+      <path
+        d="M51,64 L149,64"
+        fill="none"
+        stroke="url(#sd-badge)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+
+      {/* Left wheel */}
+      <circle cx="72" cy="82" r="7.5" fill="white" />
       {/* Left wheel inner hub */}
-      <circle cx="72" cy="92" r="3" fill="url(#sd-badge)" />
+      <circle cx="72" cy="82" r="2.8" fill="url(#sd-badge)" />
 
-      {/* Right wheel — large */}
-      <circle cx="128" cy="92" r="8" fill="white" />
+      {/* Right wheel */}
+      <circle cx="128" cy="82" r="7.5" fill="white" />
       {/* Right wheel inner hub */}
-      <circle cx="128" cy="92" r="3" fill="url(#sd-badge)" />
+      <circle cx="128" cy="82" r="2.8" fill="url(#sd-badge)" />
 
-      {/* Trolley handle — thick arc */}
+      {/* Handle — a sweeping, elegant arc */}
       <path
-        d="M52,40 C52,18 68,6 100,6 C132,6 148,18 148,40"
+        d="M54,36 C54,16 70,5 100,5 C130,5 146,16 146,36"
         fill="none"
         stroke="white"
-        strokeWidth="6"
+        strokeWidth="5.5"
         strokeLinecap="round"
       />
 
-      {/* Handle grip detail */}
+      {/* Handle grip — delicate inner arc detail */}
       <path
-        d="M88,10 C88,6 94,4 100,4 C106,4 112,6 112,10"
+        d="M87,10 C87,6 93,4 100,4 C107,4 113,6 113,10"
         fill="none"
         stroke="white"
-        strokeWidth="3.5"
+        strokeWidth="3"
         strokeLinecap="round"
-        opacity="0.6"
+        opacity="0.55"
       />
 
-      {/* Digital accent dot on handle */}
-      <circle cx="100" cy="6" r="3.5" fill="white" opacity="0.9" />
+      {/* Accent dot on handle */}
+      <circle cx="100" cy="6" r="3" fill="white" opacity="0.85" />
 
-      {/* ─── Wordmark ─── */}
+      {/* ─── "SokoDigital" Wordmark ─── */}
       <text
         x="100"
-        y="140"
+        y="138"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="38"
+        fontSize="48"
         fontWeight="800"
-        fill="#111827"
-        letterSpacing="-0.5"
+        fill="url(#sd-wordmark)"
+        letterSpacing="-0.8"
       >
         SokoDigital
       </text>
 
-      {/* ─── Tagline ─── */}
+      {/* ─── "Modern Marketplace" Tagline ─── */}
       <text
         x="100"
-        y="168"
+        y="177"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="19"
-        fontWeight="600"
-        fill="#6B7280"
-        letterSpacing="3.5"
+        fontSize="24"
+        fontWeight="500"
+        fill="url(#sd-tagline)"
+        letterSpacing="1.5"
       >
         Modern Marketplace
       </text>
 
-      {/* Decorative orange underline accent */}
-      <circle cx="100" cy="182" r="4.5" fill="url(#sd-badge)" />
+      {/* ─── Polished underline accent ─── */}
+      <circle cx="100" cy="198" r="4.5" fill="url(#sd-badge)" />
+      {/* Subtle outer glow ring around the dot */}
+      <circle
+        cx="100"
+        cy="198"
+        r="4.5"
+        fill="none"
+        stroke="url(#sd-badge)"
+        strokeWidth="1"
+        opacity="0.35"
+        transform="scale(1.35) translate(-26.2, -52.2)"
+      />
     </svg>
   );
 }
