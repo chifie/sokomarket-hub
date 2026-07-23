@@ -1,21 +1,22 @@
 import { cn } from "@/lib/utils";
 import logoSrc from "@/assets/logo_brand.png";
 import logoWebp from "@/assets/logo_brand.webp";
+import logoAvif from "@/assets/logo_brand.avif";
 
 interface LogoProps {
   className?: string;
 }
 
 /**
- * SokoDigital Logo — rendered from the brand PNG/WebP asset.
+ * SokoDigital Logo — AVIF > WebP > PNG for best compression.
  *
- * Uses WebP with a PNG fallback for maximum browser compatibility.
- * The image uses object-contain to preserve the logo's aspect ratio
+ * Uses object-contain to preserve the logo's aspect ratio
  * and eager loading since it's above the fold.
  */
 export function Logo({ className }: LogoProps) {
   return (
     <picture>
+      <source type="image/avif" srcSet={logoAvif} />
       <source type="image/webp" srcSet={logoWebp} />
       <img
         src={logoSrc}
