@@ -49,13 +49,13 @@ export function Logo({ className }: LogoProps) {
 
       {/* Cart basket body — trapezoid, wider at top */}
       <path
-        d="M67,28 L65,47 C65,49 67,50.5 69.5,50.5 L90.5,50.5 C93,50.5 95,49 95,47 L93,28 Z"
+        d="M67,24 L65,43 C65,45 67,46.5 69.5,46.5 L90.5,46.5 C93,46.5 95,45 95,43 L93,24 Z"
         fill="white"
       />
 
       {/* Cart divider line (basket grid) */}
       <path
-        d="M66,38 L94,38"
+        d="M66,34 L94,34"
         fill="none"
         stroke="url(#sd-badge)"
         strokeWidth="1.5"
@@ -63,14 +63,14 @@ export function Logo({ className }: LogoProps) {
       />
 
       {/* Left wheel */}
-      <circle cx="72" cy="52" r="3.5" fill="white" />
+      <circle cx="72" cy="48" r="3.5" fill="white" />
 
       {/* Right wheel */}
-      <circle cx="88" cy="52" r="3.5" fill="white" />
+      <circle cx="88" cy="48" r="3.5" fill="white" />
 
       {/* Cart handle — arcs up from the basket top */}
       <path
-        d="M70,28 C70,20 74,17 80,17 C86,17 90,20 90,28"
+        d="M70,24 C70,16 74,13 80,13 C86,13 90,16 90,24"
         fill="none"
         stroke="white"
         strokeWidth="3"
@@ -78,7 +78,7 @@ export function Logo({ className }: LogoProps) {
       />
 
       {/* Small accent dot on handle (digital node) */}
-      <circle cx="80" cy="17" r="2" fill="white" opacity="0.8" />
+      <circle cx="80" cy="13" r="2" fill="white" opacity="0.8" />
 
       {/* ─── Wordmark ─── */}
       <text
