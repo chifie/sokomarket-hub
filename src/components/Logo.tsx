@@ -106,7 +106,7 @@ export function Logo({ className }: LogoProps) {
       {/* ─── Tagline ─── */}
       <text
         x="100"
-        y="166"
+        y="168"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="19"
