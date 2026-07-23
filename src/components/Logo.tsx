@@ -69,35 +69,35 @@ export function Logo({ className }: LogoProps) {
         strokeLinecap="round"
       />
 
-      {/* Right handle */}
+      {/* Right handle — stays within bag body boundary (x <= 41) */}
       <path
-        d="M37,24 C37,18.5 38.5,16 40,16 C41.5,16 43,18 43,20.5"
+        d="M37,24 C37,19 38.5,16 40,16 C41,16 41.5,17.5 41.5,20"
         fill="none"
         stroke="white"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
 
-      {/* Connecting arc — forms an 'S' curve across both handles */}
+      {/* S-curve connection between handles */}
       <path
-        d="M29,22 C29,19 31,17 33,17 C35,17 37,19 37,22"
+        d="M28,21 C28,18 31,16 34,16 C37,16 39,18 39,21"
         fill="none"
         stroke="white"
         strokeWidth="2"
         strokeLinecap="round"
-        opacity="0.6"
+        opacity="0.5"
       />
 
-      {/* Accent dots — digital nodes in a clean diagonal line */}
+      {/* Accent dots — ascending diagonal line */}
       <circle cx="23" cy="34" r="2" fill="white" opacity="0.9" />
-      <circle cx="28" cy="38" r="2" fill="white" opacity="0.7" />
-      <circle cx="33" cy="34" r="2" fill="white" opacity="0.9" />
+      <circle cx="28" cy="36" r="2" fill="white" opacity="0.7" />
+      <circle cx="33" cy="38" r="2" fill="white" opacity="0.9" />
 
       {/* ─── Wordmark ─── */}
       <text
         x="70"
         y="34"
-        fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        fontFamily="Inter, SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
         fontSize="22"
         fontWeight="800"
         fill="#111827"
@@ -108,7 +108,7 @@ export function Logo({ className }: LogoProps) {
       <text
         x="70"
         y="50"
-        fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+        fontFamily="Inter, SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"
         fontSize="11"
         fontWeight="600"
         fill="#6B7280"
