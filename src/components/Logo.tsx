@@ -7,17 +7,16 @@ interface LogoProps {
 }
 
 /**
- * SokoDigital Logo — Elegantly crafted brand mark.
+ * SokoDigital Logo — Clean, bold brand mark.
  *
  * Architecture:
- *   Top    → Orange gradient badge with a refined shopping trolley
+ *   Top    → Standalone Lucide Shopping Cart icon (no background badge)
  *   Middle → Bold "SokoDigital" wordmark in dark gradient
  *   Bottom → "Modern Marketplace" tagline with refined letter-spacing
  *   Accent → A delicate orange dot anchoring the composition
  *
- * Designed for maximum visibility at every touch-point. Every detail —
- * from the trolley handle curve to the letter-spacing on the tagline —
- * has been hand-tuned for a premium, polished feel.
+ * The cart icon uses `currentColor` so it adapts automatically to
+ * its context — white on the header, brand orange on the footer/auth.
  */
 export function Logo({ className }: LogoProps) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -43,34 +42,17 @@ export function Logo({ className }: LogoProps) {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 230"
+      viewBox="0 0 200 210"
       className={cn("h-20 w-auto shrink-0", className)}
       fill="none"
       aria-label="SokoDigital"
     >
       <defs>
-        {/* ─── Brand Gradient ─── */}
-        <linearGradient id="sd-badge" x1="0" y1="0" x2="1" y2="1">
+        {/* ─── Accent gradient (orange → red-orange) ─── */}
+        <linearGradient id="sd-accent" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#F97316" />
           <stop offset="100%" stopColor="#DC2626" />
         </linearGradient>
-
-        {/* ─── Badge drop-shadow ─── */}
-        <filter
-          id="sd-shadow"
-          x="-10%"
-          y="-10%"
-          width="130%"
-          height="130%"
-        >
-          <feDropShadow
-            dx="0"
-            dy="3"
-            stdDeviation="6"
-            floodColor="#F97316"
-            floodOpacity="0.25"
-          />
-        </filter>
 
         {/* ─── Wordmark gradient (dark → deeper dark) ─── */}
         <linearGradient id="sd-wordmark" x1="0" y1="0" x2="1" y2="0">
@@ -85,36 +67,24 @@ export function Logo({ className }: LogoProps) {
         </linearGradient>
       </defs>
 
-      {/* ─── Badge with elegant drop-shadow ─── */}
-      <rect
-        x="30"
-        y="2"
-        width="140"
-        height="85"
-        rx="18"
-        fill="url(#sd-badge)"
-        filter="url(#sd-shadow)"
-      />
-
-      {/* ─── Lucide Shopping Cart icon ─── */}
-      {/* Scaled ×3, centered in the badge */}
+      {/* ─── Standalone Lucide Shopping Cart icon (no background badge) ─── */}
       <g
-        transform="translate(100, 44.5) scale(3) translate(-12, -12)"
+        transform="translate(100, 38) scale(3) translate(-12, -12)"
         fill="none"
-        stroke="white"
-        strokeWidth="2"
+        stroke="currentColor"
+        strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <circle cx="8" cy="21" r="1" fill="white" />
-        <circle cx="19" cy="21" r="1" fill="white" />
+        <circle cx="8" cy="21" r="1" />
+        <circle cx="19" cy="21" r="1" />
         <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
       </g>
 
       {/* ─── "SokoDigital" Wordmark ─── */}
       <text
         x="100"
-        y="138"
+        y="125"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="48"
@@ -128,7 +98,7 @@ export function Logo({ className }: LogoProps) {
       {/* ─── "Modern Marketplace" Tagline ─── */}
       <text
         x="100"
-        y="177"
+        y="163"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="24"
@@ -139,16 +109,14 @@ export function Logo({ className }: LogoProps) {
         Modern Marketplace
       </text>
 
-      {/* ─── Polished underline accent ─── */}
-      {/* Polished underline accent */}
-      <circle cx="100" cy="198" r="4.5" fill="url(#sd-badge)" />
-      {/* Subtle outer glow ring around the dot */}
+      {/* ─── Underline accent dot with subtle glow ─── */}
+      <circle cx="100" cy="183" r="4.5" fill="url(#sd-accent)" />
       <circle
         cx="100"
-        cy="198"
+        cy="183"
         r="6"
         fill="none"
-        stroke="url(#sd-badge)"
+        stroke="url(#sd-accent)"
         strokeWidth="1"
         opacity="0.3"
       />
