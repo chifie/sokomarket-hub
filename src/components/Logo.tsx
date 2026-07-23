@@ -96,63 +96,20 @@ export function Logo({ className }: LogoProps) {
         filter="url(#sd-shadow)"
       />
 
-      {/* ─── Refined Shopping Trolley ─── */}
-
-      {/* Basket body — wider at top, narrower at the base (classic trolley silhouette) */}
-      <path
-        d="M44,36 L50,72 C50,76 54,78 60,78 L140,78 C146,78 150,76 150,72 L156,36 Z"
-        fill="white"
-      />
-
-      {/* Horizontal grid line 1 */}
-      <path
-        d="M50,52 L150,52"
+      {/* ─── Lucide Shopping Cart icon ─── */}
+      {/* Scaled ×3, centered in the badge */}
+      <g
+        transform="translate(100, 44.5) scale(3) translate(-12, -12)"
         fill="none"
-        stroke="url(#sd-badge)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
-
-      {/* Horizontal grid line 2 */}
-      <path
-        d="M51,64 L149,64"
-        fill="none"
-        stroke="url(#sd-badge)"
+        stroke="white"
         strokeWidth="2"
         strokeLinecap="round"
-      />
-
-      {/* Left wheel */}
-      <circle cx="72" cy="82" r="7.5" fill="white" />
-      {/* Left wheel inner hub */}
-      <circle cx="72" cy="82" r="2.8" fill="url(#sd-badge)" />
-
-      {/* Right wheel */}
-      <circle cx="128" cy="82" r="7.5" fill="white" />
-      {/* Right wheel inner hub */}
-      <circle cx="128" cy="82" r="2.8" fill="url(#sd-badge)" />
-
-      {/* Handle — a sweeping, elegant arc */}
-      <path
-        d="M54,36 C54,16 70,5 100,5 C130,5 146,16 146,36"
-        fill="none"
-        stroke="white"
-        strokeWidth="5.5"
-        strokeLinecap="round"
-      />
-
-      {/* Handle grip — delicate inner arc detail */}
-      <path
-        d="M87,10 C87,6 93,4 100,4 C107,4 113,6 113,10"
-        fill="none"
-        stroke="white"
-        strokeWidth="3"
-        strokeLinecap="round"
-        opacity="0.55"
-      />
-
-      {/* Accent dot on handle */}
-      <circle cx="100" cy="6" r="3" fill="white" opacity="0.85" />
+        strokeLinejoin="round"
+      >
+        <circle cx="8" cy="21" r="1" />
+        <circle cx="19" cy="21" r="1" />
+        <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+      </g>
 
       {/* ─── "SokoDigital" Wordmark ─── */}
       <text
