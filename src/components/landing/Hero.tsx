@@ -284,7 +284,7 @@ export function Hero() {
   const animateSlide = useCallback(
     (fromIndex: number, toIndex: number) => {
       const slider = sliderRef.current;
-      if (!slider || isAnimatingRef.current) return;
+      if (!slider || isAnimatingRef.current || fromIndex === toIndex) return;
       isAnimatingRef.current = true;
       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
 
@@ -425,12 +425,11 @@ export function Hero() {
             <div
               key={b.id}
               data-slide={idx}
-              className="absolute inset-0 w-full h-full overflow-hidden"
-              style={{
-                opacity: idx === currentSlide ? 1 : 0,
-                zIndex: idx === currentSlide ? 1 : 0,
-                pointerEvents: idx === currentSlide ? "auto" : "none",
-              }}
+              className={cn(
+                "absolute inset-0 w-full h-full overflow-hidden transition-none",
+                idx === currentSlide ? "opacity-100 z-[1]" : "opacity-0 z-0"
+              )}
+              style={{ pointerEvents: idx === currentSlide ? "auto" : "none" }}
             >
               {/* Responsive banner image — mobileImage on small screens, desktopImage on larger */}
               <picture>
