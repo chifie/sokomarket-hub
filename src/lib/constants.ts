@@ -12,6 +12,11 @@ import banner2Webp from "@/assets/banner2.webp";
 import banner3Webp from "@/assets/banner3.webp";
 import banner4Webp from "@/assets/banner4.webp";
 import banner5Webp from "@/assets/banner5.webp";
+import banner1Avif from "@/assets/banner1.avif";
+import banner2Avif from "@/assets/banner2.avif";
+import banner3Avif from "@/assets/banner3.avif";
+import banner4Avif from "@/assets/banner4.avif";
+import banner5Avif from "@/assets/banner5.avif";
 
 // ===== Marketplace Stats =====
 export const stats: Stat[] = [
@@ -488,6 +493,7 @@ export const banners: Banner[] = [
     desktopImage: banner1Img,
     mobileImage: banner1Img,
     webpImage: banner1Webp,
+    avifImage: banner1Avif,
     badge: "Premium Marketplace",
     type: "hero",
     priority: 1,
@@ -508,6 +514,7 @@ export const banners: Banner[] = [
     desktopImage: banner2Img,
     mobileImage: banner2Img,
     webpImage: banner2Webp,
+    avifImage: banner2Avif,
     badge: "Flash Sale",
     discount: 70,
     type: "hero",
@@ -529,6 +536,7 @@ export const banners: Banner[] = [
     desktopImage: banner3Img,
     mobileImage: banner3Img,
     webpImage: banner3Webp,
+    avifImage: banner3Avif,
     badge: "Cosmetics",
     type: "hero",
     priority: 3,
@@ -549,6 +557,7 @@ export const banners: Banner[] = [
     desktopImage: banner4Img,
     mobileImage: banner4Img,
     webpImage: banner4Webp,
+    avifImage: banner4Avif,
     badge: "Free Delivery",
     type: "hero",
     priority: 4,
@@ -569,6 +578,7 @@ export const banners: Banner[] = [
     desktopImage: banner5Img,
     mobileImage: banner5Img,
     webpImage: banner5Webp,
+    avifImage: banner5Avif,
     badge: "New Arrivals",
     type: "hero",
     priority: 5,
