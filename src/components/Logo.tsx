@@ -7,7 +7,7 @@ interface LogoProps {
 }
 
 /**
- * SokoDigital Logo — Clean, bold brand mark.
+ * SokoDigital Logo — Bold, animated brand mark.
  *
  * Architecture:
  *   Top    → Standalone Lucide Shopping Cart icon (no background badge)
@@ -17,23 +17,61 @@ interface LogoProps {
  *
  * The cart icon uses `currentColor` so it adapts automatically to
  * its context — white on the header, brand orange on the footer/auth.
+ *
+ * The viewBox is generously wide (320) so text is never clipped.
+ * On mount the logo animates in with a smooth entrance, then the
+ * cart icon gently pulses to bring the brand to life.
  */
 export function Logo({ className }: LogoProps) {
   const svgRef = useRef<SVGSVGElement>(null);
+  const cartRef = useRef<SVGGElement>(null);
+  const dotRef = useRef<SVGCircleElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      const svg = svgRef.current;
+      const cart = cartRef.current;
+      const dot = dotRef.current;
+
+      if (!svg) return;
+
+      // ── Entrance animation ──
       gsap.fromTo(
-        svgRef.current,
-        { opacity: 0, y: -10, scale: 0.9 },
+        svg,
+        { opacity: 0, y: -12, scale: 0.88 },
         {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 0.6,
+          duration: 0.7,
           ease: "power4.out",
         }
       );
+
+      // ── Continuous gentle pulse on the shopping cart icon ──
+      if (cart) {
+        gsap.to(cart, {
+          scale: 1.06,
+          duration: 1.6,
+          ease: "power1.inOut",
+          yoyo: true,
+          repeat: -1,
+          transformOrigin: "50% 50%",
+        });
+      }
+
+      // ── Subtle glow pulse on the accent dot ──
+      if (dot) {
+        gsap.to(dot, {
+          scale: 1.3,
+          opacity: 0.5,
+          duration: 1.6,
+          ease: "power1.inOut",
+          yoyo: true,
+          repeat: -1,
+          transformOrigin: "50% 50%",
+        });
+      }
     });
     return () => ctx.revert();
   }, []);
@@ -42,7 +80,7 @@ export function Logo({ className }: LogoProps) {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 210"
+      viewBox="0 0 320 210"
       className={cn("h-20 w-auto shrink-0", className)}
       fill="none"
       aria-label="SokoDigital"
@@ -69,7 +107,8 @@ export function Logo({ className }: LogoProps) {
 
       {/* ─── Standalone Lucide Shopping Cart icon (no background badge) ─── */}
       <g
-        transform="translate(100, 36) scale(3) translate(-12, -12)"
+        ref={cartRef}
+        transform="translate(160, 36) scale(3) translate(-12, -12)"
         fill="none"
         stroke="currentColor"
         strokeWidth="2.5"
@@ -83,7 +122,7 @@ export function Logo({ className }: LogoProps) {
 
       {/* ─── "SokoDigital" Wordmark ─── */}
       <text
-        x="100"
+        x="160"
         y="129"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
@@ -97,7 +136,7 @@ export function Logo({ className }: LogoProps) {
 
       {/* ─── "Modern Marketplace" Tagline ─── */}
       <text
-        x="100"
+        x="160"
         y="163"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
@@ -110,9 +149,10 @@ export function Logo({ className }: LogoProps) {
       </text>
 
       {/* ─── Underline accent dot with subtle glow ─── */}
-      <circle cx="100" cy="183" r="4.5" fill="url(#sd-accent)" />
+      <circle cx="160" cy="183" r="4.5" fill="url(#sd-accent)" />
       <circle
-        cx="100"
+        ref={dotRef}
+        cx="160"
         cy="183"
         r="6"
         fill="none"
