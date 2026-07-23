@@ -1,0 +1,23 @@
+{
+  "name": "Soko Digital - AI-Powered Marketplace",
+  "short_name": "SokoDigital",
+  "description": "Africa's premier AI-powered marketplace connecting buyers and sellers across the continent.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#F97316",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
