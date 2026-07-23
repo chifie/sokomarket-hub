@@ -7,6 +7,11 @@ import banner2Img from "@/assets/banner2.png";
 import banner3Img from "@/assets/banner3.png";
 import banner4Img from "@/assets/banner4.png";
 import banner5Img from "@/assets/banner5.png";
+import banner1Webp from "@/assets/banner1.webp";
+import banner2Webp from "@/assets/banner2.webp";
+import banner3Webp from "@/assets/banner3.webp";
+import banner4Webp from "@/assets/banner4.webp";
+import banner5Webp from "@/assets/banner5.webp";
 
 // ===== Marketplace Stats =====
 export const stats: Stat[] = [
