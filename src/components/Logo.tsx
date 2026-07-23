@@ -9,10 +9,10 @@ interface LogoProps {
 /**
  * SokoDigital Logo — Premium hand-crafted SVG.
  *
- * Vertical layout: Shopping cart badge (top) → "SokoDigital" (middle)
- * → "Modern Marketplace" (bottom).
+ * Vertical layout: Large shopping cart badge (top) → bold "SokoDigital"
+ * (middle) → "Modern Marketplace" tagline (bottom).
  *
- * Responsive via viewBox scaling — works from header (h-9) to large displays.
+ * Designed to be visible and responsive — scales naturally via className.
  */
 export function Logo({ className }: LogoProps) {
   const svgRef = useRef<SVGSVGElement>(null);
@@ -32,8 +32,8 @@ export function Logo({ className }: LogoProps) {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 160 85"
-      className={cn("h-9 w-auto shrink-0", className)}
+      viewBox="0 0 200 130"
+      className={cn("h-14 w-auto shrink-0", className)}
       fill="none"
       aria-label="SokoDigital"
     >
@@ -44,72 +44,72 @@ export function Logo({ className }: LogoProps) {
         </linearGradient>
       </defs>
 
-      {/* ─── Shopping Cart Badge ─── */}
-      <rect x="52" y="2" width="56" height="50" rx="12" fill="url(#sd-badge)" />
+      {/* ─── Large Shopping Cart Badge ─── */}
+      <rect x="60" y="2" width="80" height="68" rx="16" fill="url(#sd-badge)" />
 
-      {/* Cart basket body — trapezoid, wider at top */}
+      {/* Cart basket body — wider trapezoid */}
       <path
-        d="M67,24 L65,43 C65,45 67,46.5 69.5,46.5 L90.5,46.5 C93,46.5 95,45 95,43 L93,24 Z"
+        d="M78,28 L75,56 C75,59 78,61.5 81,61.5 L119,61.5 C122,61.5 125,59 125,56 L122,28 Z"
         fill="white"
       />
 
-      {/* Cart divider line (basket grid) */}
+      {/* Cart divider line (basket grid detail) */}
       <path
-        d="M66,34 L94,34"
+        d="M76,44 L124,44"
         fill="none"
         stroke="url(#sd-badge)"
-        strokeWidth="1.5"
+        strokeWidth="2.5"
         strokeLinecap="round"
       />
 
       {/* Left wheel */}
-      <circle cx="72" cy="48" r="3.5" fill="white" />
+      <circle cx="86" cy="64" r="5" fill="white" />
 
       {/* Right wheel */}
-      <circle cx="88" cy="48" r="3.5" fill="white" />
+      <circle cx="114" cy="64" r="5" fill="white" />
 
-      {/* Cart handle — arcs up from the basket top */}
+      {/* Cart handle — arcs up */}
       <path
-        d="M70,24 C70,16 74,13 80,13 C86,13 90,16 90,24"
+        d="M83,28 C83,16 89,11 100,11 C111,11 117,16 117,28"
         fill="none"
         stroke="white"
-        strokeWidth="3"
+        strokeWidth="4.5"
         strokeLinecap="round"
       />
 
-      {/* Small accent dot on handle (digital node) */}
-      <circle cx="80" cy="13" r="2" fill="white" opacity="0.8" />
+      {/* Accent dot on handle */}
+      <circle cx="100" cy="11" r="3" fill="white" opacity="0.85" />
 
       {/* ─── Wordmark ─── */}
       <text
-        x="80"
-        y="65"
+        x="100"
+        y="95"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="20"
+        fontSize="32"
         fontWeight="800"
         fill="#111827"
-        letterSpacing="-0.3"
+        letterSpacing="-0.5"
       >
         SokoDigital
       </text>
 
       {/* ─── Tagline ─── */}
       <text
-        x="80"
-        y="78"
+        x="100"
+        y="118"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="12"
+        fontSize="16"
         fontWeight="600"
         fill="#6B7280"
-        letterSpacing="2"
+        letterSpacing="3"
       >
         Modern Marketplace
       </text>
 
-      {/* Decorative orange underline dot */}
-      <circle cx="80" cy="83" r="2.5" fill="url(#sd-badge)" />
+      {/* Decorative orange underline accent */}
+      <circle cx="100" cy="127" r="3.5" fill="url(#sd-badge)" />
     </svg>
   );
 }
