@@ -236,6 +236,11 @@ export function Hero() {
         { opacity: 0, y: 15, scale: 0.95 },
         { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)", delay: 0.5 }
       );
+      gsap.fromTo(
+        slide.querySelector(".hero-trust"),
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", delay: 0.65 }
+      );
     }, slide);
   }, []);
 
@@ -452,7 +457,7 @@ export function Hero() {
                   </Link>
 
                   {/* Trust indicators */}
-                  <div className="hidden sm:flex items-center gap-4 mt-4 text-[11px] text-gray-200">
+                  <div className="hero-trust hidden sm:flex items-center gap-4 mt-4 text-[11px] text-gray-200">
                     <span className="flex items-center gap-1">
                       <Truck className="h-3.5 w-3.5 text-orange-400" />
                       Free delivery over 50K
