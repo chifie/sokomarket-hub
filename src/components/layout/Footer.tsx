@@ -14,7 +14,7 @@ export function Footer() {
           {/* Brand + Social */}
           <div className="mb-10">
             <Link to="/" className="flex items-center gap-2.5 mb-4">
-              <Logo className="h-14 w-auto text-primary" />
+              <Logo className="h-16 w-auto text-primary" />
             </Link>
             <p className="text-xs text-muted-foreground max-w-md leading-relaxed">
               Tanzania's premier online marketplace. Shop millions of products from trusted sellers across the nation.
