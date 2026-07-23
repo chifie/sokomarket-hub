@@ -45,31 +45,31 @@ export function Logo({ className }: LogoProps) {
       </defs>
 
       {/* ─── Massive Shopping Trolley Badge ─── */}
-      <rect x="25" y="2" width="150" height="122" rx="20" fill="url(#sd-badge)" />
+      <rect x="25" y="2" width="150" height="100" rx="20" fill="url(#sd-badge)" />
 
-      {/* Trolley basket body — wide trapezoid */}
+      {/* Trolley basket body — wider at top, narrower at bottom (like a real trolley) */}
       <path
-        d="M48,40 L44,90 C44,94 48,98 54,98 L146,98 C152,98 156,94 156,90 L152,40 Z"
+        d="M42,40 L48,82 C48,86 52,88 56,88 L144,88 C148,88 152,86 152,82 L158,40 Z"
         fill="white"
       />
 
       {/* Trolley grid lines (horizontal) */}
-      <path d="M46,65 L154,65" fill="none" stroke="url(#sd-badge)" strokeWidth="3" strokeLinecap="round" />
-      <path d="M47,80 L153,80" fill="none" stroke="url(#sd-badge)" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M48,55 L152,55" fill="none" stroke="url(#sd-badge)" strokeWidth="3" strokeLinecap="round" />
+      <path d="M49,68 L151,68" fill="none" stroke="url(#sd-badge)" strokeWidth="2.5" strokeLinecap="round" />
 
       {/* Left wheel — large */}
-      <circle cx="68" cy="104" r="8" fill="white" />
+      <circle cx="72" cy="92" r="8" fill="white" />
       {/* Left wheel inner hub */}
-      <circle cx="68" cy="104" r="3" fill="url(#sd-badge)" />
+      <circle cx="72" cy="92" r="3" fill="url(#sd-badge)" />
 
       {/* Right wheel — large */}
-      <circle cx="132" cy="104" r="8" fill="white" />
+      <circle cx="128" cy="92" r="8" fill="white" />
       {/* Right wheel inner hub */}
-      <circle cx="132" cy="104" r="3" fill="url(#sd-badge)" />
+      <circle cx="128" cy="92" r="3" fill="url(#sd-badge)" />
 
       {/* Trolley handle — thick arc */}
       <path
-        d="M58,40 C58,18 72,6 100,6 C128,6 142,18 142,40"
+        d="M52,40 C52,18 68,6 100,6 C132,6 148,18 148,40"
         fill="none"
         stroke="white"
         strokeWidth="6"
@@ -92,7 +92,7 @@ export function Logo({ className }: LogoProps) {
       {/* ─── Wordmark ─── */}
       <text
         x="100"
-        y="147"
+        y="140"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="38"
@@ -106,7 +106,7 @@ export function Logo({ className }: LogoProps) {
       {/* ─── Tagline ─── */}
       <text
         x="100"
-        y="172"
+        y="166"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
         fontSize="19"
@@ -118,7 +118,7 @@ export function Logo({ className }: LogoProps) {
       </text>
 
       {/* Decorative orange underline accent */}
-      <circle cx="100" cy="185" r="4.5" fill="url(#sd-badge)" />
+      <circle cx="100" cy="182" r="4.5" fill="url(#sd-badge)" />
     </svg>
   );
 }
