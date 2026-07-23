@@ -280,7 +280,7 @@ export function Hero() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* ─── Slide transition ─── */
+  /* ─── Slide transition — fade + scale ─── */
   const animateSlide = useCallback(
     (fromIndex: number, toIndex: number) => {
       const slider = sliderRef.current;
@@ -288,17 +288,35 @@ export function Hero() {
       isAnimatingRef.current = true;
       if (progressIntervalRef.current) clearInterval(progressIntervalRef.current);
 
+      const fromSlide = slider.querySelector(`[data-slide="${fromIndex}"]`) as HTMLElement | null;
+      const toSlide   = slider.querySelector(`[data-slide="${toIndex}"]`)   as HTMLElement | null;
+      if (!fromSlide || !toSlide) {
+        isAnimatingRef.current = false;
+        startProgress();
+        return;
+      }
+
       gsap.context(() => {
-        gsap.to(slider, {
-          x: `${-toIndex * 100}%`,
-          duration: 0.5,
-          ease: "power3.inOut",
+        const tl = gsap.timeline({
           onComplete: () => {
             isAnimatingRef.current = false;
             animateSlideContent(toIndex);
             startProgress();
           },
         });
+
+        tl.to(fromSlide, {
+          opacity: 0,
+          scale: 1.05,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+        tl.fromTo(
+          toSlide,
+          { opacity: 0, scale: 0.95 },
+          { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" },
+          "-=0.1"
+        );
       }, slider);
 
       animTimeoutRef.current = setTimeout(() => {
@@ -307,7 +325,7 @@ export function Hero() {
           animateSlideContent(toIndex);
           startProgress();
         }
-      }, 800);
+      }, 1000);
     },
     [animateSlideContent, startProgress]
   );
@@ -398,25 +416,35 @@ export function Hero() {
           />
         </div>
 
-        {/* Slides */}
-        <div
-          ref={sliderRef}
-          className="flex"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
+        {/* Slides — stacked absolutely with fade transitions */}
+        <div ref={sliderRef} className="relative overflow-hidden">
+          {/* Spacer div maintains the aspect ratio so the container has height */}
+          <div className="w-full aspect-[21/9] sm:aspect-[21/9] lg:aspect-[64/18]" />
+
           {activeBanners.map((b, idx) => (
             <div
               key={b.id}
               data-slide={idx}
-              className="relative w-full flex-shrink-0 overflow-hidden"
+              className="absolute inset-0 w-full h-full overflow-hidden"
+              style={{
+                opacity: idx === currentSlide ? 1 : 0,
+                zIndex: idx === currentSlide ? 1 : 0,
+                pointerEvents: idx === currentSlide ? "auto" : "none",
+              }}
             >
-              {/* Background banner image */}
-              <img
-                src={b.desktopImage}
-                alt={b.title}
-                className="w-full aspect-[21/9] sm:aspect-[21/9] lg:aspect-[64/18] object-cover"
-                loading={idx === 0 ? "eager" : "lazy"}
-              />
+              {/* Responsive banner image — mobileImage on small screens, desktopImage on larger */}
+              <picture>
+                <source media="(max-width: 639px)" srcSet={b.mobileImage ?? b.desktopImage} />
+                <img
+                  src={b.desktopImage}
+                  alt={b.title}
+                  className="w-full h-full object-cover"
+                  loading={idx === 0 ? "eager" : "lazy"}
+                />
+              </picture>
+
+              {/* Dark gradient overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent z-[1]" />
 
               {/* Content wrapper */}
               <div className="absolute inset-0 z-10 flex items-center">
