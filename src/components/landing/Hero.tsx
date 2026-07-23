@@ -422,8 +422,9 @@ export function Hero() {
               )}
               style={{ pointerEvents: idx === currentSlide ? "auto" : "none" }}
             >
-              {/* Responsive banner image — mobileImage on small screens, desktopImage on larger */}
+              {/* Responsive banner image — WebP with PNG fallback, mobile/desktop variants */}
               <picture>
+                {b.webpImage && <source type="image/webp" srcSet={b.webpImage} />}
                 <source media="(max-width: 639px)" srcSet={b.mobileImage ?? b.desktopImage} />
                 <img
                   src={b.desktopImage}
