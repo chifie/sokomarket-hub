@@ -78,8 +78,8 @@ export function Header() {
         {/* Logo */}
         <Link to="/" className="shrink-0 group">
           <div className="flex items-center gap-2.5">
-            <div className="h-9 w-auto text-white group-hover:scale-105 transition-transform duration-300">
-              <Logo className="h-9 w-auto" />
+            <div className="h-12 w-auto text-white group-hover:scale-105 transition-transform duration-300">
+              <Logo className="h-12 w-auto" />
             </div>
           </div>
         </Link>
