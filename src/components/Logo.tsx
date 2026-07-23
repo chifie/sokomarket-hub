@@ -32,7 +32,7 @@ export function Logo({ className }: LogoProps) {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 200 130"
+      viewBox="0 0 200 150"
       className={cn("h-14 w-auto shrink-0", className)}
       fill="none"
       aria-label="SokoDigital"
@@ -83,10 +83,10 @@ export function Logo({ className }: LogoProps) {
       {/* ─── Wordmark ─── */}
       <text
         x="100"
-        y="95"
+        y="110"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="32"
+        fontSize="36"
         fontWeight="800"
         fill="#111827"
         letterSpacing="-0.5"
@@ -97,10 +97,10 @@ export function Logo({ className }: LogoProps) {
       {/* ─── Tagline ─── */}
       <text
         x="100"
-        y="118"
+        y="133"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="16"
+        fontSize="18"
         fontWeight="600"
         fill="#6B7280"
         letterSpacing="3"
@@ -109,7 +109,7 @@ export function Logo({ className }: LogoProps) {
       </text>
 
       {/* Decorative orange underline accent */}
-      <circle cx="100" cy="127" r="3.5" fill="url(#sd-badge)" />
+      <circle cx="100" cy="145" r="4" fill="url(#sd-badge)" />
     </svg>
   );
 }
