@@ -230,21 +230,7 @@ export function Hero() {
         { opacity: 0, y: -12 },
         { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
       );
-      gsap.fromTo(
-        slide.querySelector(".hero-title"),
-        { opacity: 0, y: 25 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", delay: 0.1 }
-      );
-      gsap.fromTo(
-        slide.querySelector(".hero-subtitle"),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", delay: 0.25 }
-      );
-      gsap.fromTo(
-        slide.querySelector(".hero-description"),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", delay: 0.35 }
-      );
+      // (title, subtitle, description removed — baked into banner images)
       gsap.fromTo(
         slide.querySelector(".hero-cta"),
         { opacity: 0, y: 15, scale: 0.95 },
@@ -442,8 +428,8 @@ export function Hero() {
                 />
               </picture>
 
-              {/* Dark gradient overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/25 to-transparent z-[1]" />
+              {/* Subtle dark overlay so the CTA and badge pop on any banner */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent z-[1]" />
 
               {/* Content wrapper */}
               <div className="absolute inset-0 z-10 flex items-center">
@@ -456,25 +442,6 @@ export function Hero() {
                     </span>
                   )}
 
-                  {/* Title */}
-                  <h1 className="hero-title text-xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-extrabold text-gray-900 leading-tight">
-                    {b.title}
-                  </h1>
-
-                  {/* Subtitle */}
-                  {b.subtitle && (
-                    <p className="hero-subtitle text-xs sm:text-sm md:text-base lg:text-lg mt-2 sm:mt-3 text-gray-600 max-w-xl font-medium leading-relaxed">
-                      {b.subtitle}
-                    </p>
-                  )}
-
-                  {/* Description */}
-                  {b.description && (
-                    <p className="hero-description text-[10px] sm:text-xs md:text-sm mt-1.5 sm:mt-2 text-gray-500 max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-none">
-                      {b.description}
-                    </p>
-                  )}
-
                   {/* CTA */}
                   <Link
                     to={b.link || "/marketplace"}
@@ -485,7 +452,7 @@ export function Hero() {
                   </Link>
 
                   {/* Trust indicators */}
-                  <div className="hero-description hidden sm:flex items-center gap-4 mt-4 text-[11px] text-gray-400">
+                  <div className="hidden sm:flex items-center gap-4 mt-4 text-[11px] text-gray-200">
                     <span className="flex items-center gap-1">
                       <Truck className="h-3.5 w-3.5 text-orange-400" />
                       Free delivery over 50K
