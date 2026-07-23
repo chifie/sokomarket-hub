@@ -32,8 +32,8 @@ export function Logo({ className }: LogoProps) {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 160 160"
-      className={cn("h-20 w-auto shrink-0", className)}
+      viewBox="0 0 160 85"
+      className={cn("h-9 w-auto shrink-0", className)}
       fill="none"
       aria-label="SokoDigital"
     >
@@ -45,17 +45,17 @@ export function Logo({ className }: LogoProps) {
       </defs>
 
       {/* ─── Shopping Cart Badge ─── */}
-      <rect x="52" y="2" width="56" height="56" rx="14" fill="url(#sd-badge)" />
+      <rect x="52" y="2" width="56" height="50" rx="12" fill="url(#sd-badge)" />
 
       {/* Cart basket body — trapezoid, wider at top */}
       <path
-        d="M67,32 L65,56 C65,58.5 67,60.5 69.5,60.5 L90.5,60.5 C93,60.5 95,58.5 95,56 L93,32 Z"
+        d="M67,28 L65,47 C65,49 67,50.5 69.5,50.5 L90.5,50.5 C93,50.5 95,49 95,47 L93,28 Z"
         fill="white"
       />
 
       {/* Cart divider line (basket grid) */}
       <path
-        d="M66,44 L94,44"
+        d="M66,38 L94,38"
         fill="none"
         stroke="url(#sd-badge)"
         strokeWidth="1.5"
@@ -63,14 +63,14 @@ export function Logo({ className }: LogoProps) {
       />
 
       {/* Left wheel */}
-      <circle cx="72" cy="63" r="4" fill="white" />
+      <circle cx="72" cy="52" r="3.5" fill="white" />
 
       {/* Right wheel */}
-      <circle cx="88" cy="63" r="4" fill="white" />
+      <circle cx="88" cy="52" r="3.5" fill="white" />
 
       {/* Cart handle — arcs up from the basket top */}
       <path
-        d="M70,32 C70,24 74,20 80,20 C86,20 90,24 90,32"
+        d="M70,28 C70,20 74,17 80,17 C86,17 90,20 90,28"
         fill="none"
         stroke="white"
         strokeWidth="3"
@@ -78,18 +78,18 @@ export function Logo({ className }: LogoProps) {
       />
 
       {/* Small accent dot on handle (digital node) */}
-      <circle cx="80" cy="20" r="2.5" fill="white" opacity="0.8" />
+      <circle cx="80" cy="17" r="2" fill="white" opacity="0.8" />
 
       {/* ─── Wordmark ─── */}
       <text
         x="80"
-        y="90"
+        y="65"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="28"
+        fontSize="20"
         fontWeight="800"
         fill="#111827"
-        letterSpacing="-0.5"
+        letterSpacing="-0.3"
       >
         SokoDigital
       </text>
@@ -97,19 +97,19 @@ export function Logo({ className }: LogoProps) {
       {/* ─── Tagline ─── */}
       <text
         x="80"
-        y="112"
+        y="78"
         textAnchor="middle"
         fontFamily="'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
-        fontSize="13"
+        fontSize="12"
         fontWeight="600"
         fill="#6B7280"
-        letterSpacing="2.5"
+        letterSpacing="2"
       >
         Modern Marketplace
       </text>
 
       {/* Decorative orange underline dot */}
-      <circle cx="80" cy="126" r="3.5" fill="url(#sd-badge)" />
+      <circle cx="80" cy="83" r="2.5" fill="url(#sd-badge)" />
     </svg>
   );
 }
