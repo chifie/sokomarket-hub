@@ -2,17 +2,14 @@
   <defs>
     <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stopColor="#F97316" />
-      <stop offset="100%" stopColor="#EA580C" />
+      <stop offset="100%" stopColor="#DC2626" />
     </linearGradient>
   </defs>
   <rect width="60" height="60" rx="14" fill="url(#g)" />
-  <!-- Trolley basket body - wider at top, narrower at bottom -->
-  <path d="M12,18 L15,41 C15,43 17,45 19,45 L41,45 C43,45 45,43 45,41 L48,18 Z" fill="white" />
-  <!-- Trolley divider line (single clean horizontal) -->
-  <path d="M14,30 L46,30" fill="none" stroke="url(#g)" stroke-width="2" stroke-linecap="round" />
-  <!-- Wheels -->
-  <circle cx="20" cy="48" r="4.5" fill="white" />
-  <circle cx="40" cy="48" r="4.5" fill="white" />
-  <!-- Handle arc -->
-  <path d="M14,18 C14,8 22,4 30,4 C38,4 46,8 46,18" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" />
+  <!-- Lucide Shopping Cart icon -->
+  <g stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="21" cy="48" r="2.5" fill="white" />
+    <circle cx="45" cy="48" r="2.5" fill="white" />
+    <path d="M6,8 h5 l6.65,31.05 a5,5 0 0 0 5,3.95 h24.45 a5,5 0 0 0 4.88-3.93 l4.12-18.57 H12.8" />
+  </g>
 </svg>
